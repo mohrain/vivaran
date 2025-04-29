@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Office;
+use App\Models\OfficeCategory;
+use Illuminate\Support\Facades\Storage;
+
+class OfficeController extends Controller
+{
+
+    public function index()
+    {
+        // Fetch all categories from the OfficeCategory model
+        $categories = OfficeCategory::all();
+
+        // Pass categories to the view
+        return view('office.index', compact('categories'));
+    }
+
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        $validated =  $request->validate([
+            'office_name' => 'required|string|max:255',
+            'office_email' => 'required|email|max:255',
+            'office_category_id' => 'required|exists:office_categories,id',
+            'office_phone' => 'required|string|max:10',
+            'office_type' => 'nullable|string|max:255',
+            'office_address' => 'required|string|max:255',
+            'office_code' => 'nullable|string',
+            'office_logo' => 'nullable|image',
+            'office_description' => 'nullable|string',
+        ]);
+        
+
+        if ($request->file('office_logo')) {
+
+            $path = Storage::putFile('logo', $request->file('office_logo'));
+            
+        }
+
+
+        try {
+            $office  =  Office::create([
+                'office_name' => $request->office_name,
+                'office_email' => $request->office_email,
+                'office_category_id' => $request->office_category_id,
+                'office_phone' => $request->office_phone,
+                'office_address' => $request->office_address,
+                'office_code' => $request->office_code,
+                'office_logo' => $path,
+                'office_description' => $request->office_description,
+                
+            ]);
+
+            // return $office;
+
+            return redirect()->route('office.index')->with('success', 'कार्यालयको विवरण सफलतापूर्वक समावेश गरियो। (Office details saved successfully.)');
+        } catch (\Exception $e) {
+            // return redirect()->back()->withInput()->with('error', 'केही समस्या आयो। कृपया पुनः प्रयास गर्नुहोस्। (Something went wrong. Please try again.)');
+            echo $e->getMessage();
+        }
+    }
+
+    public function list()
+    {
+        $offices = Office::all();
+        return view('office.ui.office_list', [
+            'offices' => $offices,
+        ]);
+    }
+
+   
+
+    // ---------------------------------Edit Office-----------------------------------
+
+    public function edit($id)
+    {
+        $categories = OfficeCategory::all(); // Get categories for select input
+        $office = Office::findOrFail($id); // Find the office by ID
+    
+        return view('office.index', compact('categories', 'office'));
+    }
+    
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'office_name' => 'required|string|max:255',
+            'office_email' => 'required|email|max:255',
+            'office_category_id' => 'required|exists:office_categories,id',
+            'office_phone' => 'required|string|max:10',
+            'office_address' => 'required|string|max:255',
+            'office_code' => 'nullable|string',
+            'office_logo' => 'nullable|image',
+            'office_description' => 'nullable|string',
+        ]);
+
+        
+    
+       
+            $office = Office::findOrFail($id);
+    
+            if ($request->hasFile('office_logo')) {
+                // Delete old logo if exists
+                if ($office->office_logo) {
+                    Storage::delete($office->office_logo);
+                }
+                // Upload new logo
+                $path = Storage::putFile('logo', $request->file('office_logo'));
+                $office->office_logo = $path;
+            }
+            try {
+            $office->update([
+                'office_name' => $request->office_name,
+                'office_email' => $request->office_email,
+                'office_category_id' => $request->office_category_id,
+                'office_phone' => $request->office_phone,
+                'office_address' => $request->office_address,
+                'office_code' => $request->office_code,
+                'office_description' => $request->office_description,
+            ]);
+    
+            return redirect()->route('office.ui.office_list')->with('success', 'Office updated successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
+    }
+
+
+    // ---------------------------------Delete Office-----------------------------------
+    public function destroy($id)
+{
+    $office = Office::findOrFail($id);
+
+    // If there is an office logo, delete it too
+    if ($office->office_logo) {
+        Storage::delete($office->office_logo);
+    }
+
+    $office->delete();
+
+    return redirect()->route('office.ui.office_list')->with('success', 'Office deleted successfully!');
+}
+
+}

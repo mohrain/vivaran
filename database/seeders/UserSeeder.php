@@ -33,5 +33,13 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole($role);
+        $role = Role::findOrCreate('editor');
+        $user = User::create([
+            'name' => 'Editor',
+            'email' => 'vivaran.editor@gmail.com',
+            'password' => '$2y$12$cH3UK/yMotIT0kcFec4NnOImAlinQVO1yrNBqchugxfDp75rQK68O',
+        ]);
+
+        $user->assignRole($role);
     }
 }
