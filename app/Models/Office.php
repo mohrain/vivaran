@@ -23,9 +23,12 @@ class Office extends Model
     ];
 
     public function category()
-{
-    return $this->belongsTo(OfficeCategory::class, 'office_category_id');
-}
-}
+    {
+        return $this->belongsTo(OfficeCategory::class, 'office_category_id');
+    }
 
-
+    public function postCategories()
+    {
+        return $this->hasMany(PostCategory::class, 'office_id');
+    }
+}
