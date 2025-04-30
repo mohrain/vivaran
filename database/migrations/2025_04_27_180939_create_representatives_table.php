@@ -14,9 +14,15 @@ return new class extends Migration
         Schema::create('representatives', function (Blueprint $table) {
             $table->id();
             $table->string('representative_name')->nullable();
-            $table->string('representative_phone')->unique();
-            $table->string('remark')->nullable();
+            $table->string('representative_phone')->nullable();
             $table->foreignId('post_category_id')->constrained('post_categories')->onDelete('cascade');
+            $table->foreignId('office_id')->constrained('offices')->onDelete('cascade');
+            $table->string('representative_email')->nullable();
+            $table->string('representative_address')->nullable();
+            $table->string('representative_image')->nullable();
+            $table->text('remark')->nullable();
+
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

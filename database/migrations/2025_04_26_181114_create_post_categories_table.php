@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('post_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('post_category')->unique();
+            $table->string('post_category')->nullable();
             $table->string('representative_status')->default('active');
             $table->timestamps();
         });

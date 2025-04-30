@@ -12,10 +12,14 @@ class Representative extends Model
     protected $table = 'representatives';
 
     protected $fillable = [
+        'office_id',
+        'post_category_id',
         'representative_name',
         'representative_post',
         'representative_phone',
-        'post_category_id',
+        'representative_email',
+        'representative_address',
+        'representative_image',
         'remark',
     ]; 
     public function postcategory()
@@ -23,4 +27,9 @@ class Representative extends Model
         return $this->belongsTo(PostCategory::class, 'post_category_id');
     }
    
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'office_id');
+    }
+    
 }

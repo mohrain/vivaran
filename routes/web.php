@@ -42,7 +42,7 @@ Route::delete('/office/category/{id}', [OfficeCategoryController::class, 'destro
 
 
 
-Route::get('/representatives.create_representatives', [RepresentativeController::class, 'create'])->name('representatives.create_representatives');
+Route::get('/representatives.create_representatives', [RepresentativeController::class, 'show'])->name('representatives.create_representatives');
 Route::post('/representatives.store', [RepresentativeController::class, 'store'])->name('representatives.store');
 Route::get('/representatives', [RepresentativeController::class, 'index'])->name('representatives.index');
 Route::get('/representatives/{id}/edit', [RepresentativeController::class, 'edit'])->name('representatives.edit');
