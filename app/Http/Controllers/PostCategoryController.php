@@ -102,6 +102,9 @@ public function destroy($id)
     }
 }
 
-   
-
+public function getPostCategoriesByOfficeId($officeId)
+{
+    $postCategories = PostCategory::where('office_id', $officeId)->get();
+    return response()->json($postCategories);
+}
 }

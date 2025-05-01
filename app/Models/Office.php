@@ -32,8 +32,8 @@ class Office extends Model
         return $this->hasMany(PostCategory::class, 'office_id');
     }
 
-    public function representative()
-    {
-        return $this->hasMany(Representative::class, 'office_id');
-    }
+    public function representatives()
+{
+    return $this->hasMany(Representative::class, 'office_id');
+}
 }

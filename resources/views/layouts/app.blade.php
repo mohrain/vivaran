@@ -45,4 +45,7 @@
     
 </body>
 
+@stack('scripts')
+<script src="//unpkg.com/alpinejs" defer></script>
+
 </html>

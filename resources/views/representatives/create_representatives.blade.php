@@ -9,143 +9,176 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-
-                    @if (isset($representative))
-                        <form action="{{ route('representatives.update', $representative->id) }}" method="POST"
-                            enctype="multipart/form-data">
+    
+                    <form action="{{ isset($representative) ? route('representatives.update', $representative->id) : route('representatives.store') }}"
+                          method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @if (isset($representative))
                             @method('PUT')
-                    @else
-                        <form action="{{ route('representatives.store') }}" method="POST" enctype="multipart/form-data">
-                    @endif
-                            @csrf
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                                <!-- Office type -->
-                                <div class="mb-4">
-                                    <label for="office_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                        कार्यालयको नाम (Office Name):
-                                    </label>
-                                    <select id="office_id" name="office_id" required
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                        <option value="">-- चयन गर्नुहोस् --</option>
-                                        @foreach ($offices as $office)
-                                            <option value="{{ $office->id }}" {{ (old('office_id', $representative->office_id ?? '') == $office->id) ? 'selected' : '' }}>
-                                                {{ $office->office_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('office_id')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Employee Name -->
-                                <div class="mb-4">
-                                    <label for="representative_name" class="block text-gray-700 text-sm font-bold mb-2">
-                                        कर्मचारीको नाम (Employee Name):
-                                    </label>
-                                    <input type="text" id="representative_name" name="representative_name"
-                                        value="{{ old('representative_name', $representative->representative_name ?? '') }}"
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                    @error('representative_name')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Employee Email -->
-                                <div class="mb-4">
-                                    <label for="representative_email"
-                                        class="block text-gray-700 text-sm font-bold mb-2">
-                                        कर्मचारीको इमेल (Employee Email):
-                                    </label>
-                                    <input type="text" id="representative_email" name="representative_email"
-                                        value="{{ old('representative_email', $representative->representative_email ?? '') }}"
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                    @error('representative_email')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Employee Post -->
-                                <div class="mb-4">
-                                    <label for="post_category_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                        कर्मचारीको पद (Employee Post):
-                                    </label>
-                                    <select id="post_category_id" name="post_category_id" required
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                        <option value="">-- चयन गर्नुहोस् --</option>
-                                        @foreach ($post_categories as $post_category)
-                                            <option value="{{ $post_category->id }}" {{ (old('post_category_id', $representative->post_category_id ?? '') == $post_category->id) ? 'selected' : '' }}>
-                                                {{ $post_category->post_category }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('post_category_id')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Employee phone -->
-                                <div class="mb-4">
-                                    <label for="representative_phone"
-                                        class="block text-gray-700 text-sm font-bold mb-2">
-                                        कर्मचारीको फोन (Employee Phone):
-                                    </label>
-                                    <input type="text" id="representative_phone" name="representative_phone"
-                                        maxlength="10" minlength="10"
-                                        value="{{ old('representative_phone', $representative->representative_phone ?? '') }}"
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                    @error('representative_phone')
-                                        <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Employee address -->
-                                <div class="mb-4">
-                                    <label for="representative_address"
-                                        class="block text-gray-700 text-sm font-bold mb-2">
-                                        कर्मचारीको ठेगाना (Employee address):
-                                    </label>
-                                    <input type="text" id="representative_address" name="representative_address" {{--
-                                        value="{{ old('representative_phone', $representative->representative_phone ?? '') }}"
-                                        --}}
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                    @error('representative_address')
-                                        <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="representative_image"
-                                        class="block text-gray-700 text-sm font-bold mb-2">
-                                        कर्मचारीको फोटो (Employee Image):
-                                    </label>
-                                    <input type="file" id="representative_image" name="representative_image"
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-all duration-200">
-                                    @error('office_logo')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Remark -->
-                                <div class="mb-4">
-                                    <label for="remark" class="block text-gray-700 text-sm font-bold mb-2">
-                                        कैफियत (Remark):
-                                    </label>
-                                    <input type="text" id="remark" name="remark"
-                                        value="{{ old('remark', $representative->remark ?? '') }}"
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                    @error('remark')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                        @endif
+    
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <!-- Office select -->
+                            <div class="mb-4">
+                                <label for="office_id" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कार्यालयको नाम (Office Name):
+                                </label>
+                                <select id="office_id" name="office_id" required
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                    <option value="">-- चयन गर्नुहोस् --</option>
+                                    @foreach ($offices as $office)
+                                        <option value="{{ $office->id }}"
+                                            {{ old('office_id', $representative->office_id ?? '') == $office->id ? 'selected' : '' }}>
+                                            {{ $office->office_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('office_id')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit"
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-lg focus:outline-none focus:shadow-outline">{{ isset($representative) ? 'Update' : 'Submit' }}</button>
-                        </form>
+    
+                            <!-- Employee Name -->
+                            <div class="mb-4">
+                                <label for="representative_name" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कर्मचारीको नाम (Employee Name):
+                                </label>
+                                <input type="text" id="representative_name" name="representative_name"
+                                    value="{{ old('representative_name', $representative->representative_name ?? '') }}"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                @error('representative_name')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+    
+                            <!-- Employee Email -->
+                            <div class="mb-4">
+                                <label for="representative_email" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कर्मचारीको इमेल (Employee Email):
+                                </label>
+                                <input type="text" id="representative_email" name="representative_email"
+                                    value="{{ old('representative_email', $representative->representative_email ?? '') }}"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                @error('representative_email')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+    
+                            <!-- Employee Post (dynamic) -->
+                            <div class="mb-4">
+                                <label for="post_category_id" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कर्मचारीको पद (Employee Post):
+                                </label>
+                                <select id="post_category_id" name="post_category_id" required
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                    <option value="">-- चयन गर्नुहोस् --</option>
+                                    <!-- Options will be dynamically populated -->
+                                </select>
+                                @error('post_category_id')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+    
+                            <!-- Phone -->
+                            <div class="mb-4">
+                                <label for="representative_phone" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कर्मचारीको फोन (Employee Phone):
+                                </label>
+                                <input type="text" id="representative_phone" name="representative_phone"
+                                    maxlength="10" minlength="10"
+                                    value="{{ old('representative_phone', $representative->representative_phone ?? '') }}"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                @error('representative_phone')
+                                    <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
+                                @enderror
+                            </div>
+    
+                            <!-- Address -->
+                            <div class="mb-4">
+                                <label for="representative_address" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कर्मचारीको ठेगाना (Employee address):
+                                </label>
+                                <input type="text" id="representative_address" name="representative_address"
+                                    value="{{ old('representative_address', $representative->representative_address ?? '') }}"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                @error('representative_address')
+                                    <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
+                                @enderror
+                            </div>
+    
+                            <!-- Image -->
+                            <div class="mb-4">
+                                <label for="representative_image" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कर्मचारीको फोटो (Employee Image):
+                                </label>
+                                <input type="file" id="representative_image" name="representative_image"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-blue-500 focus:border-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                @error('representative_image')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+    
+                            <!-- Remark -->
+                            <div class="mb-4">
+                                <label for="remark" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कैफियत (Remark):
+                                </label>
+                                <input type="text" id="remark" name="remark"
+                                    value="{{ old('remark', $representative->remark ?? '') }}"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                @error('remark')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+    
+                        <button type="submit"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-lg">
+                            {{ isset($representative) ? 'Update' : 'Submit' }}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
+    
+        @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const officeSelect = document.getElementById('office_id');
+                const postCategorySelect = document.getElementById('post_category_id');
+                const selectedPostCategoryId = "{{ old('post_category_id', $representative->post_category_id ?? '') }}";
+    
+                function loadPostCategories(officeId, preselectId = null) {
+                    postCategorySelect.innerHTML = '<option value="">-- चयन गर्नुहोस् --</option>';
+    
+                    if (officeId) {
+                        fetch(`/offices/${officeId}/post-categories`)
+                            .then(response => response.json())
+                            .then(data => {
+                                data.forEach(category => {
+                                    const option = document.createElement('option');
+                                    option.value = category.id;
+                                    option.textContent = category.post_category;
+                                    if (preselectId && preselectId == category.id) {
+                                        option.selected = true;
+                                    }
+                                    postCategorySelect.appendChild(option);
+                                });
+                            })
+                            .catch(error => console.error('Error fetching post categories:', error));
+                    }
+                }
+    
+                officeSelect.addEventListener('change', function () {
+                    loadPostCategories(this.value);
+                });
+    
+                if (officeSelect.value) {
+                    loadPostCategories(officeSelect.value, selectedPostCategoryId);
+                }
+            });
+        </script>
+        @endpush
     </div>
+    
 </x-app-layout>

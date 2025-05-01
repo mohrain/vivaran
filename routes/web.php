@@ -31,6 +31,8 @@ Route::get('/office.ui.office_list', [OfficeController::class, 'list'])->name('o
 Route::get('/office/{id}/edit', [OfficeController::class, 'edit'])->name('office.edit');
 Route::put('/office/{id}', [OfficeController::class, 'update'])->name('office.update');
 Route::delete('/office/{id}', [OfficeController::class, 'destroy'])->name('office.destroy');
+Route::get('/offices/{id}', [OfficeController::class, 'show'])->name('office.show');
+
 
 
 
@@ -44,10 +46,12 @@ Route::delete('/office/category/{id}', [OfficeCategoryController::class, 'destro
 
 Route::get('/representatives.create_representatives', [RepresentativeController::class, 'show'])->name('representatives.create_representatives');
 Route::post('/representatives.store', [RepresentativeController::class, 'store'])->name('representatives.store');
-Route::get('/representatives', [RepresentativeController::class, 'index'])->name('representatives.index');
+// Route::get('/representatives', [RepresentativeController::class, 'index'])->name('representatives.index');
 Route::get('/representatives/{id}/edit', [RepresentativeController::class, 'edit'])->name('representatives.edit');
 Route::put('/representatives/{id}', [RepresentativeController::class, 'update'])->name('representatives.update');
 Route::delete('/representatives/{id}', [RepresentativeController::class, 'destroy'])->name('representatives.destroy');
+Route::get('/representatives', [RepresentativeController::class, 'index'])->name('representatives.index');
+Route::get('/representatives/create', [RepresentativeController::class, 'show'])->name('representatives.create_representatives');
 
 
 
@@ -56,3 +60,5 @@ Route::get('/representatives.post_category', [PostCategoryController::class, 'sh
 Route::get('/representative/post_category/{id}/edit', [PostCategoryController::class, 'edit'])->name('representative.post_category.edit');
 Route::put('/representative.post_category/{id}', [PostCategoryController::class, 'update'])->name('representative.post_category.update');
 Route::delete('/post/category/{id}', [PostCategoryController::class, 'destroy'])->name('representative.post_category.destroy');
+
+Route::get('/offices/{officeId}/post-categories', [PostCategoryController::class, 'getPostCategoriesByOfficeId'])->name('offices.post-categories');

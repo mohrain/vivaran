@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Office;
 use App\Models\OfficeCategory;
 use Illuminate\Support\Facades\Storage;
+use App\Models\PostCategory;
+use App\Models\Representative;
+
 
 class OfficeController extends Controller
 {
@@ -143,5 +146,16 @@ class OfficeController extends Controller
 
     return redirect()->route('office.ui.office_list')->with('success', 'Office deleted successfully!');
 }
+
+
+public function show($id)
+{
+    $office = Office::with(['representatives.postcategory'])->findOrFail($id);
+    return view('representatives.index', [
+        'representatives' => $office->representatives,
+        'office' => $office
+    ]);
+}
+
 
 }

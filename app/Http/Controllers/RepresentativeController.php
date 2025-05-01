@@ -8,18 +8,41 @@ use Illuminate\Support\Facades\Storage;
 
 class RepresentativeController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     $representatives = Representative::with('postcategory')->oldest()->get();
+    //     return view('representatives.index', compact('representatives'));
+    // }
+
+    public function index(Request $request)
     {
-        $representatives = Representative::with('postcategory')->latest()->get();
+        $officeId = $request->query('office_id');
+        
+        $query = Representative::with(['office', 'postcategory']);
+        
+        if ($officeId) {
+            $query->where('office_id', $officeId);
+        }
+        
+        $representatives = $query->oldest()->get();
+        
         return view('representatives.index', compact('representatives'));
     }
-    public function show()
+//     public function show()
+// {
+//     $post_categories = PostCategory::all();
+//     $offices = Office::all(); // Get all offices
+//     return view('representatives.create_representatives', compact('post_categories', 'offices'));
+// }
+
+public function show(Request $request)
 {
     $post_categories = PostCategory::all();
-    $offices = Office::all(); // Get all offices
-    return view('representatives.create_representatives', compact('post_categories', 'offices'));
+    $offices = Office::all();
+    $office_id = $request->query('office_id');
+    
+    return view('representatives.create_representatives', compact('post_categories', 'offices', 'office_id'));
 }
-
     
 
     public function store(Request $request)
@@ -104,6 +127,7 @@ public function update(Request $request, $id)
         return back()->with('error', 'केही समस्या आयो: ' . $e->getMessage());
     }
 }
+
 
 
 }

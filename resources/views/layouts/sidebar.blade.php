@@ -5,6 +5,16 @@
             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 " />
         </a>
     </div>
+
+
+    {{-- -------------- --}}
+     @php
+    use App\Models\Office;
+    $sidebarOffices = Office::all();
+@endphp
+
+
+
     <!---- Side links --->
     <ul class="py-4 space-y-2">
         <li>
@@ -21,6 +31,32 @@
                 {{ __('ड्यासबोर्ड ') }}
             </x-nav-link>
         </li>
+
+
+
+        <li x-data="{ open: false }" class="text-sm mt-5 text-gray-600 ml-5  font-bold list-none">
+            <button @click="open = !open"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 text-gray-700">
+                {{ __('कार्यालयहरू') }}
+                <svg :class="{'rotate-90': open}" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        
+            <ul x-show="open" x-transition class="pl-4 mt-2 space-y-1">
+                @foreach ($sidebarOffices as $office)
+                    <li>
+                        <x-nav-link :href="route('office.show', $office->id)"
+                            class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+                            {{ $office->office_name }}
+                        </x-nav-link>
+                    </li>
+                @endforeach
+            </ul>
+        </li>
+        
+
 
         <li>
             <x-nav-link href="{{ route('office.ui.office_list') }}" 
