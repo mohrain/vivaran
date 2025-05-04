@@ -5,10 +5,7 @@
             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 " />
         </a>
     </div>
-
-
-    {{-- -------------- --}}
-     @php
+ @php
     use App\Models\Office;
     $sidebarOffices = Office::all();
 @endphp
@@ -19,36 +16,46 @@
     <ul class="py-4 space-y-2">
         <li>
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
-                class="w-full text-gray-700 gap-2 hover:text-[#6C244C]  hover:bg-gray-200  transition border-b border-[#cccccc80]">
-                <!-- Dashboard Icon -->
-                <span><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
-                        stroke-linejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="7" height="9" x="3" y="3" rx="1"></rect>
-                        <rect width="7" height="5" x="14" y="3" rx="1"></rect>
-                        <rect width="7" height="9" x="14" y="12" rx="1"></rect>
-                        <rect width="7" height="5" x="3" y="16" rx="1"></rect>
-                    </svg></span>
+                class="w-full text-gray-700 gap-2 hover:text-[#6C244C]  hover:bg-gray-200  transition border-b border-[#cccccc80] font-bold">
+                    <!-- Dashboard Icon -->
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                </span>
                 {{ __('ड्यासबोर्ड ') }}
             </x-nav-link>
         </li>
+ 
 
-
-
-        <li x-data="{ open: false }" class="text-sm mt-5 text-gray-600 ml-5  font-bold list-none">
+         <!-- Offices Dropdown -->
+         <li x-data="{ open: false }" class="text-sm text-gray-600 font-bold list-none">
             <button @click="open = !open"
-                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 text-gray-700">
-                {{ __('कार्यालयहरू') }}
+                class="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-200 text-gray-700 hover:text-[#6C244C] transition border-b border-[#cccccc80]">
+                <div class="flex items-center gap-3">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                    {{ __('कार्यालयहरू') }}
+                </div>
                 <svg :class="{'rotate-90': open}" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </button>
         
-            <ul x-show="open" x-transition class="pl-4 mt-2 space-y-1">
+            <ul x-show="open" x-transition class="pl-4 mt-1 space-y-1">
                 @foreach ($sidebarOffices as $office)
                     <li>
                         <x-nav-link :href="route('office.show', $office->id)"
-                            class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+                            class="flex items-center gap-3 w-full px-4 py-2 text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                                </svg>
+                            </span>
                             {{ $office->office_name }}
                         </x-nav-link>
                     </li>
@@ -61,16 +68,11 @@
         <li>
             <x-nav-link href="{{ route('office.ui.office_list') }}" 
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+             <!-- Office List Icon -->
                 <span>
-                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
-                        stroke-linecap="round" stroke-linejoin="round" height="16" width="16"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <line x1="8" y1="6" x2="21" y2="6"></line>
-                        <line x1="8" y1="12" x2="21" y2="12"></line>
-                        <line x1="8" y1="18" x2="21" y2="18"></line>
-                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
                     </svg>
                 </span>
                 {{ __('कार्यालयहरूको सूची') }}
@@ -81,17 +83,11 @@
         <li>
             <x-nav-link :href="route('office.office_type')" 
                 class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
-                        <!-- Office List Icon -->
+                        <!-- Office type Icon -->
+
                         <span>
-                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
-                                stroke-linecap="round" stroke-linejoin="round" height="16" width="16"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <line x1="8" y1="6" x2="21" y2="6"></line>
-                                <line x1="8" y1="12" x2="21" y2="12"></line>
-                                <line x1="8" y1="18" x2="21" y2="18"></line>
-                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
                             </svg>
                         </span>
                         
@@ -105,15 +101,8 @@
                 class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
                         <!-- Office List Icon -->
                         <span>
-                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
-                                stroke-linecap="round" stroke-linejoin="round" height="16" width="16"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <line x1="8" y1="6" x2="21" y2="6"></line>
-                                <line x1="8" y1="12" x2="21" y2="12"></line>
-                                <line x1="8" y1="18" x2="21" y2="18"></line>
-                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 12.094A5.973 5.973 0 004 15v1H1v-1a3 3 0 013.75-2.906z" />
                             </svg>
                         </span>
                 {{ __('प्रतिनिधिको सूची') }}
@@ -125,20 +114,57 @@
                 class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
                         <!-- Office List Icon -->
                         <span>
-                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
-                                stroke-linecap="round" stroke-linejoin="round" height="16" width="16"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <line x1="8" y1="6" x2="21" y2="6"></line>
-                                <line x1="8" y1="12" x2="21" y2="12"></line>
-                                <line x1="8" y1="18" x2="21" y2="18"></line>
-                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                             </svg>
                         </span>
                 {{ __('प्रतिनिधि पदको सूची ') }}
             </x-nav-link> 
         </li>
 
+        
+        <li>
+            <x-nav-link :href="route('department.index')" 
+                class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+                <!-- Ambulance Service Icon -->
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                {{ __('Department') }}
+            </x-nav-link> 
+        </li>
+
+        <li>
+            <x-nav-link :href="route('office_service.index')" 
+                class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+               <!-- Office Service Icon -->
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z" clip-rule="evenodd" />
+                <path fill-rule="evenodd" d="M10 6h1v4h-1V6z" clip-rule="evenodd" />
+                <path fill-rule="evenodd" d="M14 6h1v4h-1V6z" clip-rule="evenodd" />
+                <path fill-rule="evenodd" d="M8 6h1v4H8V6z" clip-rule="evenodd" />
+            </svg>
+        </span>
+                {{ __('कार्यालय सेवा') }}
+            </x-nav-link> 
+        </li>
+
+        <li>
+            <x-nav-link :href="route('office_service.office_type')" 
+                class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+                 <!-- Service Type Icon -->
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+            </svg>
+        </span>
+                {{ __('सेवाको प्रकार') }}
+            </x-nav-link> 
+        </li>
+
+        
     </ul>
 </div>

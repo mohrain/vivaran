@@ -27,10 +27,10 @@ class Office extends Model
         return $this->belongsTo(OfficeCategory::class, 'office_category_id');
     }
 
-    public function postCategories()
-    {
-        return $this->hasMany(PostCategory::class, 'office_id');
-    }
+    // public function postCategories()
+    // {
+    //     return $this->hasMany(PostCategory::class, 'office_id');
+    // }
 
     public function representatives()
 {

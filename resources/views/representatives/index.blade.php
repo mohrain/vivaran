@@ -4,14 +4,25 @@
             {{ __('Office_show') }}
         </h2>
     </x-slot>
-    <a href="representatives.create_representatives"
+    {{-- <a href="{{ route('representatives.create_representatives', ['office_id' => $office->id]) }}"
         class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
-        Add New</a>
+        Add New</a> --}}
+
+        @isset($office)
+    <a href="{{ route('representatives.create_representatives', ['office_id' => $office->id]) }}"
+       class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
+       नयाँ थप्नुहोस्</a>
+@else
+    <a href="{{ route('representatives.create_representatives') }}"
+       class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
+       नयाँ थप्नुहोस्</a>
+@endisset
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    
                     {{-- Flash Message --}}
                     @if (session('success'))
                         <div id="flash-message"
@@ -49,13 +60,17 @@
                             <thead class="bg-gray-100 text-gray-700 font-semibold">
                                 <tr>
                                     <th class="px-4 py-3 whitespace-nowrap">क्र.सं.</th>
-                                    <th class="px-4 py-3 whitespace-nowrap">कार्यालय</th>
+                                    <th class="px-4 py-3 whitespace-nowrap">विभाग</th>
                                     <th class="px-4 py-3 whitespace-nowrap">नाम</th>
+                                    <th class="px-4 py-3 whitespace-nowrap">वार्ड</th>
                                     <th class="px-4 py-3 whitespace-nowrap">फोटो </th>
                                     <th class="px-4 py-3 whitespace-nowrap">पद</th>
                                     <th class="px-4 py-3 whitespace-nowrap">फोन</th>
                                     <th class="px-4 py-3 whitespace-nowrap">इमेल</th>
+                                    <th class="px-4 py-3 whitespace-nowrap">ठेगाना</th>
                                     <th class="px-4 py-3 whitespace-nowrap">कैफियत</th>
+                                    <th class="px-4 py-3 whitespace-nowrap">अपडेट गर्ने</th>
+                                    <th class="px-4 py-3 whitespace-nowrap">अपडेट मिति</th>
                                     <th class="px-4 py-3 whitespace-nowrap">क्रियाकलापहरू</th>
                                 </tr>
                             </thead>
@@ -66,11 +81,11 @@
                                         <td class="px-4 py-2">{{ $loop->iteration }}   
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $representative->office->office_name ?? 'N/A' }}
+                                                    {{ $representative->department->name ?? 'N/A' }}
                                                 </span>
                                                 <div
                                                     class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $representative->office->office_name ?? 'N/A' }}
+                                                    {{ $representative->department->name ?? 'N/A' }}
                                                 </div>
                                             </td>
 
@@ -83,6 +98,16 @@
                                                 <div
                                                     class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
                                                     {{ $representative->representative_name }}
+                                                </div>
+                                            </td>
+
+                                            <td class="px-4 py-1 min-w-[150px] relative group">
+                                                <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                    {{ $representative->representative_ward }}
+                                                </span>
+                                                <div
+                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                    {{ $representative->representative_ward }}
                                                 </div>
                                             </td>
 
@@ -127,6 +152,16 @@
 
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                    {{ $representative->representative_address ?? 'N/A' }}
+                                                </span>
+                                                <div
+                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                    {{ $representative->representative_address ?? 'N/A' }}
+                                                </div>
+                                            </td>
+
+                                            <td class="px-4 py-1 min-w-[150px] relative group">
+                                                <span class="truncate block overflow-hidden whitespace-nowrap">
                                                     {{ $representative->remark ?? 'N/A' }}
                                                 </span>
                                                 <div
@@ -134,13 +169,26 @@
                                                     {{ $representative->remark ?? 'N/A' }}
                                                 </div>
                                             </td>
+                                            <td class="px-4 py-1 min-w-[150px] relative group">
+                                                <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                    {{ $representative->updatedBy->name ?? 'System' }}
+                                                </span>
+                                                <div
+                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                    {{ $representative->updatedBy->name ?? 'System' }}
+                                                </div>
+                                            </td>
+                                            
 
-                                        {{-- <td class="px-4 py-2 min-w-[150px]">{{ $representative->office->office_name ?? 'N/A' }}</td> --}}
-                                        {{-- <td class="px-4 py-2 min-w-[150px]">{{ $representative->representative_name }}</td> --}}
-                                        {{-- <td class="px-4 py-2 min-w-[150px]">{{ $representative->postcategory->post_category ?? 'N/A' }}</td> --}}
-                                        {{-- <td class="px-4 py-2 min-w-[150px]">{{ $representative->representative_phone }}</td> --}}
-                                        {{-- <td class="px-4 py-2 min-w-[150px]">{{ $representative->representative_email ?? 'N/A' }}</td> --}}
-                                        {{-- <td class="px-4 py-2 min-w-[150px]">{{ $representative->remark ?? 'N/A' }}</td> --}}
+                                            <td class="px-4 py-1 min-w-[150px] relative group">
+                                                <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                    {{ $representative->updated_at->format('Y-m-d H:i') }}
+                                                </span>
+                                                <div
+                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                    {{ $representative->updated_at->format('Y-m-d H:i') }}
+                                                </div>
+                                            </td>
 
                                         <!-- Actions column -->
                                         <td class="px-4 py-2  min-w-[200px]">
@@ -160,6 +208,10 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    
+                    </div>
+                    <div class="mt-4">
+                        {{ $representatives->links() }}
                     </div>
                 </div>
             </div>

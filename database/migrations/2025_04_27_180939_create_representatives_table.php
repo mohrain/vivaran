@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('representative_name')->nullable();
             $table->string('representative_phone')->nullable();
+            $table->string('representative_ward')->nullable();
             $table->foreignId('post_category_id')->constrained('post_categories')->onDelete('cascade');
-            $table->foreignId('office_id')->constrained('offices')->onDelete('cascade');
+            $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
             $table->string('representative_email')->nullable();
             $table->string('representative_address')->nullable();
             $table->string('representative_image')->nullable();

@@ -54,23 +54,22 @@
                                 @endif
 
                                 <div class="create w-[300px] ">
+
+                                    <!-- Change the office select to department select -->
                                     <div class="mb-4">
-                                        <label for="status" class="block text-gray-700 text-sm font-bold mb-2">
-                                            Office name:
+                                        <label for="department_id" class="block text-gray-700 text-sm font-bold mb-2">
+                                            Department name:
                                         </label>
-                                        <select id="office_id" name="office_id"
+                                        <select id="department_id" name="department_id"
                                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                            <option value="">Select Office</option>
-                                            @foreach($offices as $office)
-                                                <option value="{{ $office->id }}" {{ (old('office_id', isset($category) ? $category->office_id : '') == $office->id ? 'selected' : '') }}>
-                                                    {{ $office->office_name }}
+                                            <option value="">Select Department</option>
+                                            @foreach($departments as $department)
+                                                <option value="{{ $department->id }}" {{ (old('department_id', isset($category) ? $category->department_id : '') == $department->id ? 'selected' : '') }}>
+                                                    {{ $department->name }}
                                                 </option>
                                             @endforeach
-
-
                                         </select>
-
-                                        @error('office_name')
+                                        @error('department_id')
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -88,15 +87,15 @@
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for="status" class="block text-gray-700 text-sm font-bold mb-2">
+                                        <label for="representative_status" class="block text-gray-700 text-sm font-bold mb-2">
                                             स्थिति:
                                         </label>
                                         <select id="status" name="representative_status"
                                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                            <option value="active" {{ (old('representative_status', isset($category) ? $category->post_status : '') == 'active' ? 'selected' : '') }}>
+                                            <option value="active" {{ (old('representative_status', isset($category) ? $category->representative_status : '') == 'active' ? 'selected' : '') }}>
                                                 सक्रिय (Active)
                                             </option>
-                                            <option value="disactive" {{ (old('representative_status', isset($category) ? $category->post_status : '') == 'disactive' ? 'selected' : '') }}>
+                                            <option value="disactive" {{ (old('representative_status', isset($category) ? $category->representative_status : '') == 'disactive' ? 'selected' : '') }}>
                                                 निस्क्रिय (Disactive)
                                             </option>
                                         </select>
@@ -127,7 +126,7 @@
                                     <thead class="bg-gray-100 text-gray-700 font-semibold">
                                         <tr>
                                             <th class="px-4 py-3 whitespace-nowrap">क्र.स</th>
-                                            <th class="px-4 py-3 whitespace-nowrap">Office</th>
+                                            <th class="px-4 py-3 whitespace-nowrap">विभाग</th>
                                             <th class="px-4 py-3 whitespace-nowrap">पद प्रकार</th>
                                             <th class="px-4 py-3 whitespace-nowrap">स्थिति</th>
                                             <th class="px-4 py-3 whitespace-nowrap">कार्यहरू</th>
@@ -140,11 +139,10 @@
 
                                                 <td class="px-4 py-2 max-w-[200px] relative group">
                                                     <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                        {{ $post_category->office->office_name ?? 'N/A' }}
+                                                        {{ $post_category->department->name ?? 'N/A' }}
                                                     </span>
-                                                    <div
-                                                        class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 w-max max-w-xs">
-                                                        {{ $post_category->office->office_name ?? 'N/A' }}
+                                                    <div class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 w-max max-w-xs">
+                                                        {{ $post_category->department->name ?? 'N/A' }}
                                                     </div>
                                                 </td>
 

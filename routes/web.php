@@ -6,6 +6,10 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RepresentativeController;
+use App\Http\Controllers\OfficeServiceController;
+use App\Http\Controllers\DepartmentController;
+use App\Models\ServiceType;
+use App\Http\Controllers\ServiceTypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,9 +48,9 @@ Route::delete('/office/category/{id}', [OfficeCategoryController::class, 'destro
 
 
 
+// Representative routes
 Route::get('/representatives.create_representatives', [RepresentativeController::class, 'show'])->name('representatives.create_representatives');
 Route::post('/representatives.store', [RepresentativeController::class, 'store'])->name('representatives.store');
-// Route::get('/representatives', [RepresentativeController::class, 'index'])->name('representatives.index');
 Route::get('/representatives/{id}/edit', [RepresentativeController::class, 'edit'])->name('representatives.edit');
 Route::put('/representatives/{id}', [RepresentativeController::class, 'update'])->name('representatives.update');
 Route::delete('/representatives/{id}', [RepresentativeController::class, 'destroy'])->name('representatives.destroy');
@@ -54,11 +58,33 @@ Route::get('/representatives', [RepresentativeController::class, 'index'])->name
 Route::get('/representatives/create', [RepresentativeController::class, 'show'])->name('representatives.create_representatives');
 
 
-
-Route::POST('/representative.post_category.store', [PostCategoryController::class, 'store'])->name('representative.post_category.store');
+Route::post('representative/post-category/store', [PostCategoryController::class, 'store'])->name('representative.post_category.store');
 Route::get('/representatives.post_category', [PostCategoryController::class, 'show'])->name('representatives.post_category');
 Route::get('/representative/post_category/{id}/edit', [PostCategoryController::class, 'edit'])->name('representative.post_category.edit');
 Route::put('/representative.post_category/{id}', [PostCategoryController::class, 'update'])->name('representative.post_category.update');
 Route::delete('/post/category/{id}', [PostCategoryController::class, 'destroy'])->name('representative.post_category.destroy');
+Route::get('/departments/{departmentId}/post-categories', [PostCategoryController::class, 'getPostCategoriesByDepartmentId'])->name('departments.post-categories');
 
-Route::get('/offices/{officeId}/post-categories', [PostCategoryController::class, 'getPostCategoriesByOfficeId'])->name('offices.post-categories');
+
+
+
+
+Route::get('department/create',[DepartmentController::class,'create'])->name('department.create');
+Route::post('department/store',[DepartmentController::class,'store'])->name('department.store');
+Route::get('department/index',[DepartmentController::class,'index'])->name('department.index');
+Route::get('department/{department}/edit', [DepartmentController::class, 'edit'])->name('department.edit');
+Route::put('department/{department}', [DepartmentController::class, 'update'])->name('department.update');
+Route::delete('department/{department}', [DepartmentController::class, 'destroy'])->name('department.destroy');
+
+
+Route::get('office_service/create', [OfficeServiceController::class, 'create'])->name('office_service.create');
+Route::get('office_service/index',[OfficeServiceController::class, 'show'])->name('office_service.index');
+
+
+Route::get('office_service/office_type', [ServiceTypeController::class, 'officetype'])->name('office_service.office_type');
+Route::post('office_service/office_type/store', [ServiceTypeController::class, 'store'])->name('office_service.office_type.store');
+Route::put('service_type/{id}', [ServiceTypeController::class, 'update'])->name('service_type.update');
+Route::delete('service_type/{id}', [ServiceTypeController::class, 'destroy'])->name('service_type.destroy');
+
+
+

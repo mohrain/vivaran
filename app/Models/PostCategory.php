@@ -9,19 +9,18 @@ class PostCategory extends Model
     protected $table = 'post_categories';
 
     protected $fillable = [
+        'department_id',
         'post_category',
         'representative_status',
-        'office_id',
     ];
 
-    public function postcategory()
+    public function representatives()
     {
         return $this->hasMany(Representative::class, 'post_category_id');
     }
 
-    public function office()
+    public function department()
     {
-        return $this->belongsTo(Office::class, 'office_id');
+        return $this->belongsTo(Department::class, 'department_id');
     }
-    
 }

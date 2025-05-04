@@ -4,7 +4,7 @@
             {{ __('Office_show') }}
         </h2>
     </x-slot>
-   <a href="office.index"class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+ Add New</a> 
+   <a href="office.index"class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+  नयाँ थप्नुहोस्</a> 
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -9,35 +9,37 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-    
-                    <form action="{{ isset($representative) ? route('representatives.update', $representative->id) : route('representatives.store') }}"
-                          method="POST" enctype="multipart/form-data">
+
+                    <form
+                        action="{{ isset($representative) ? route('representatives.update', $representative->id) : route('representatives.store') }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         @if (isset($representative))
                             @method('PUT')
                         @endif
-    
+
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                            <!-- Office select -->
+
+
+                            <!-- Department select -->
                             <div class="mb-4">
-                                <label for="office_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कार्यालयको नाम (Office Name):
+                                <label for="department_id" class="block text-gray-700 text-sm font-bold mb-2">
+                                    विभागको नाम (Department Name):
                                 </label>
-                                <select id="office_id" name="office_id" required
+                                <select id="department_id" name="department_id" required
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
                                     <option value="">-- चयन गर्नुहोस् --</option>
-                                    @foreach ($offices as $office)
-                                        <option value="{{ $office->id }}"
-                                            {{ old('office_id', $representative->office_id ?? '') == $office->id ? 'selected' : '' }}>
-                                            {{ $office->office_name }}
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}" {{ old('department_id', $representative->department_id ?? '') == $department->id ? 'selected' : '' }}>
+                                            {{ $department->name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('office_id')
+                                @error('department_id')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
-    
+
                             <!-- Employee Name -->
                             <div class="mb-4">
                                 <label for="representative_name" class="block text-gray-700 text-sm font-bold mb-2">
@@ -50,7 +52,20 @@
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
-    
+
+                             <!-- Employee Name -->
+                             <div class="mb-4">
+                                <label for="representative_ward" class="block text-gray-700 text-sm font-bold mb-2">
+                                    कर्मचारीको वार्ड (Employee Ward):
+                                </label>
+                                <input type="text" id="representative_ward" name="representative_ward"
+                                    value="{{ old('representative_ward', $representative->representative_ward ?? '') }}"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                @error('representative_ward')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <!-- Employee Email -->
                             <div class="mb-4">
                                 <label for="representative_email" class="block text-gray-700 text-sm font-bold mb-2">
@@ -63,7 +78,7 @@
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
-    
+
                             <!-- Employee Post (dynamic) -->
                             <div class="mb-4">
                                 <label for="post_category_id" class="block text-gray-700 text-sm font-bold mb-2">
@@ -78,21 +93,21 @@
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
-    
+
                             <!-- Phone -->
                             <div class="mb-4">
                                 <label for="representative_phone" class="block text-gray-700 text-sm font-bold mb-2">
                                     कर्मचारीको फोन (Employee Phone):
                                 </label>
-                                <input type="text" id="representative_phone" name="representative_phone"
-                                    maxlength="10" minlength="10"
+                                <input type="text" id="representative_phone" name="representative_phone" maxlength="10"
+                                    minlength="10"
                                     value="{{ old('representative_phone', $representative->representative_phone ?? '') }}"
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
                                 @error('representative_phone')
                                     <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
                                 @enderror
                             </div>
-    
+
                             <!-- Address -->
                             <div class="mb-4">
                                 <label for="representative_address" class="block text-gray-700 text-sm font-bold mb-2">
@@ -105,7 +120,7 @@
                                     <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
                                 @enderror
                             </div>
-    
+
                             <!-- Image -->
                             <div class="mb-4">
                                 <label for="representative_image" class="block text-gray-700 text-sm font-bold mb-2">
@@ -117,7 +132,7 @@
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
-    
+
                             <!-- Remark -->
                             <div class="mb-4">
                                 <label for="remark" class="block text-gray-700 text-sm font-bold mb-2">
@@ -131,7 +146,7 @@
                                 @enderror
                             </div>
                         </div>
-    
+
                         <button type="submit"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-lg">
                             {{ isset($representative) ? 'Update' : 'Submit' }}
@@ -140,45 +155,66 @@
                 </div>
             </div>
         </div>
-    
+
         @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const officeSelect = document.getElementById('office_id');
-                const postCategorySelect = document.getElementById('post_category_id');
-                const selectedPostCategoryId = "{{ old('post_category_id', $representative->post_category_id ?? '') }}";
-    
-                function loadPostCategories(officeId, preselectId = null) {
-                    postCategorySelect.innerHTML = '<option value="">-- चयन गर्नुहोस् --</option>';
-    
-                    if (officeId) {
-                        fetch(`/offices/${officeId}/post-categories`)
-                            .then(response => response.json())
-                            .then(data => {
-                                data.forEach(category => {
-                                    const option = document.createElement('option');
-                                    option.value = category.id;
-                                    option.textContent = category.post_category;
-                                    if (preselectId && preselectId == category.id) {
-                                        option.selected = true;
+            <script>
+               
+                document.addEventListener('DOMContentLoaded', function () {
+                    const departmentSelect = document.getElementById('department_id');
+                    const postCategorySelect = document.getElementById('post_category_id');
+                    const selectedPostCategoryId = "{{ old('post_category_id', $representative->post_category_id ?? '') }}";
+
+                    function loadPostCategories(departmentId, preselectId = null) {
+                        postCategorySelect.innerHTML = '<option value="">-- चयन गर्नुहोस् --</option>';
+
+                        if (departmentId) {
+                            fetch(`/departments/${departmentId}/post-categories`)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
                                     }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    if (data.length === 0) {
+                                        const option = document.createElement('option');
+                                        option.value = '';
+                                        option.textContent = 'No post categories found';
+                                        postCategorySelect.appendChild(option);
+                                        return;
+                                    }
+
+                                    data.forEach(category => {
+                                        const option = document.createElement('option');
+                                        option.value = category.id;
+                                        option.textContent = category.post_category;
+                                        if (preselectId && preselectId == category.id) {
+                                            option.selected = true;
+                                        }
+                                        postCategorySelect.appendChild(option);
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    const option = document.createElement('option');
+                                    option.value = '';
+                                    option.textContent = 'Error loading post categories';
                                     postCategorySelect.appendChild(option);
                                 });
-                            })
-                            .catch(error => console.error('Error fetching post categories:', error));
+                        }
                     }
-                }
-    
-                officeSelect.addEventListener('change', function () {
-                    loadPostCategories(this.value);
+
+                    departmentSelect.addEventListener('change', function () {
+                        loadPostCategories(this.value);
+                    });
+
+                    // Load initial categories if department is already selected
+                    if (departmentSelect.value) {
+                        loadPostCategories(departmentSelect.value, selectedPostCategoryId);
+                    }
                 });
-    
-                if (officeSelect.value) {
-                    loadPostCategories(officeSelect.value, selectedPostCategoryId);
-                }
-            });
-        </script>
+            </script>
         @endpush
     </div>
-    
+
 </x-app-layout>

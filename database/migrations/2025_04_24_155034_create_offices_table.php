@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('office_address')->nullable();
             $table->string('office_code')->nullable();
             $table->string('office_logo')->nullable();
-            $table->string('office_description')->nullable();
+            $table->text('office_description')->nullable();
             $table->foreignId('office_category_id')->constrained('office_categories')->onDelete('cascade');
             $table->timestamps();
         });
