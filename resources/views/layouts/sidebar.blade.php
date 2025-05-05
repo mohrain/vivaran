@@ -26,7 +26,7 @@
                 {{ __('ड्यासबोर्ड ') }}
             </x-nav-link>
         </li>
- 
+
 
          <!-- Offices Dropdown -->
          <li x-data="{ open: false }" class="text-sm text-gray-600 font-bold list-none">
@@ -45,7 +45,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </button>
-        
+
             <ul x-show="open" x-transition class="pl-4 mt-1 space-y-1">
                 @foreach ($sidebarOffices as $office)
                     <li>
@@ -62,11 +62,11 @@
                 @endforeach
             </ul>
         </li>
-        
+
 
 
         <li>
-            <x-nav-link href="{{ route('office.ui.office_list') }}" 
+            <x-nav-link href="{{ route('office.ui.office_list') }}"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
              <!-- Office List Icon -->
                 <span>
@@ -78,10 +78,10 @@
                 {{ __('कार्यालयहरूको सूची') }}
             </x-nav-link>
         </li>
-        
+
 
         <li>
-            <x-nav-link :href="route('office.office_type')" 
+            <x-nav-link :href="route('office.office_type')"
                 class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
                         <!-- Office type Icon -->
 
@@ -90,14 +90,14 @@
                                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
                             </svg>
                         </span>
-                        
+
 
                 {{ __('कार्यालयहरूको प्रकार ') }}
-            </x-nav-link> 
+            </x-nav-link>
         </li>
 
         <li>
-            <x-nav-link :href="route('representatives.index')" 
+            <x-nav-link :href="route('representatives.index')"
                 class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
                         <!-- Office List Icon -->
                         <span>
@@ -106,11 +106,11 @@
                             </svg>
                         </span>
                 {{ __('प्रतिनिधिको सूची') }}
-            </x-nav-link> 
+            </x-nav-link>
         </li>
-       
+
         <li>
-            <x-nav-link :href="route('representatives.post_category')" 
+            <x-nav-link :href="route('representatives.post_category')"
                 class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
                         <!-- Office List Icon -->
                         <span>
@@ -119,12 +119,26 @@
                             </svg>
                         </span>
                 {{ __('प्रतिनिधि पदको सूची ') }}
-            </x-nav-link> 
+            </x-nav-link>
         </li>
 
-        
         <li>
-            <x-nav-link :href="route('department.index')" 
+            <x-nav-link :href="route('employee.index')"
+                class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+                <!-- Employee Icon -->
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1a1 1 0 01-1 1H4a1 1 0 00-1 1v8a2 2 0 002 2h10a2 2 0 002-2v-8a1 1 0 00-1-1h-1a1 1 0 01-1-1V6a4 4 0 00-4-4zm0 2a2 2 0 012 2v1H8V6a2 2 0 012-2zm3.5 9.5A3.5 3.5 0 1013.5 15h-.001z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                {{ __('कर्मचारी') }}
+            </x-nav-link>
+
+        </li>
+
+
+        <li>
+            <x-nav-link :href="route('department.index')"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
                 <!-- Ambulance Service Icon -->
                 <span>
@@ -133,11 +147,11 @@
                     </svg>
                 </span>
                 {{ __('Department') }}
-            </x-nav-link> 
+            </x-nav-link>
         </li>
 
         <li>
-            <x-nav-link :href="route('office_service.index')" 
+            <x-nav-link :href="route('office_service.index')"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
                <!-- Office Service Icon -->
         <span>
@@ -149,11 +163,11 @@
             </svg>
         </span>
                 {{ __('कार्यालय सेवा') }}
-            </x-nav-link> 
+            </x-nav-link>
         </li>
 
         <li>
-            <x-nav-link :href="route('office_service.office_type')" 
+            <x-nav-link :href="route('office_service.office_type')"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
                  <!-- Service Type Icon -->
         <span>
@@ -162,9 +176,9 @@
             </svg>
         </span>
                 {{ __('सेवाको प्रकार') }}
-            </x-nav-link> 
+            </x-nav-link>
         </li>
 
-        
+
     </ul>
 </div>

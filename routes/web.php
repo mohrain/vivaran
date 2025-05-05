@@ -48,6 +48,10 @@ Route::delete('/office/category/{id}', [OfficeCategoryController::class, 'destro
 
 
 
+
+
+
+
 // Representative routes
 Route::get('/representatives.create_representatives', [RepresentativeController::class, 'show'])->name('representatives.create_representatives');
 Route::post('/representatives.store', [RepresentativeController::class, 'store'])->name('representatives.store');
@@ -86,5 +90,13 @@ Route::post('office_service/office_type/store', [ServiceTypeController::class, '
 Route::put('service_type/{id}', [ServiceTypeController::class, 'update'])->name('service_type.update');
 Route::delete('service_type/{id}', [ServiceTypeController::class, 'destroy'])->name('service_type.destroy');
 
+
+Route::get('/employee', [EmployeeController::class, 'show'])->name('employee.create');
+Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
+Route::post('/employee.store', [EmployeeController::class, 'store'])->name('employee.store');
+Route::get('/employee/{id}/edit', [EmployeeController::class, 'edit'])->name('employee.edit');
+Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
+Route::delete('/employee/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+Route::get('/employee/create', [EmployeeController::class, 'show'])->name('employee.create');
 
 
