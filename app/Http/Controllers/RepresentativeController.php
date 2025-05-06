@@ -138,4 +138,6 @@ class RepresentativeController extends Controller
     $post_categories = PostCategory::all();
     return view('representatives.create_representatives', compact('departments', 'post_categories'));
 }
+
+    
 }

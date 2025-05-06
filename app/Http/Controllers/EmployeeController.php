@@ -49,7 +49,7 @@ class EmployeeController extends Controller
             Employee::create([
                 'employee_name' => $request->employee_name,
                 'employee_phone' => $request->employee_phone,
-                'employee_id' => $request->employee_id,
+                'department_id' => $request->department_id,
                 'post_category_id' => $request->post_category_id,
                 'employee_email' => $request->employee_email,
                 'employee_address' => $request->employee_address,
@@ -60,9 +60,10 @@ class EmployeeController extends Controller
 
             return redirect()->route('employee.index')->with('success', 'Employee created successfully!');
         } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Error creating employee: ' . $e->getMessage());
+            dd($e->getMessage());
+            // return redirect()->back()
+            //     ->withInput()
+            //     ->with('error', 'Error creating employee: ' . $e->getMessage());
         }
     }
 
@@ -79,7 +80,7 @@ class EmployeeController extends Controller
     public function edit($id)
 {
     $post_categories = PostCategory::all();
-    $employees = Employee::findOrFail($id);
+    $employee = Employee::findOrFail($id);
     $departments = Department::all(); // Add this line
     $offices = Office::all();
     return view('employee.create_employee', compact('post_categories', 'employee', 'offices', 'departments'));
@@ -99,16 +100,16 @@ class EmployeeController extends Controller
             'remark' => 'nullable|string|max:500',
         ]);
 
-        $employees = Employee::findOrFail($id);
+        $employee = Employee::findOrFail($id);
 
         try {
             if ($request->file('employee_image')) {
                 $path = Storage::putFile('employee_image', $request->file('employee_image'));
             } else {
-                $path = $employees->employee_image; // Retain the existing image if no new image is uploaded
+                $path = $employee->employee_image; // Retain the existing image if no new image is uploaded
             }
 
-            $employees->update([
+            $employee->update([
                 'employee_name' => $request->employee_name,
                 'employee_phone' => $request->employee_phone,
                 'department_id' => $request->department_id,

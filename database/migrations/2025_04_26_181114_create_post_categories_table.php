@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('department_id')->constrained()->onDelete('cascade');
             $table->string('post_category')->nullable();
             $table->string('representative_status')->default('active')->nullable();
+            $table->foreignId('office_id')->nullable()->constrained('offices')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ isset($employees) ? __('Edit Employee') : __('Add New Employee') }}
+            {{ isset($employee) ? __('Edit Employee') : __('Add New Employee') }}
         </h2>
     </x-slot>
 
@@ -11,8 +11,8 @@
                 <div class="p-6 text-gray-900">
 
                     <form
-                        action="{{ isset($employee) ? route('employee.update', $employee->id) : route('employee.store') }}"
-                        method="POST" enctype="multipart/form-data">
+                    action="{{ isset($employee) ? route('employee.update', $employee->id) : route('employee.store') }}"
+                    method="POST" enctype="multipart/form-data">
                         @csrf
                         @if (isset($employee))
                             @method('PUT')
@@ -74,7 +74,6 @@
                                 <select id="post_category_id" name="post_category_id" required
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
                                     <option value="">-- चयन गर्नुहोस् --</option>
-                                    <!-- Options will be dynamically populated -->
                                 </select>
                                 @error('post_category_id')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>

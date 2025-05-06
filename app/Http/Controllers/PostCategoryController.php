@@ -12,7 +12,7 @@ class PostCategoryController extends Controller
     {
         // dd($request->all());
 
-        
+
         $validated = $request->validate([
             'department_id' => 'required|exists:departments,id',
             'post_category' => 'required|string|max:255',
@@ -25,6 +25,7 @@ class PostCategoryController extends Controller
                 'department_id' => $request->department_id,
                 'post_category' => $request->post_category,
                 'representative_status' => $request->representative_status,
+                'office_id' => $request->office_id,
             ]);
             return redirect()->route('representatives.post_category')->with('success', 'Post category saved successfully.');
         } catch (\Exception $e) {
@@ -32,7 +33,7 @@ class PostCategoryController extends Controller
                 return redirect()->back()->withInput()->with('error', 'Something went wrong. Please try again.');
             }
         }
-    
+
 
     public function show()
     {
@@ -45,24 +46,26 @@ class PostCategoryController extends Controller
     {
         $category = PostCategory::findOrFail($id);
         $post_categories = PostCategory::latest()->get();
-        $departments = Department::all(); 
+        $departments = Department::all();
         return view('representatives.post_category', compact('category', 'post_categories', 'departments'));
     }
 
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'department_id' => 'required|exists:departments,id', 
+            'department_id' => 'required|exists:departments,id',
             'post_category' => 'required|string|max:255',
             'representative_status' => 'nullable|string|max:255',
+            'office_id' => 'nullable|exists:offices,id',
         ]);
 
         try {
             $category = PostCategory::findOrFail($id);
             $category->update([
-                'department_id' => $request->department_id, 
+                'department_id' => $request->department_id,
                 'post_category' => $request->post_category,
                 'representative_status' => $request->representative_status,
+                'office_id' => $request->office_id,
             ]);
 
             return redirect()->route('representatives.post_category')->with('success', 'Category updated successfully');

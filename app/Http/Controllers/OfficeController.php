@@ -33,15 +33,15 @@ class OfficeController extends Controller
             'office_type' => 'nullable|string|max:255',
             'office_address' => 'required|string|max:255',
             'office_code' => 'nullable|string',
-            'office_logo' => 'nullable|image',
+            'office_logo' => 'nullable',
             'office_description' => 'nullable|string',
         ]);
-        
+
 
         if ($request->file('office_logo')) {
 
             $path = Storage::putFile('logo', $request->file('office_logo'));
-            
+
         }
 
 
@@ -55,7 +55,7 @@ class OfficeController extends Controller
                 'office_code' => $request->office_code,
                 'office_logo' => $path,
                 'office_description' => $request->office_description,
-                
+
             ]);
 
             // return $office;
@@ -75,7 +75,7 @@ class OfficeController extends Controller
         ]);
     }
 
-   
+
 
     // ---------------------------------Edit Office-----------------------------------
 
@@ -83,10 +83,10 @@ class OfficeController extends Controller
     {
         $categories = OfficeCategory::all(); // Get categories for select input
         $office = Office::findOrFail($id); // Find the office by ID
-    
+
         return view('office.index', compact('categories', 'office'));
     }
-    
+
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
@@ -100,11 +100,11 @@ class OfficeController extends Controller
             'office_description' => 'nullable|string',
         ]);
 
-        
-    
-       
+
+
+
             $office = Office::findOrFail($id);
-    
+
             if ($request->hasFile('office_logo')) {
                 // Delete old logo if exists
                 if ($office->office_logo) {
@@ -124,7 +124,7 @@ class OfficeController extends Controller
                 'office_code' => $request->office_code,
                 'office_description' => $request->office_description,
             ]);
-    
+
             return redirect()->route('office.ui.office_list')->with('success', 'Office updated successfully.');
         } catch (\Exception $e) {
             return back()->with('error', 'Something went wrong: ' . $e->getMessage());
