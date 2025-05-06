@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <x-application-logo :office="$office" class="h-10 w-auto" />
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -19,7 +20,7 @@
 <body class="font-sans antialiased ">
     <div class="fixed min-h-screen  ">
         @include('layouts.sidebar')
-    </div> 
+    </div>
         <!-- Page Heading -->
         {{-- @isset($header)
         <header class="bg-white shadow">
@@ -28,21 +29,21 @@
             </div>
         </header>
         @endisset --}}
-    
+
     <div class="ml-[255px]  bg-gray-100  ">
         <div class="fixed ml-[1px] bg-gray-100 w-[1025px] ">
             @include('layouts.navigation')
         </div>
-       
-        
+
+
         <div class=" bg-gray-100 min-h-screen pt-[100px] ">
             <main>
                 {{ $slot }}
             </main>
         </div>
-       
+
     </div>
-    
+
 </body>
 
 @stack('scripts')

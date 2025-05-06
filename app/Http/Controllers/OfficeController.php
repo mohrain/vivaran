@@ -40,8 +40,8 @@ class OfficeController extends Controller
 
         if ($request->file('office_logo')) {
 
-            $path = Storage::putFile('logo', $request->file('office_logo'));
-
+            // $path = Storage::putFile('logo', $request->file('office_logo'));
+            $path = $request->file('office_logo')->store('logo', 'public');
         }
 
 
