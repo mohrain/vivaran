@@ -9,14 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('representatives', function (Blueprint $table) {
-            $table->foreignId('office_id')->after('id')->constrained('offices')->onDelete('cascade');
+            $table->foreignId('office_id')->nullable()->constrained('offices')->onDelete('cascade');
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::table('representatives', function (Blueprint $table) {
             $table->dropForeign(['office_id']);

@@ -69,7 +69,7 @@ class OfficeController extends Controller
 
     public function list()
     {
-        $offices = Office::all();
+        $offices = Office::paginate(10);
         return view('office.ui.office_list', [
             'offices' => $offices,
         ]);
@@ -111,7 +111,7 @@ class OfficeController extends Controller
                     Storage::delete($office->office_logo);
                 }
                 // Upload new logo
-                $path = Storage::putFile('logo', $request->file('office_logo'));
+                $path = $request->file('office_logo')->store('logo', 'public');
                 $office->office_logo = $path;
             }
             try {
@@ -139,7 +139,7 @@ class OfficeController extends Controller
 
     // If there is an office logo, delete it too
     if ($office->office_logo) {
-        Storage::delete($office->office_logo);
+        Storage::disk('public')->delete($office->office_logo);
     }
 
     $office->delete();

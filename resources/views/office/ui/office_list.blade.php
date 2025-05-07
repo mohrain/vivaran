@@ -61,7 +61,6 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @foreach ($offices as $office)
-                                    </tr>
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-4 py-2">{{ $loop->iteration }}
                                         <td class="px-4 py-2">
