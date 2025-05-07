@@ -11,6 +11,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Models\ServiceType;
 use App\Http\Controllers\ServiceTypeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostEmployeeController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -100,3 +102,10 @@ Route::delete('/employee/{id}', [EmployeeController::class, 'destroy'])->name('e
 Route::get('/employee/create', [EmployeeController::class, 'show'])->name('employee.create');
 
 
+
+Route::post('/employee/post_employee/store', [PostEmployeeController::class, 'store'])->name('employee.post_employee.store');
+Route::get('/employee.post_employee', [PostEmployeeController::class, 'show'])->name('employee.post_employee');
+Route::get('/employee/post_employee/{id}/edit', [PostEmployeeController::class, 'edit'])->name('employee.post_employee.edit');
+Route::put('/employee/post_employee/{id}', [PostEmployeeController::class, 'update'])->name('employee.post_employee.update');
+Route::delete('/employee/post_employee/{id}', [PostEmployeeController::class, 'destroy'])->name('employee.post_employee.destroy');
+Route::get('/departments/{departmentId}/post-employees', [PostEmployeeController::class, 'getPostEmployeesByDepartmentId'])->name('departments.post-employees');

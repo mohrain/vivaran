@@ -68,14 +68,14 @@
 
                             <!-- Employee Post (dynamic) -->
                             <div class="mb-4">
-                                <label for="post_category_id" class="block text-gray-700 text-sm font-bold mb-2">
+                                <label for="post_employee_id" class="block text-gray-700 text-sm font-bold mb-2">
                                     कर्मचारीको पद (Employee Post):
                                 </label>
-                                <select id="post_category_id" name="post_category_id" required
+                                <select id="post_employee_id" name="post_employee_id" required
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
                                     <option value="">-- चयन गर्नुहोस् --</option>
                                 </select>
-                                @error('post_category_id')
+                                @error('post_employee_id')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -142,19 +142,19 @@
             </div>
         </div>
 
-        @push('scripts')
+        {{-- @push('scripts')
             <script>
 
                 document.addEventListener('DOMContentLoaded', function () {
                     const departmentSelect = document.getElementById('department_id');
-                    const postCategorySelect = document.getElementById('post_category_id');
-                    const selectedPostCategoryId = "{{ old('post_category_id', $employee->post_category_id ?? '') }}";
+                    const postEmployeeSelect = document.getElementById('post_employee_id');
+                    const selectedPostEmployeeId = "{{ old('post_employee_id', $employee->post_employee_id ?? '') }}";
 
                     function loadPostCategories(departmentId, preselectId = null) {
-                        postCategorySelect.innerHTML = '<option value="">-- चयन गर्नुहोस् --</option>';
+                        postEmployeeSelect.innerHTML = '<option value="">-- चयन गर्नुहोस् --</option>';
 
                         if (departmentId) {
-                            fetch(`/departments/${departmentId}/post-categories`)
+                            fetch(`/departments/${departmentId}/post-employees`)
                                 .then(response => {
                                     if (!response.ok) {
                                         throw new Error('Network response was not ok');
@@ -165,19 +165,19 @@
                                     if (data.length === 0) {
                                         const option = document.createElement('option');
                                         option.value = '';
-                                        option.textContent = 'No post categories found';
-                                        postCategorySelect.appendChild(option);
+                                        option.textContent = 'No post employees found';
+                                        postEmployeeSelect.appendChild(option);
                                         return;
                                     }
 
-                                    data.forEach(category => {
+                                    data.forEach(employee => {
                                         const option = document.createElement('option');
-                                        option.value = category.id;
-                                        option.textContent = category.post_category;
-                                        if (preselectId && preselectId == category.id) {
+                                        option.value = employee.id;
+                                        option.textContent = employee.post_employee;
+                                        if (preselectId && preselectId == employee.id) {
                                             option.selected = true;
                                         }
-                                        postCategorySelect.appendChild(option);
+                                        postEmployeeSelect.appendChild(option);
                                     });
                                 })
                                 .catch(error => {
@@ -191,16 +191,76 @@
                     }
 
                     departmentSelect.addEventListener('change', function () {
-                        loadPostCategories(this.value);
+                        loadPostEmployees(this.value);
                     });
 
                     // Load initial categories if department is already selected
                     if (departmentSelect.value) {
-                        loadPostCategories(departmentSelect.value, selectedPostCategoryId);
+                        loadPostEmployees(departmentSelect.value, selectedPostEmployeeId);
                     }
                 });
             </script>
-        @endpush
+        @endpush --}}
+
+        @push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const departmentSelect = document.getElementById('department_id');
+        const postEmployeeSelect = document.getElementById('post_employee_id');
+        const selectedPostEmployeeId = "{{ old('post_employee_id', $employee->post_employee_id ?? '') }}";
+
+        function loadPostEmployees(departmentId, preselectId = null) {
+            postEmployeeSelect.innerHTML = '<option value="">-- चयन गर्नुहोस् --</option>';
+
+            if (departmentId) {
+                fetch(`/departments/${departmentId}/post-employees`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.length === 0) {
+                            const option = document.createElement('option');
+                            option.value = '';
+                            option.textContent = 'No post employees found';
+                            postEmployeeSelect.appendChild(option);
+                            return;
+                        }
+
+                        data.forEach(employee => {
+                            const option = document.createElement('option');
+                            option.value = employee.id;
+                            option.textContent = employee.post_employee;
+                            if (preselectId && preselectId == employee.id) {
+                                option.selected = true;
+                            }
+                            postEmployeeSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        const option = document.createElement('option');
+                        option.value = '';
+                        option.textContent = 'Error loading post employees';
+                        postEmployeeSelect.appendChild(option);
+                    });
+            }
+        }
+
+        departmentSelect.addEventListener('change', function () {
+            loadPostEmployees(this.value);
+        });
+
+        // Load initial post employees if department is already selected
+        if (departmentSelect.value) {
+            loadPostEmployees(departmentSelect.value, selectedPostEmployeeId);
+        }
+    });
+</script>
+@endpush
+
     </div>
 
 </x-app-layout>

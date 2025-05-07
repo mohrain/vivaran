@@ -78,11 +78,11 @@
                                         <td class="px-4 py-2">{{ $loop->iteration }}
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->department->name ?? 'N/A' }}
+                                                    {{ $employee->department?->name ?? 'N/A' }}
                                                 </span>
                                                 <div
                                                     class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->department->name ?? 'N/A' }}
+                                                    {{ $employee->department?->name ?? 'N/A' }}
                                                 </div>
                                             </td>
 
@@ -109,11 +109,11 @@
 
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->postcategory->post_category ?? 'N/A' }}
+                                                    {{ $employee->postemployee->post_employee ?? 'N/A' }}
                                                 </span>
                                                 <div
                                                     class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->postcategory->post_category ?? 'N/A' }}
+                                                    {{ $employee->postemployee->post_employee ?? 'N/A' }}
                                                 </div>
                                             </td>
 
@@ -158,11 +158,11 @@
                                             </td>
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->updatedBy->name ?? 'System' }}
+                                                    {{ $employee->updatedBy?->name ?? 'System' }}
                                                 </span>
                                                 <div
                                                     class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->updatedBy->name ?? 'System' }}
+                                                    {{ $employee->updatedBy?->name ?? 'System' }}
                                                 </div>
                                             </td>
 

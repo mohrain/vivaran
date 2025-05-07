@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\Employee;
-use App\Models\PostCategory;
+use App\Models\PostEmployee;
 use App\Models\Office;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +15,7 @@ class EmployeeController extends Controller
     {
         $departmentId = $request->query('department_id');
 
-        $query = Employee::with(['department', 'postcategory', 'updatedBy']);
+        $query = Employee::with(['department', 'postemployee', 'updatedBy']);
         if ($departmentId) {
             $query->where('department_id', $departmentId);
         }
@@ -32,7 +32,7 @@ class EmployeeController extends Controller
             'employee_name' => 'required|string|max:255',
             'employee_phone' => 'required|string|max:10',
             'department_id' => 'required|exists:departments,id',
-            'post_category_id' => 'required|integer|exists:post_categories,id',
+            'post_employee_id' => 'required|integer|exists:post_employees,id',
             'employee_email' => 'nullable|email|max:255',
             'employee_address' => 'nullable|string|max:255',
             'employee_image' => 'nullable|image',
@@ -50,7 +50,7 @@ class EmployeeController extends Controller
                 'employee_name' => $request->employee_name,
                 'employee_phone' => $request->employee_phone,
                 'department_id' => $request->department_id,
-                'post_category_id' => $request->post_category_id,
+                'post_employee_id' => $request->post_employee_id,
                 'employee_email' => $request->employee_email,
                 'employee_address' => $request->employee_address,
                 'employee_image' => $path,
@@ -79,21 +79,22 @@ class EmployeeController extends Controller
 
     public function edit($id)
 {
-    $post_categories = PostCategory::all();
+    $post_employees = PostEmployee::all();
     $employee = Employee::findOrFail($id);
     $departments = Department::all(); // Add this line
     $offices = Office::all();
-    return view('employee.create_employee', compact('post_categories', 'employee', 'offices', 'departments'));
+    return view('employee.create_employee', compact('post_employees', 'employee', 'offices', 'departments'));
 }
 
 
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
+
             'employee_name' => 'required|string|max:255',
             'employee_phone' => 'required|string|max:10',
             'department_id' => 'required|exists:departments,id',
-            'post_category_id' => 'required|integer|exists:post_categories,id',
+            'post_employee_id' => 'required|integer|exists:post_employees,id',
             'employee_email' => 'nullable|email|max:255',
             'employee_address' => 'nullable|string|max:255',
             'employee_image' => 'nullable|image',
@@ -113,7 +114,7 @@ class EmployeeController extends Controller
                 'employee_name' => $request->employee_name,
                 'employee_phone' => $request->employee_phone,
                 'department_id' => $request->department_id,
-                'post_category_id' => $request->post_category_id,
+                'post_employee_id' => $request->post_employee_id,
                 'employee_email' => $request->employee_email,
                 'employee_address' => $request->employee_address,
                 'employee_image' => $path,
@@ -129,9 +130,9 @@ class EmployeeController extends Controller
     public function show()
 {
     $departments = Department::all();
-    $post_categories = PostCategory::all();
+    $post_employees = PostEmployee::all();
     $offices = Office::all();
-    return view('employee.create_employee', compact('departments', 'post_categories', 'offices'));
+    return view('employee.create_employee', compact('departments', 'post_employees', 'offices'));
     // return view('employee.create', compact('departments', 'post_categories'));
 }
 }

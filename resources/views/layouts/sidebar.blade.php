@@ -7,6 +7,7 @@
     </div>
  @php
     use App\Models\Office;
+    
     $sidebarOffices = Office::all();
 @endphp
 
@@ -123,6 +124,20 @@
         </li>
 
         <li>
+            {{-- <x-nav-link :href="route('employee.employee_type')" --}}
+            <x-nav-link :href="route('employee.post_employee')"
+                class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
+                <!-- Employee Type Icon -->
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1a1 1 0 01-1 1H4a1 1 0 00-1 1v8a2 2 0 002 2h10a2 2 0 002-2v-8a1 1 0 00-1-1h-1a1 1 0 01-1-1V6a4 4 0 00-4-4zm0 2a2 2 0 012 2v1H8V6a2 2 0 012-2zm3.5 9.5A3.5 3.5 0 1013.5 15h-.001z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                {{ __('कर्मचारी पदको सूची ') }}
+            </x-nav-link>
+        </li>
+
+        <li>
             <x-nav-link :href="route('employee.index')"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
                 <!-- Employee Icon -->
@@ -135,6 +150,8 @@
             </x-nav-link>
 
         </li>
+
+
 
 
         <li>
