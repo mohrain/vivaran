@@ -10,9 +10,11 @@ use App\Http\Controllers\OfficeServiceController;
 use App\Http\Controllers\DepartmentController;
 use App\Models\ServiceType;
 use App\Http\Controllers\ServiceTypeController;
+use Database\Factories\UserFactory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostEmployeeController;
-
+use App\Livewire\Users\UserIndex;
+use App\Livewire\Users\UserCreate;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/users', function () {
+    return view('users.user-index');
 });
 
 require __DIR__ . '/auth.php';
@@ -109,3 +115,7 @@ Route::get('/employee/post_employee/{id}/edit', [PostEmployeeController::class, 
 Route::put('/employee/post_employee/{id}', [PostEmployeeController::class, 'update'])->name('employee.post_employee.update');
 Route::delete('/employee/post_employee/{id}', [PostEmployeeController::class, 'destroy'])->name('employee.post_employee.destroy');
 Route::get('/departments/{departmentId}/post-employees', [PostEmployeeController::class, 'getPostEmployeesByDepartmentId'])->name('departments.post-employees');
+
+
+Route::get("users",UserIndex::class)->name("users.index");
+Route::get("users/create",UserCreate::class)->name("users.create");

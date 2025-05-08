@@ -16,6 +16,7 @@
     {{-- <x-application-logo :office="$office" class="h-10 w-auto" /> --}}
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased ">
@@ -44,7 +45,7 @@
         </div>
 
     </div>
-
+    @livewireScripts
 </body>
 
 @stack('scripts')

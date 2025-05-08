@@ -153,9 +153,19 @@ public function show($id)
     $office = Office::with(['representatives.postcategory'])->findOrFail($id);
     return view('representatives.index', [
         'representatives' => $office->representatives,
-        'office' => $office
+        'office' => $office,
+        'postcategories' => PostCategory::all(),
+        'office_id' => $id,
+        'representative' => Representative::all(),
+        'office_category' => OfficeCategory::all(),
+        'office_name' => $office->office_name,
+        'office_email' => $office->office_email,
+        'office_phone' => $office->office_phone,
+        'office_address' => $office->office_address,
+        'office_code' => $office->office_code,
+        'office_description' => $office->office_description,
+        'office_logo' => $office->office_logo,
+        'office_category_id' => $office->office_category_id,
     ]);
 }
-
-
 }
