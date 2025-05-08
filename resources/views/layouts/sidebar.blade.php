@@ -69,9 +69,6 @@
             </ul>
         </li>
 
-
-
-
         <li>
             <x-nav-link href="{{ route('office.ui.office_list') }}"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
@@ -181,8 +178,6 @@
         </li>
 
 
-
-
         <li>
             <x-nav-link :href="route('department.index')"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
@@ -230,9 +225,6 @@
                 {{ __('सेवाको प्रकार') }}
             </x-nav-link>
         </li>
-
-
-
 
 
     </ul>

@@ -11,8 +11,8 @@
                 <div class="p-6 text-gray-900">
 
                     <form
-                    action="{{ isset($employee) ? route('employee.update', $employee->id) : route('employee.store') }}"
-                    method="POST" enctype="multipart/form-data">
+                        action="{{ isset($employee) ? route('employee.update', $employee->id) : route('employee.store') }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         @if (isset($employee))
                             @method('PUT')
@@ -30,7 +30,8 @@
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
                                     <option value="">-- चयन गर्नुहोस् --</option>
                                     @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}" {{ old('department_id', $employee->department_id ?? '') == $department->id ? 'selected' : '' }}>
+                                        <option value="{{ $department->id }}"
+                                            {{ old('department_id', $employee->department_id ?? '') == $department->id ? 'selected' : '' }}>
                                             {{ $department->name }}
                                         </option>
                                     @endforeach
@@ -86,8 +87,7 @@
                                     कर्मचारीको फोन (Employee Phone):
                                 </label>
                                 <input type="text" id="employee_phone" name="employee_phone" maxlength="10"
-                                    minlength="10"
-                                    value="{{ old('employee_phone', $employee->employee_phone ?? '') }}"
+                                    minlength="10" value="{{ old('employee_phone', $employee->employee_phone ?? '') }}"
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
                                 @error('employee_phone')
                                     <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
@@ -142,15 +142,14 @@
             </div>
         </div>
 
-        {{-- @push('scripts')
+        @push('scripts')
             <script>
-
-                document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function() {
                     const departmentSelect = document.getElementById('department_id');
                     const postEmployeeSelect = document.getElementById('post_employee_id');
                     const selectedPostEmployeeId = "{{ old('post_employee_id', $employee->post_employee_id ?? '') }}";
 
-                    function loadPostCategories(departmentId, preselectId = null) {
+                    function loadPostEmployees(departmentId, preselectId = null) {
                         postEmployeeSelect.innerHTML = '<option value="">-- चयन गर्नुहोस् --</option>';
 
                         if (departmentId) {
@@ -184,82 +183,23 @@
                                     console.error('Error:', error);
                                     const option = document.createElement('option');
                                     option.value = '';
-                                    option.textContent = 'Error loading post categories';
-                                    postCategorySelect.appendChild(option);
+                                    option.textContent = 'Error loading post employees';
+                                    postEmployeeSelect.appendChild(option);
                                 });
                         }
                     }
 
-                    departmentSelect.addEventListener('change', function () {
+                    departmentSelect.addEventListener('change', function() {
                         loadPostEmployees(this.value);
                     });
 
-                    // Load initial categories if department is already selected
+                    // Load initial post employees if department is already selected
                     if (departmentSelect.value) {
                         loadPostEmployees(departmentSelect.value, selectedPostEmployeeId);
                     }
                 });
             </script>
-        @endpush --}}
-
-        @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const departmentSelect = document.getElementById('department_id');
-        const postEmployeeSelect = document.getElementById('post_employee_id');
-        const selectedPostEmployeeId = "{{ old('post_employee_id', $employee->post_employee_id ?? '') }}";
-
-        function loadPostEmployees(departmentId, preselectId = null) {
-            postEmployeeSelect.innerHTML = '<option value="">-- चयन गर्नुहोस् --</option>';
-
-            if (departmentId) {
-                fetch(`/departments/${departmentId}/post-employees`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.length === 0) {
-                            const option = document.createElement('option');
-                            option.value = '';
-                            option.textContent = 'No post employees found';
-                            postEmployeeSelect.appendChild(option);
-                            return;
-                        }
-
-                        data.forEach(employee => {
-                            const option = document.createElement('option');
-                            option.value = employee.id;
-                            option.textContent = employee.post_employee;
-                            if (preselectId && preselectId == employee.id) {
-                                option.selected = true;
-                            }
-                            postEmployeeSelect.appendChild(option);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        const option = document.createElement('option');
-                        option.value = '';
-                        option.textContent = 'Error loading post employees';
-                        postEmployeeSelect.appendChild(option);
-                    });
-            }
-        }
-
-        departmentSelect.addEventListener('change', function () {
-            loadPostEmployees(this.value);
-        });
-
-        // Load initial post employees if department is already selected
-        if (departmentSelect.value) {
-            loadPostEmployees(departmentSelect.value, selectedPostEmployeeId);
-        }
-    });
-</script>
-@endpush
+        @endpush
 
     </div>
 

@@ -1,4 +1,6 @@
-
+<div>
+    {{-- Close your eyes. Count to one. That is how long forever feels. --}}
+    
 
     <div>
         <a href="{{ route('users.index') }}" class="cursor-pointer px-3 py-2 ml-5 text-xs font-medium text-white bg-green-700 rounded-lg hover:bg-green-800">
@@ -14,3 +16,5 @@
             </form>
         </div>
     </div>
+
+</div>

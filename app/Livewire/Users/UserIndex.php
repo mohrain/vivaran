@@ -10,6 +10,15 @@ class UserIndex extends Component
 {
     public function render()
     {
-    return view('livewire.users.user-index')->layout('layouts.app');
+        $users = User::get();
+    return view('livewire.users.user-index', compact('users'))->layout('layouts.app');
     }
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        session()->flash('success', 'User Deleted.');
+    }
+
 }
