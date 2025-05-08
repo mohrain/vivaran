@@ -179,9 +179,11 @@
 
                                         <!-- Actions column -->
                                         <td class="px-4 py-2  min-w-[200px]">
+                                            @hasanyrole('editor');
                                             <a href="" class="text-blue-500 hover:text-blue-700">View</a> |
                                             <a href="{{ route('employee.edit', $employee->id) }}"
                                                 class="text-yellow-500 hover:text-yellow-700">Edit</a> |
+                                                @endhasanyrole
                                             <form action="{{ route('employee.destroy', $employee->id) }}"
                                                 method="POST" class="inline"
                                                 onsubmit="return confirm('Are you sure you want to delete this employee?')">
