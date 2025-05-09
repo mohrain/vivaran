@@ -43,7 +43,7 @@
                             <!-- Employee Name -->
                             <div class="mb-4">
                                 <label for="representative_name" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको नाम (Employee Name):
+                                    प्रतिनिधिको नाम (Representative Name):
                                 </label>
                                 <input type="text" id="representative_name" name="representative_name"
                                     value="{{ old('representative_name', $representative->representative_name ?? '') }}"
@@ -56,7 +56,7 @@
                              <!-- Employee Name -->
                              <div class="mb-4">
                                 <label for="representative_ward" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको वार्ड (Employee Ward):
+                                    प्रतिनिधिको वार्ड (Representative Ward):
                                 </label>
                                 <input type="text" id="representative_ward" name="representative_ward"
                                     value="{{ old('representative_ward', $representative->representative_ward ?? '') }}"
@@ -69,7 +69,7 @@
                             <!-- Employee Email -->
                             <div class="mb-4">
                                 <label for="representative_email" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको इमेल (Employee Email):
+                                    प्रतिनिधिको इमेल (Representative Email):
                                 </label>
                                 <input type="text" id="representative_email" name="representative_email"
                                     value="{{ old('representative_email', $representative->representative_email ?? '') }}"
@@ -82,7 +82,7 @@
                             <!-- Employee Post (dynamic) -->
                             <div class="mb-4">
                                 <label for="post_category_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको पद (Employee Post):
+                                    प्रतिनिधिको पद (Representative Post):
                                 </label>
                                 <select id="post_category_id" name="post_category_id" required
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
@@ -97,7 +97,7 @@
                             <!-- Phone -->
                             <div class="mb-4">
                                 <label for="representative_phone" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको फोन (Employee Phone):
+                                    प्रतिनिधिको फोन (Representative Phone):
                                 </label>
                                 <input type="text" id="representative_phone" name="representative_phone" maxlength="10"
                                     minlength="10"
@@ -111,7 +111,7 @@
                             <!-- Address -->
                             <div class="mb-4">
                                 <label for="representative_address" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको ठेगाना (Employee address):
+                                    प्रतिनिधिको ठेगाना (Representative address):
                                 </label>
                                 <input type="text" id="representative_address" name="representative_address"
                                     value="{{ old('representative_address', $representative->representative_address ?? '') }}"
@@ -124,7 +124,7 @@
                             <!-- Image -->
                             <div class="mb-4">
                                 <label for="representative_image" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको फोटो (Employee Image):
+                                    प्रतिनिधिको फोटो (Representative Image):
                                 </label>
                                 <input type="file" id="representative_image" name="representative_image"
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-blue-500 focus:border-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">

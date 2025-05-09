@@ -50,13 +50,12 @@
                     @endforeach
                     </td>
                     <td class="px-6 py-2">
-                        <a href="{{ route('users.show', $user->id) }}" class="text-yellow-500 hover:text-yellow-700">Show</a>
-                        {{-- @hasanyrole('super-admin|admin') --}}
-                        <a href="{{ route('users.edit', $user->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit</a> dit</a>
-                        <button wire:click="delete({{ $user->id }})" wire:confirm="Are you sure you want to delete this user?"class="text-red-500 hover:text-red-700">Delete
-                           
+                        <a href="{{ route('users.show', $user->id) }}" class="text-blue-500 hover:text-blue-700">Show </a>|
+                        @hasanyrole('super-admin|admin')
+                        <a href="{{ route('users.edit', $user->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit </a>|
+                        <button wire:click="delete({{ $user->id }})" wire:confirm="Are you sure you want to delete this user?" class="text-red-500 hover:text-red-700">Delete                        
                         </button>
-                        {{-- @endhasanyrole --}}
+                        @endhasanyrole
                     </td>
                 </tr>
                 @endforeach

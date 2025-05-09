@@ -135,4 +135,9 @@ class EmployeeController extends Controller
     return view('employee.create_employee', compact('departments', 'post_employees', 'offices'));
     // return view('employee.create', compact('departments', 'post_categories'));
 }
+
+public function postEmployees($departmentId)
+{
+    return PostEmployee::where('department_id', $departmentId)->get();
+}
 }
