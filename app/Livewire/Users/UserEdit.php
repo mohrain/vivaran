@@ -10,11 +10,15 @@ class UserEdit extends Component
 {
     public $user, $name,$email, $password, $confirm_password;
 
+    public $role='';
+        public $roles = [];
     public function mount($id)
     {
+        $this->roles = \Spatie\Permission\Models\Role::pluck('name')->toArray();
         $this->user = User::find($id);
         $this->name = $this->user->name;
         $this->email = $this->user->email;
+        $this->role = $this->user->getRoleNames()->first();
     }
 
     public function render()
@@ -27,17 +31,14 @@ class UserEdit extends Component
         $this->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'same:confirm_password',
+            'role' => 'required|string|exists:roles,name',
         ]);
         $this->user->name = $this->name;
         $this->user->email = $this->email;
-
-        if ($this->password) {
-            $this->user->password = Hash::make($this->password);
-        }
+        $this->user->syncRoles($this->role);
+        
         $this->user->save();
-
-
+        // dd("here");
         return redirect(route('users.index'))->with('success', 'User Updated.');
     }
 }
