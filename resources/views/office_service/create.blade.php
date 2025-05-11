@@ -44,14 +44,12 @@
                                 <select id="service_type" name="service_type" required
                                     class="block w-full text-sm border rounded-lg bg-gray-50 px-3 py-2">
                                     <option value="">-- चयन गर्नुहोस् --</option>
-
-
-                                    <option value="IT Support"
-                                        {{ old('service_type', $officeService->service_type ?? '') == 'IT Support' ? 'selected' : '' }}>
-                                        IT Support</option>
-                                    <option value="Other"
-                                        {{ old('service_type', $officeService->service_type ?? '') == 'Other' ? 'selected' : '' }}>
-                                        Other</option>
+                                    @foreach ($ServiceTypes as $serviceType)
+                                        <option value="{{ $serviceType->name }}"
+                                            {{ old('service_type', $officeService->service_type ?? '') == $serviceType ? 'selected' : '' }}>
+                                            {{ $serviceType->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('service_type')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -117,7 +115,7 @@
 
                         <button type="submit"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-lg">
-                            {{ isset($officeService) ? 'Update' : 'Submit' }}
+                            {{ isset($officeServices) ? 'Update' : 'Submit' }}
                         </button>
                     </form>
                 </div>

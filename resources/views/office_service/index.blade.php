@@ -6,8 +6,8 @@
     </x-slot>
 
     <a href="{{ route('office_service.create') }}"
-       class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">
-       + नयाँ थप्नुहोस्
+        class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">
+        + नयाँ थप्नुहोस्
     </a>
 
     <div class="py-12">
@@ -15,8 +15,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                     @if (session('success'))
-                        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    @if (session('success'))
+                        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                            role="alert">
                             <strong class="font-bold">Success!</strong>
                             <span class="block sm:inline">{{ session('success') }}</span>
                         </div>
@@ -36,8 +37,8 @@
                                     <th class="px-4 py-3">कार्यहरू</th>
                                 </tr>
                             </thead>
-                           <tbody class="divide-y divide-gray-200">
-                                {{-- @foreach($ambulances as $ambulance)
+                            {{-- <tbody class="divide-y divide-gray-200">
+                                @foreach ($ambulances as $ambulance)
                                 <tr class="hover:bg-gray-50">
                                      <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                     <td class="px-4 py-2">{{ $ambulance->office->office_name ?? 'N/A' }}</td>
@@ -64,11 +65,41 @@
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach --}}
+                                @endforeach
+                            </tbody> --}}
+
+                            <tbody class="divide-y divide-gray-200">
+                                @foreach ($officeServices as $officeService)
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-2">{{ $officeService->office->office_name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-2">{{ $officeService->serviceType->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-2">{{ $officeService->email ?? 'N/A' }}</td>
+                                        <td class="px-4 py-2">{{ $officeService->contact ?? 'N/A' }}</td>
+                                        <td class="px-4 py-2">{{ $officeService->status ?? 'N/A' }}</td>
+                                        <td class="px-4 py-2">{{ $officeService->remark ?? 'N/A' }}</td>
+                                        <td class="px-4 py-2">
+                                            <!-- Actions here -->
+                                            <a href="{{ route('office_service.show', $officeService->id) }}"
+                                                class="text-blue-500 hover:text-blue-700">View</a> |
+                                            <a href="{{ route('office_service.edit', $officeService->id) }}"
+                                                class="text-yellow-500 hover:text-yellow-700">Edit</a> |
+                                            <form action="{{ route('office_service.destroy', $officeService->id) }}"
+                                                method="POST" class="inline"
+                                                onsubmit="return confirm('Are you sure?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="text-red-500 hover:text-red-700">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                        {{-- You can paginate here if needed --}}
-                        {{-- {{ $ambulances->links() }} --}}
+                        {{-- You can paginate here if needed
+                        {{ $ambulances->links() }} --}}
+                         </div>
                     </div>
                 </div>
             </div>
