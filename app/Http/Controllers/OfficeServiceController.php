@@ -14,7 +14,7 @@ class OfficeServiceController extends Controller
     }
 
     public function show(){
-            $officeServices = \App\Models\OfficeService::with(['office', 'serviceType'])->get();
+            $officeServices = OfficeService::with(['office', 'serviceType'])->get();
     return view('office_service.index', compact('officeServices'));
 
         // return view('office_service.index');
@@ -22,12 +22,25 @@ class OfficeServiceController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-            'office_id' => 'required|exists:offices,id',
-            'service_id' => 'required|exists:services,id',
-        ]);
+        
+    $validated = $request->validate([
+        'office_id' => 'required|exists:offices,id',
+        'service_type_id' => 'required|exists:service_types,id',
+        'office_email' => 'nullable|email',
+        'contact' => 'nullable|string|max:20',
+        'status' => 'required|in:Active,Inactive',
+        'remark' => 'nullable|string|max:255',
+    ]);
 
         OfficeService::create($request->all());
+        OfficeService::create([
+        'office_id' => $request->office_id,
+        'service_type_id' => $request->service_type_id,
+        'email' => $request->office_email,
+        'contact' => $request->contact,
+        'status' => $request->status,
+        'remark' => $request->remark,
+    ]);
 
         return redirect()->route('office_service.index')->with('success', 'Office service created successfully.');
     }

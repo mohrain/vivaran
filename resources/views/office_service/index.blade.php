@@ -79,7 +79,6 @@
                                         <td class="px-4 py-2">{{ $officeService->status ?? 'N/A' }}</td>
                                         <td class="px-4 py-2">{{ $officeService->remark ?? 'N/A' }}</td>
                                         <td class="px-4 py-2">
-                                            <!-- Actions here -->
                                             <a href="{{ route('office_service.show', $officeService->id) }}"
                                                 class="text-blue-500 hover:text-blue-700">View</a> |
                                             <a href="{{ route('office_service.edit', $officeService->id) }}"

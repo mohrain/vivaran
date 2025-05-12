@@ -12,7 +12,7 @@
                 <div class="p-6 text-gray-900">
                     <form method="POST" action="{{ route('office_service.store') }}" enctype="multipart/form-data">
                         @csrf
-                        @if (isset($officeService))
+                        @if (isset($officeServices))
                             @method('PUT')
                         @endif
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -24,12 +24,12 @@
                                 <select id="office_id" name="office_id" required
                                     class="block w-full text-sm border rounded-lg bg-gray-50 px-3 py-2">
                                     <option value="">-- चयन गर्नुहोस् --</option>
-                                    @foreach ($offices as $office)
-                                        <option value="{{ $office->id }}"
-                                            {{ old('office_id', $officeService->office_id ?? '') == $office->id ? 'selected' : '' }}>
-                                            {{ $office->office_name }}
-                                        </option>
-                                    @endforeach
+                                        @foreach ($offices as $office)
+                                            <option value="{{ $office->id }}"
+                                                {{ old('office_id', $officeService->office_id ?? '') == $office->id ? 'selected' : '' }}>
+                                                {{ $office->office_name }}
+                                            </option>
+                                        @endforeach
                                 </select>
                                 @error('office_id')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -80,8 +80,6 @@
                                 @enderror
                             </div>
 
-
-
                             <!-- Status -->
                             <div class="mb-4">
                                 <label for="status" class="block text-gray-700 text-sm font-bold mb-2">
@@ -98,7 +96,6 @@
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
-
 
 
                             <!-- Remark -->
