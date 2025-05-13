@@ -14,7 +14,7 @@
             </div>
         @endsession
 
-        {{-- @hasanyrole('super-admin|admin') --}}
+        @hasanyrole('super-admin|admin')
             {{-- <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-3 rounded relative" role="alert">
                 <strong class="font-bold">⚠</strong>
                 <span class="block sm:inline">You are not allowed to access this page.</span>
@@ -23,7 +23,7 @@
         <a href="{{ route('users.create') }}" class="cursor-pointer px-3 py-2 ml-5 text-xs font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Create User
         </a>
-        {{-- @endhasanyrole --}}
+        @endhasanyrole
 
         <div class="overflow-x-auto mt-4">
             <table class="w-full text-sm text-left rtl:text-right text-black-500 dark:text-black-400">
@@ -53,7 +53,7 @@
                         <a href="{{ route('users.show', $user->id) }}" class="text-blue-500 hover:text-blue-700">Show </a>|
                         @hasanyrole('super-admin|admin')
                         <a href="{{ route('users.edit', $user->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit </a>|
-                        <button wire:click="delete({{ $user->id }})" wire:confirm="Are you sure you want to delete this user?" class="text-red-500 hover:text-red-700">Delete                        
+                        <button wire:click="delete({{ $user->id }})" wire:confirm="Are you sure you want to delete this user?" class="text-red-500 hover:text-red-700">Delete
                         </button>
                         @endhasanyrole
                     </td>

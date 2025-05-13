@@ -86,8 +86,6 @@
                                                 </div>
                                             </td>
 
-
-
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
                                                     {{ $employee->employee_name }}
@@ -179,18 +177,22 @@
 
                                         <!-- Actions column -->
                                         <td class="px-4 py-2  min-w-[200px]">
-                                            
-                                            <a href="" class="text-blue-500 hover:text-blue-700">View</a> |
+
+                                            <a href="" class="text-blue-500 hover:text-blue-700">Show</a> |
+
                                             <a href="{{ route('employee.edit', $employee->id) }}"
                                                 class="text-yellow-500 hover:text-yellow-700">Edit</a> |
-                                               
-                                            <form action="{{ route('employee.destroy', $employee->id) }}"
-                                                method="POST" class="inline"
-                                                onsubmit="return confirm('Are you sure you want to delete this employee?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
+
+                                                @hasanyrole('super-admin|admin')
+                                                <form action="{{ route('employee.destroy', $employee->id) }}"
+                                                    method="POST" class="inline"
+                                                    onsubmit="return confirm('Are you sure you want to delete this employee?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
                                                     class="text-red-500 hover:text-red-700">Delete</button>
+
+                                                    @endhasanyrole
                                             </form>
                                         </td>
                                     </tr>
