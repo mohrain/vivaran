@@ -24,11 +24,14 @@ class AddressController extends Controller
         $provinces = Address::select('province')->distinct()->get();
     }
     public function getDistrict($province){
+        
         $districts = Address::where('province',$province)->select('district')->distinct()->get();
         return response()->json($districts);
+        
     }
 
     public function getMunicipality($districtId){
+    
         $municipalities = Address::where('district',$districtId)->select('id','municipality')->distinct()->get();
         return response()->json($municipalities);
     }

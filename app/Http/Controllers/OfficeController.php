@@ -74,6 +74,7 @@ class OfficeController extends Controller
 
     public function list()
     {
+
         $offices = Office::paginate(10);
         return view('office.ui.office_list', [
             'offices' => $offices,
@@ -127,6 +128,7 @@ class OfficeController extends Controller
                 'office_address' => $request->office_address,
                 'office_code' => $request->office_code,
                 'office_description' => $request->office_description,
+                'address_id' => $request->address_id,
             ]);
 
             return redirect()->route('office.ui.office_list')->with('success', 'Office updated successfully.');
@@ -170,12 +172,14 @@ public function show($id)
         'office_description' => $office->office_description,
         'office_logo' => $office->office_logo,
         'office_category_id' => $office->office_category_id,
+        'address_id' => $office->address_id,
     ]);
 }
 public function create()
 {
     $categories = OfficeCategory::all();
     $provinces = Address::select('province')->distinct()->get();
+    // return $provinces;
     return view('office.index', compact('categories', 'provinces'));
 }
 }

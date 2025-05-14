@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('office_logo')->nullable();
             $table->text('office_description')->nullable();
             $table->foreignId('office_category_id')->constrained('office_categories')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

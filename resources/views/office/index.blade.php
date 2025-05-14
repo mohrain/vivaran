@@ -106,17 +106,18 @@
                                         class="text-danger">*</span></label>
                                 <select name="district_id" id="district" class="form-control">
                                     <option value="">जिल्ला छान्नुहोस्</option>
-
+                                    {{-- @foreach ($districts as $district)
+                                        <option value="{{ $district->district }}">{{ $district->district }}</option>
+                                    @endforeach --}}
                                 </select>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <label for="" class="required"> नगरपालिका <span
+                                <label for="" class="required"> पालिका <span
                                         class="text-danger">*</span></label>
                                 <select name="address_id" id="municipality" class="form-control">
-                                    <option value="">नगरपालिका छान्नुहोस्</option>
+                                    <option value="">पालिका छान्नुहोस्</option>
                                     {{-- @foreach ($municipalities as $municipality)
-                                        <option value="{{ $municipality->municipality }}">
-                                            {{ $municipality->municipality }}</option>
+                                        <option value="{{ $municipality->municipality }}">{{ $municipality->municipality }}</option>
                                     @endforeach --}}
                                 </select>
                             </div>
@@ -263,75 +264,131 @@
 
     <script>
         $(document).ready(function() {
+            // $("#province").on('change', function() {
+            //     let id = $(this).val();
+            //     var url = "{{ route('get.district', ':id') }}";
+            //     url = url.replace(':id', id);
+
+            //     $.ajax({
+            //         url: url,
+            //         type: "GET",
+            //         data: {
+            //             _token: '{{ csrf_token() }}'
+            //         },
+            //         cache: false,
+            //         dataType: 'json',
+            //         success: function(dataResult) {
+            //             const selectElement = $(
+            //                 '#district');
+            //             selectElement.empty();
+            //             selectElement.append($('<option>', {
+            //                 value: "",
+            //                 text: "जिल्ला छान्नुहोस्"
+
+            //             }));
+            //             $.each(dataResult, function(index, item) {
+
+            //                 selectElement.append($('<option>', {
+            //                     value: item.district,
+            //                     text: item.district
+
+            //                 }));
+
+            //             });
+            //         }
+            //     });
+            // })
+
             $("#province").on('change', function() {
-                let id = $(this).val();
-                var url = "{{ route('get.district', ':id') }}";
-                url = url.replace(':id', id);
+    let id = $(this).val();
+    var url = "{{ route('get.district', ':id') }}";
+    url = url.replace(':id', id);
 
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    cache: false,
-                    dataType: 'json',
-                    success: function(dataResult) {
-                        const selectElement = $(
-                            '#district');
-                        selectElement.empty();
-                        selectElement.append($('<option>', {
-                            value: "",
-                            text: "जिल्ला छान्नुहोस्"
+    $.ajax({
+        url: url,
+        type: "GET",
+        data: {
+            _token: '{{ csrf_token() }}'
+        },
+        cache: false,
+        dataType: 'json',
+        success: function(dataResult) {
+            const selectElement = $('#district');
+            selectElement.empty();
+            selectElement.append($('<option>', {
+                value: "",
+                text: "जिल्ला छान्नुहोस्"
+            }));
+            $.each(dataResult, function(index, item) {
+                selectElement.append($('<option>', {
+                    value: item.district,
+                    text: item.district
+                }));
+            });
+        }
+    });
+})
 
-                        }));
-                        $.each(dataResult, function(index, item) {
+            // $("#district").on('change', function() {
+            //     let id = $(this).val();
+            //     var url = "{{ route('get.municipality', ':id') }}";
+            //     url = url.replace(':id', id);
 
-                            selectElement.append($('<option>', {
-                                value: item.district,
-                                text: item.district
+            //     $.ajax({
+            //         url: url,
+            //         type: "GET",
+            //         data: {
+            //             _token: '{{ csrf_token() }}'
+            //         },
+            //         cache: false,
+            //         dataType: 'json',
+            //         success: function(dataResult) {
+            //             const selectElement = $(
+            //                 '#municipality');
+            //             selectElement.empty();
+            //             selectElement.append($('<option>', {
+            //                 value: "",
+            //                 text: "पालिका छान्नुहोस्"
 
-                            }));
+            //             }));
+            //             $.each(dataResult, function(index, item) {
 
-                        });
-                    }
-                });
-            })
+            //                 selectElement.append($('<option>', {
+            //                     value: item.municipality,
+            //                     text: item.municipality
+
+            //                 }));
+
+            //             });
+            //         }
+            //     });
+            // })
 
             $("#district").on('change', function() {
-                let id = $(this).val();
-                var url = "{{ route('get.municipality', ':id') }}";
-                url = url.replace(':id', id);
+    let id = $(this).val();
+    var url = "{{ route('get.municipality', ':id') }}";
+    url = url.replace(':id', id);
 
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    cache: false,
-                    dataType: 'json',
-                    success: function(dataResult) {
-                        const selectElement = $(
-                            '#municipality');
-                        selectElement.empty();
-                        selectElement.append($('<option>', {
-                            value: "",
-                            text: "नगरपालिका छान्नुहोस्"
+    $.ajax({
+        url: url,
+        ...
+        success: function(dataResult) {
+            const selectElement = $('#municipality');
+            selectElement.empty();
+            selectElement.append($('<option>', {
+                value: "",
+                text: "पालिका छान्नुहोस्"
+            }));
+            $.each(dataResult, function(index, item) {
+                selectElement.append($('<option>', {
+                    value: item.municipality,
+                    text: item.municipality
+                }));
+            });
+        }
+    });
+})
 
-                        }));
-                        $.each(dataResult, function(index, item) {
-
-                            selectElement.append($('<option>', {
-                                value: item.municipality,
-                                text: item.municipality
-
-                            }));
-
-                        });
-                    }
-                });
-            })
             $("#municipality").on('change', function() {
                 let id = $(this).val();
                 var url = "{{ route('get.ward', ':id') }}";

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 use App\Models\Office;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        View::share('office', Office::first());
+        // $offices = Office::all();
+        // View::share('office', Office::first());
+
+            if (Schema::hasTable('offices')) {
+        $offices = Office::all(); // ✅ safe check
+    }
     }
 }

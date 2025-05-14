@@ -130,7 +130,7 @@ Route::get("users/{id}/edit",UserEdit::class)->name("users.edit");
 Route::get("users/{id}",UserShow::class)->name("users.show");
 
 
-Route::get('get-district/{provinceId}',[AddressController::class,'getDistrict'])->name('get.district');
+Route::get('/get/district/{provinceId}',[AddressController::class,'getDistrict'])->name('get.district');
 Route::get('get-sub-district/{districtId}',[AddressController::class,'getMunicipality'])->name('get.municipality');
 Route::get('get-ward/{municipalityId}',[AddressController::class,'getWard'])->name('get.ward');
 

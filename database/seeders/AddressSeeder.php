@@ -4684,7 +4684,8 @@ class AddressSeeder extends Seeder
                 'province' => 'कर्णाली प्रदेश',
                 'district' => 'सुर्खेत',
                 'municipality' => 'चिंगाड गाउँपालिका',
-                'type' => 'गाउँपालिका'
+                'type' => 'गाउँपालिका',
+                'total_ward_number' => 6,
             ],
             [
                 'province' => 'कर्णाली प्रदेश',
