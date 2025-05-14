@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeCategoryController;
 use App\Http\Controllers\EmployeeController;
@@ -47,6 +48,7 @@ Route::get('/office/{id}/edit', [OfficeController::class, 'edit'])->name('office
 Route::put('/office/{id}', [OfficeController::class, 'update'])->name('office.update');
 Route::delete('/office/{id}', [OfficeController::class, 'destroy'])->name('office.destroy');
 Route::get('/offices/{id}', [OfficeController::class, 'show'])->name('office.show');
+Route::get('/office/create', [OfficeController::class, 'create'])->name('office.create');
 
 
 
@@ -126,5 +128,10 @@ Route::get("users",UserIndex::class)->name("users.index");
 Route::get("users/create",UserCreate::class)->name("users.create");
 Route::get("users/{id}/edit",UserEdit::class)->name("users.edit");
 Route::get("users/{id}",UserShow::class)->name("users.show");
+
+
+Route::get('get-district/{provinceId}',[AddressController::class,'getDistrict'])->name('get.district');
+Route::get('get-sub-district/{districtId}',[AddressController::class,'getMunicipality'])->name('get.municipality');
+Route::get('get-ward/{municipalityId}',[AddressController::class,'getWard'])->name('get.ward');
 
 

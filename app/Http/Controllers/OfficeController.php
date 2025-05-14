@@ -8,6 +8,7 @@ use App\Models\OfficeCategory;
 use Illuminate\Support\Facades\Storage;
 use App\Models\PostCategory;
 use App\Models\Representative;
+use App\Models\Address;
 
 
 class OfficeController extends Controller
@@ -17,13 +18,15 @@ class OfficeController extends Controller
     {
         // Fetch all categories from the OfficeCategory model
         $categories = OfficeCategory::all();
+        $provinces = Address::select('province')->distinct()->get();
 
         // Pass categories to the view
-        return view('office.index', compact('categories'));
+        return view('office.index', compact('categories','provinces'));
     }
 
     public function store(Request $request)
     {
+
         // dd($request->all());
         $validated =  $request->validate([
             'office_name' => 'required|string|max:255',
@@ -35,6 +38,7 @@ class OfficeController extends Controller
             'office_code' => 'nullable|string',
             'office_logo' => 'nullable',
             'office_description' => 'nullable|string',
+            'address_id' => 'required|exists:addresses,id',
         ]);
 
 
@@ -55,6 +59,7 @@ class OfficeController extends Controller
                 'office_code' => $request->office_code,
                 'office_logo' => $path,
                 'office_description' => $request->office_description,
+                'address_id' => $request->address_id,
 
             ]);
 
@@ -83,6 +88,7 @@ class OfficeController extends Controller
     {
         $categories = OfficeCategory::all(); // Get categories for select input
         $office = Office::findOrFail($id); // Find the office by ID
+        $provinces = Address::select('province')->distinct()->get();
 
         return view('office.index', compact('categories', 'office'));
     }
@@ -98,10 +104,8 @@ class OfficeController extends Controller
             'office_code' => 'nullable|string',
             'office_logo' => 'nullable|image',
             'office_description' => 'nullable|string',
+            'address_id' => 'required|exists:addresses,id',
         ]);
-
-
-
 
             $office = Office::findOrFail($id);
 
@@ -167,5 +171,11 @@ public function show($id)
         'office_logo' => $office->office_logo,
         'office_category_id' => $office->office_category_id,
     ]);
+}
+public function create()
+{
+    $categories = OfficeCategory::all();
+    $provinces = Address::select('province')->distinct()->get();
+    return view('office.index', compact('categories', 'provinces'));
 }
 }

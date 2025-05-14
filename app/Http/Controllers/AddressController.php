@@ -8,26 +8,28 @@ use App\Models\District;
 use App\Models\Municipality;
 use App\Models\Address;
 
+
 class AddressController extends Controller
 {
     // Show the form with provinces
     public function create()
     {
-        $provinces = Address::all();
+        // $provinces = Address::all();
+        $provinces = Address::select('province')->distinct()->get();
         return view('office.create', compact('provinces'));
     }
 
-    // AJAX: Get districts by province_id
-    public function getDistricts($province_id)
+    public function apply()
     {
-        $districts = Address::where('province_id', $province_id)->get();
+        $provinces = Address::select('province')->distinct()->get();
+    }
+    public function getDistrict($province){
+        $districts = Address::where('province',$province)->select('district')->distinct()->get();
         return response()->json($districts);
     }
 
-    // AJAX: Get municipalities by district_id
-    public function getMunicipalities($district_id)
-    {
-        $municipalities = Address::where('district_id', $district_id)->get();
+    public function getMunicipality($districtId){
+        $municipalities = Address::where('district',$districtId)->select('id','municipality')->distinct()->get();
         return response()->json($municipalities);
     }
 }
