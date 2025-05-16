@@ -33,13 +33,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
 
 Route::get('/users', function () {
     return view('users.user-index');
 });
 
-require __DIR__ . '/auth.php';
+
 
 Route::get('/office.index', [OfficeController::class, 'index'])->name('office.index');
 Route::post('/office/store', [OfficeController::class, 'store'])->name('office.store');
@@ -133,3 +133,6 @@ Route::get("users/{id}", UserShow::class)->name("users.show");
 Route::get('/get/district/{provinceId}', [AddressController::class, 'getDistrict'])->name('get.district');
 Route::get('get/municipalities/{districtId}', [AddressController::class, 'getMunicipality'])->name('get.municipality');
 Route::get('get-ward/{municipalityId}', [AddressController::class, 'getWard'])->name('get.ward');
+
+});
+require __DIR__ . '/auth.php';

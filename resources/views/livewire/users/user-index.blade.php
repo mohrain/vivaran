@@ -32,6 +32,7 @@
                     <th scope="col" class="px-6 py-3">ID</th>
                     <th scope="col" class="px-6 py-3">Name</th>
                     <th scope="col" class="px-6 py-3">Email</th>
+                    <th scope="col" class="px-6 py-3">Office</th>
                     <th scope="col" class="px-6 py-3">Role</th>
                     <th scope="col" class="px-6 py-3">Actions</th>
                 </tr>
@@ -42,6 +43,7 @@
                     <td class="px-6 py-2 font-medium text-black dark:text-black">{{ $user->id }}</td>
                     <td class="px-6 py-2 text-black-600 dark:text-black-300">{{$user->name}}</td>
                     <td class="px-6 py-2 text-black-600 dark:text-black-300">{{$user->email}}</td>
+                    <td class="px-6 py-2 text-black-600 dark:text-black-300">{{$user->office_id}}</td>
                     <td class="px-6 py-2 text-black-600 dark:text-black-300">
                     @foreach ($user->getRoleNames() as $role)
                         <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-green-800 bg-green-100 rounded-full">
