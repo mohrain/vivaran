@@ -86,16 +86,16 @@ Route::get('/departments/{departmentId}/post-categories', [PostCategoryControlle
 
 
 
-Route::get('department/create',[DepartmentController::class,'create'])->name('department.create');
-Route::post('department/store',[DepartmentController::class,'store'])->name('department.store');
-Route::get('department/index',[DepartmentController::class,'index'])->name('department.index');
+Route::get('department/create', [DepartmentController::class, 'create'])->name('department.create');
+Route::post('department/store', [DepartmentController::class, 'store'])->name('department.store');
+Route::get('department/index', [DepartmentController::class, 'index'])->name('department.index');
 Route::get('department/{department}/edit', [DepartmentController::class, 'edit'])->name('department.edit');
 Route::put('department/{department}', [DepartmentController::class, 'update'])->name('department.update');
 Route::delete('department/{department}', [DepartmentController::class, 'destroy'])->name('department.destroy');
 
 
 Route::get('office_service/create', [OfficeServiceController::class, 'create'])->name('office_service.create');
-Route::get('office_service/index',[OfficeServiceController::class, 'show'])->name('office_service.index');
+Route::get('office_service/index', [OfficeServiceController::class, 'show'])->name('office_service.index');
 Route::get('office_service/office_type', [ServiceTypeController::class, 'officetype'])->name('office_service.office_type');
 // Route::post('/office_service', [ServiceTypeController::class, 'store'])->name('office_service.office_type.store');
 Route::post('office_service/office_type', [ServiceTypeController::class, 'store'])->name('office_service.office_type.store');
@@ -124,14 +124,12 @@ Route::delete('/employee/post_employee/{id}', [PostEmployeeController::class, 'd
 Route::get('/departments/{departmentId}/post-employees', [PostEmployeeController::class, 'getPostEmployeesByDepartmentId'])->name('departments.post-employees');
 
 
-Route::get("users",UserIndex::class)->name("users.index");
-Route::get("users/create",UserCreate::class)->name("users.create");
-Route::get("users/{id}/edit",UserEdit::class)->name("users.edit");
-Route::get("users/{id}",UserShow::class)->name("users.show");
+Route::get("users", UserIndex::class)->name("users.index");
+Route::get("users/create", UserCreate::class)->name("users.create");
+Route::get("users/{id}/edit", UserEdit::class)->name("users.edit");
+Route::get("users/{id}", UserShow::class)->name("users.show");
 
 
-Route::get('/get/district/{provinceId}',[AddressController::class,'getDistrict'])->name('get.district');
-Route::get('get-sub-district/{districtId}',[AddressController::class,'getMunicipality'])->name('get.municipality');
-Route::get('get-ward/{municipalityId}',[AddressController::class,'getWard'])->name('get.ward');
-
-
+Route::get('/get/district/{provinceId}', [AddressController::class, 'getDistrict'])->name('get.district');
+Route::get('get/municipalities/{districtId}', [AddressController::class, 'getMunicipality'])->name('get.municipality');
+Route::get('get-ward/{municipalityId}', [AddressController::class, 'getWard'])->name('get.ward');

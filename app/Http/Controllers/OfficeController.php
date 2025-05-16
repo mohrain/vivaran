@@ -21,7 +21,7 @@ class OfficeController extends Controller
         $provinces = Address::select('province')->distinct()->get();
 
         // Pass categories to the view
-        return view('office.index', compact('categories','provinces'));
+        return view('office.index', compact('categories', 'provinces'));
     }
 
     public function store(Request $request)
@@ -41,6 +41,7 @@ class OfficeController extends Controller
             'address_id' => 'required|exists:addresses,id',
         ]);
 
+        $path = null;
 
         if ($request->file('office_logo')) {
 
@@ -49,19 +50,24 @@ class OfficeController extends Controller
         }
 
 
-        try {
-            $office  =  Office::create([
-                'office_name' => $request->office_name,
-                'office_email' => $request->office_email,
-                'office_category_id' => $request->office_category_id,
-                'office_phone' => $request->office_phone,
-                'office_address' => $request->office_address,
-                'office_code' => $request->office_code,
-                'office_logo' => $path,
-                'office_description' => $request->office_description,
-                'address_id' => $request->address_id,
 
-            ]);
+        $validated['office_logo'] = $path;
+        try {
+
+            $office = Office::create($validated);
+
+
+            // $office  =  Office::create([
+            //     'office_name' => $request->office_name,
+            //     'office_email' => $request->office_email,
+            //     'office_category_id' => $request->office_category_id,
+            //     'office_phone' => $request->office_phone,
+            //     'office_address' => $request->office_address,
+            //     'office_code' => $request->office_code,
+            //     'office_logo' => $path,
+            //     'office_description' => $request->office_description,
+            //     'address_id' => 739,
+            // ]);
 
             // return $office;
 
@@ -88,10 +94,10 @@ class OfficeController extends Controller
     public function edit($id)
     {
         $categories = OfficeCategory::all(); // Get categories for select input
-        $office = Office::findOrFail($id); // Find the office by ID
+        $office = Office::with('address')->first(); // Find the office by ID
         $provinces = Address::select('province')->distinct()->get();
 
-        return view('office.index', compact('categories', 'office'));
+        return view('office.index', compact('categories', 'office', 'provinces'));
     }
 
     public function update(Request $request, $id)
@@ -108,18 +114,18 @@ class OfficeController extends Controller
             'address_id' => 'required|exists:addresses,id',
         ]);
 
-            $office = Office::findOrFail($id);
+        $office = Office::findOrFail($id);
 
-            if ($request->hasFile('office_logo')) {
-                // Delete old logo if exists
-                if ($office->office_logo) {
-                    Storage::delete($office->office_logo);
-                }
-                // Upload new logo
-                $path = $request->file('office_logo')->store('logo', 'public');
-                $office->office_logo = $path;
+        if ($request->hasFile('office_logo')) {
+            // Delete old logo if exists
+            if ($office->office_logo) {
+                Storage::delete($office->office_logo);
             }
-            try {
+            // Upload new logo
+            $path = $request->file('office_logo')->store('logo', 'public');
+            $office->office_logo = $path;
+        }
+        try {
             $office->update([
                 'office_name' => $request->office_name,
                 'office_email' => $request->office_email,
@@ -140,46 +146,46 @@ class OfficeController extends Controller
 
     // ---------------------------------Delete Office-----------------------------------
     public function destroy($id)
-{
-    $office = Office::findOrFail($id);
+    {
+        $office = Office::findOrFail($id);
 
-    // If there is an office logo, delete it too
-    if ($office->office_logo) {
-        Storage::disk('public')->delete($office->office_logo);
+        // If there is an office logo, delete it too
+        if ($office->office_logo) {
+            Storage::disk('public')->delete($office->office_logo);
+        }
+
+        $office->delete();
+
+        return redirect()->route('office.ui.office_list')->with('success', 'Office deleted successfully!');
     }
 
-    $office->delete();
 
-    return redirect()->route('office.ui.office_list')->with('success', 'Office deleted successfully!');
-}
-
-
-public function show($id)
-{
-    $office = Office::with(['representatives.postcategory'])->findOrFail($id);
-    return view('representatives.index', [
-        'representatives' => $office->representatives,
-        'office' => $office,
-        'postcategories' => PostCategory::all(),
-        'office_id' => $id,
-        'representative' => Representative::all(),
-        'office_category' => OfficeCategory::all(),
-        'office_name' => $office->office_name,
-        'office_email' => $office->office_email,
-        'office_phone' => $office->office_phone,
-        'office_address' => $office->office_address,
-        'office_code' => $office->office_code,
-        'office_description' => $office->office_description,
-        'office_logo' => $office->office_logo,
-        'office_category_id' => $office->office_category_id,
-        'address_id' => $office->address_id,
-    ]);
-}
-public function create()
-{
-    $categories = OfficeCategory::all();
-    $provinces = Address::select('province')->distinct()->get();
-    // return $provinces;
-    return view('office.index', compact('categories', 'provinces'));
-}
+    public function show($id)
+    {
+        $office = Office::with(['representatives.postcategory'])->findOrFail($id);
+        return view('representatives.index', [
+            'representatives' => $office->representatives,
+            'office' => $office,
+            'postcategories' => PostCategory::all(),
+            'office_id' => $id,
+            'representative' => Representative::all(),
+            'office_category' => OfficeCategory::all(),
+            'office_name' => $office->office_name,
+            'office_email' => $office->office_email,
+            'office_phone' => $office->office_phone,
+            'office_address' => $office->office_address,
+            'office_code' => $office->office_code,
+            'office_description' => $office->office_description,
+            'office_logo' => $office->office_logo,
+            'office_category_id' => $office->office_category_id,
+            'address_id' => $office->address_id,
+        ]);
+    }
+    public function create()
+    {
+        $categories = OfficeCategory::all();
+        $provinces = Address::select('province')->distinct()->get();
+        // return $provinces;
+        return view('office.index', compact('categories', 'provinces'));
+    }
 }

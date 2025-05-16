@@ -20,6 +20,7 @@ class Office extends Model
         'office_logo',
         'office_description',
         'office_category_id',
+        'address_id',
     ];
 
     public function category()
@@ -33,7 +34,12 @@ class Office extends Model
     // }
 
     public function representatives()
-{
-    return $this->hasMany(Representative::class, 'office_id');
-}
+    {
+        return $this->hasMany(Representative::class, 'office_id');
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
+    }
 }
