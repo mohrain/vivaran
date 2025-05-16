@@ -39,7 +39,28 @@
 
 
         <div class=" bg-gray-100 min-h-screen pt-[100px] ">
+
             <main>
+             {{-- Alert section --}}
+        @if(session('success'))
+            <div class="mx-auto w-[95%] mt-4 px-4 py-3 bg-green-100 text-green-800 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="mx-auto w-[95%] mt-4 px-4 py-3 bg-red-100 text-red-800 rounded">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if(session('warning'))
+            <div class="mx-auto w-[95%] mt-4 px-4 py-3 bg-yellow-100 text-yellow-800 rounded">
+                {{ session('warning') }}
+            </div>
+        @endif
+
+
                 {{ $slot }}
             </main>
         </div>

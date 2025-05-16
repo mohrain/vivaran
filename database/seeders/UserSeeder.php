@@ -30,7 +30,6 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'vivaran.admin@gmail.com',
             'password' => '$2y$12$cH3UK/yMotIT0kcFec4NnOImAlinQVO1yrNBqchugxfDp75rQK68O',
-            
         ]);
 
         $user->assignRole($role);

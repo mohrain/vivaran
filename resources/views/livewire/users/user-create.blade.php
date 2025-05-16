@@ -12,6 +12,14 @@
                 wire:model="password" />
             <input type="password" class="block w-full border rounded px-3 py-2" placeholder="Confirm Password"
                 wire:model="confirm_password" />
+            
+            <select wire:model="office_id" class="block w-full border rounded px-3 py-2">
+                <option value="">Select Office</option>
+                @foreach ($offices as $office)
+                    <option value="{{ $office->id }}">{{ $office->office_name }}</option>
+                @endforeach
+            </select>              
+            
             <select wire:model="role" class="block w-full border rounded px-3 py-2">
                 <option value="">Select Role</option>
                 @foreach ($roles as $role)
