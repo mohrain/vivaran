@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,14 +23,14 @@
     <div class="fixed min-h-screen  ">
         @include('layouts.sidebar')
     </div>
-        <!-- Page Heading -->
-        {{-- @isset($header)
+    <!-- Page Heading -->
+    {{-- @isset($header)
         <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
-            </div>
-        </header>
-        @endisset --}}
+    </div>
+    </header>
+    @endisset --}}
 
     <div class="ml-[255px]  bg-gray-100  ">
         <div class="fixed ml-[1px] bg-gray-100 w-[1025px] ">
@@ -49,6 +49,6 @@
 </body>
 
 @stack('scripts')
-<script src="//unpkg.com/alpinejs" defer></script>
+{{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
 
 </html>
