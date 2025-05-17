@@ -40,7 +40,7 @@
                             if (errorMessage) {
                                 errorMessage.style.display = 'none';
                             }
-                        }, 4000);  
+                        }, 4000);
                     </script>
 
                     <div class="grid grid-cols-1 md:grid-cols-2  mb-6">
@@ -56,7 +56,7 @@
                                 <div class="create w-[300px] ">
                                     <div class="mb-4">
                                         <label for="office_name" class="block text-gray-700 text-sm font-bold mb-2">
-                                            कार्यालय प्रकारको नाम (Office Types Name):
+                                            कार्यालय प्रकारको नाम:
                                         </label>
                                         <input type="text" id="office_name" name="office_type"
                                             value="{{ old('office_type', $category->office_type ?? '') }}"
@@ -68,15 +68,15 @@
 
                                     <div class="mb-4">
                                         <label for="status" class="block text-gray-700 text-sm font-bold mb-2">
-                                            स्थिति (Status):
+                                            स्थिति:
                                         </label>
                                         <select id="status" name="office_status"
                                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
                                             <option value="active" {{ (old('office_status', isset($category) ? $category->office_status : '') == 'active' ? 'selected' : '') }}>
-                                                सक्रिय (Active)
+                                                सक्रिय
                                             </option>
                                             <option value="disactive" {{ (old('office_status', isset($category) ? $category->office_status : '') == 'disactive' ? 'selected' : '') }}>
-                                                निस्क्रिय (Disactive)
+                                                निस्क्रिय
                                             </option>
                                         </select>
 
@@ -108,7 +108,7 @@
                                             <th class="px-4 py-3 whitespace-nowrap">क्र.स </th>
                                             <th class="px-4 py-3 whitespace-nowrap">कार्यालय प्रकार </th>
                                             <th class="px-4 py-3 whitespace-nowrap">स्थिति </th>
-                                           
+
                                             <th class="px-4 py-3 whitespace-nowrap">कार्यहरू </th>
                                         </tr>
                                     </thead>
@@ -123,7 +123,7 @@
                                                         {{ $office_category->office_status == 'active' ? 'सक्रिय (Active)' : 'निष्क्रिय (Inactive)' }}
                                                     </span>
                                                 </td>
-                                               
+
                                                 <td class="px-4 py-2 min-w-[200px] flex space-x-2">
                                                     <a href="#" class="text-blue-500 hover:text-blue-700">View</a>
                                                     <a href="{{ route('office.category.edit', $office_category->id) }}"
@@ -143,7 +143,7 @@
                                         @empty
                                             <tr>
                                                 <td colspan="6" class="px-4 py-4 text-center text-gray-500">कुनै डाटा
-                                                    फेला परेन (No data found)</td>
+                                                    फेला परेन</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

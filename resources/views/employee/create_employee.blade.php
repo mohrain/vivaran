@@ -24,7 +24,7 @@
                             <!-- Department select -->
                             <div class="mb-4">
                                 <label for="department_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                    विभागको नाम (Department Name):
+                                    विभागको नाम:
                                 </label>
                                 <select id="department_id" name="department_id" required
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
@@ -44,7 +44,7 @@
                             <!-- Employee Name -->
                             <div class="mb-4">
                                 <label for="employee_name" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको नाम (Employee Name):
+                                    कर्मचारीको नाम:
                                 </label>
                                 <input type="text" id="employee_name" name="employee_name"
                                     value="{{ old('employee_name', $employee->employee_name ?? '') }}"
@@ -57,7 +57,7 @@
                             <!-- Employee Email -->
                             <div class="mb-4">
                                 <label for="employee_email" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको इमेल (Employee Email):
+                                    कर्मचारीको इमेल:
                                 </label>
                                 <input type="text" id="employee_email" name="employee_email"
                                     value="{{ old('employee_email', $employee->employee_email ?? '') }}"
@@ -70,7 +70,7 @@
                             <!-- Employee Post (dynamic) -->
                             <div class="mb-4">
                                 <label for="post_employee_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको पद (Employee Post):
+                                    कर्मचारीको पद:
                                 </label>
                                 <select id="post_employee_id" name="post_employee_id" required
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
@@ -84,7 +84,7 @@
                             <!-- Phone -->
                             <div class="mb-4">
                                 <label for="employee_phone" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको फोन (Employee Phone):
+                                    कर्मचारीको फोन:
                                 </label>
                                 <input type="text" id="employee_phone" name="employee_phone" maxlength="10"
                                     minlength="10" value="{{ old('employee_phone', $employee->employee_phone ?? '') }}"
@@ -97,7 +97,7 @@
                             <!-- Address -->
                             <div class="mb-4">
                                 <label for="employee_address" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको ठेगाना (Employee address):
+                                    कर्मचारीको ठेगाना:
                                 </label>
                                 <input type="text" id="employee_address" name="employee_address"
                                     value="{{ old('employee_address', $employee->employee_address ?? '') }}"
@@ -110,7 +110,7 @@
                             <!-- Image -->
                             <div class="mb-4">
                                 <label for="employee_image" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कर्मचारीको फोटो (Employee Image):
+                                    कर्मचारीको फोटो:
                                 </label>
                                 <input type="file" id="employee_image" name="employee_image"
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-blue-500 focus:border-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
@@ -122,7 +122,7 @@
                             <!-- Remark -->
                             <div class="mb-4">
                                 <label for="remark" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कैफियत (Remark):
+                                    कैफियत:
                                 </label>
                                 <input type="text" id="remark" name="remark"
                                     value="{{ old('remark', $employee->remark ?? '') }}"

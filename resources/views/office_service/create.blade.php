@@ -19,7 +19,7 @@
                             <!-- Office select -->
                             <div class="mb-4">
                                 <label for="office_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कार्यालय (Office):
+                                    कार्यालय:
                                 </label>
                                 <select id="office_id" name="office_id" required
                                     class="block w-full text-sm border rounded-lg bg-gray-50 px-3 py-2">
@@ -39,7 +39,7 @@
                             <!-- Service Type -->
                             <div class="mb-4">
                                 <label for="service_type" class="block text-gray-700 text-sm font-bold mb-2">
-                                    सेवाको प्रकार (Service Type):
+                                    सेवाको प्रकार:
                                 </label>
                                 <select id="service_type" name="service_type" required
                                     class="block w-full text-sm border rounded-lg bg-gray-50 px-3 py-2">
@@ -58,7 +58,7 @@
 
                             <div class="mb-4">
                                 <label for="office_email" class="block text-gray-700 text-sm font-bold mb-2">
-                                    इमेल (Service Email):
+                                    इमेल:
                                 </label>
                                 <input type="text" id="office_email" name="office_email"
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
@@ -70,7 +70,7 @@
                             <!-- Provider Contact -->
                             <div class="mb-4">
                                 <label for="contact" class="block text-gray-700 text-sm font-bold mb-2">
-                                    सम्पर्क नम्बर (Contact Number):
+                                    सम्पर्क नम्बर:
                                 </label>
                                 <input type="text" id="contact" name="contact" maxlength="10" minlength="10"
                                     {{-- value="{{ old('provider_contact', $officeService->provider_contact ?? '') }}" --}}
@@ -83,7 +83,7 @@
                             <!-- Status -->
                             <div class="mb-4">
                                 <label for="status" class="block text-gray-700 text-sm font-bold mb-2">
-                                    स्थिति (Status):
+                                    स्थिति:
                                 </label>
                                 <select id="status" name="status" required
                                     class="block w-full text-sm border rounded-lg bg-gray-50 px-3 py-2">
@@ -101,7 +101,7 @@
                             <!-- Remark -->
                             <div class="mb-4">
                                 <label for="remark" class="block text-gray-700 text-sm font-bold mb-2">
-                                    कैफियत (Remark):
+                                    कैफियत:
                                 </label>
                                 <textarea id="remark" name="remark" class="block w-full text-sm border rounded-lg bg-gray-50 px-3 py-2"></textarea>
                                 @error('remark')
