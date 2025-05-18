@@ -108,7 +108,7 @@
                             clip-rule="evenodd" />
                     </svg>
                 </span>
-                {{ __('Department') }}
+                {{ __('विभागहरू') }}
             </x-nav-link>
         </li>
 

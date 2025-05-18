@@ -15,27 +15,32 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <a href="{{ route('users.index') }}"
                             class="block bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold py-4 px-6 rounded-lg text-center shadow">
-                            Users
+                            प्रयोगकर्ताहरू
                             <div class="text-3xl mb-2">{{ $userCount }}</div>
                         </a>
                         <a href="{{ route('office.ui.office_list') }}"
                             class="block bg-green-100 hover:bg-green-200 text-green-800 font-bold py-4 px-6 rounded-lg text-center shadow">
-                            Offices
+                            कार्यालयहरू
                             <div class="text-3xl mb-2">{{ $officeCount }}</div>
                         </a>
                         <a href="{{ route('department.index') }}"
                             class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
-                            Departments
+                            विभागहरू
                             <div class="text-3xl mb-2">{{ $departmentCount }}</div>
                         </a>
                         <a href="{{ route('employee.index') }}"
                             class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
-                            Employees
+                            कर्मचारीहरू
                             <div class="text-3xl mb-2">{{ $employeeCount }}</div>
+                        </a>
+                        <a href="{{ route('representatives.index') }}"
+                            class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
+                            प्रतिनिधिको सूची
+                            <div class="text-3xl mb-2">{{ $representativeCount }}</div>
                         </a>
                         <a href="{{ route('office_service.index') }}"
                             class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
-                            कार्यालय प्रकार
+                            कार्यालय सेवा
                             <div class="text-3xl mb-2">{{ $employee_serviceCount }}</div>
                         </a>
                     </div>

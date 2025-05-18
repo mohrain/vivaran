@@ -14,7 +14,8 @@ class DashboardController extends Controller
     $departmentCount = \App\Models\Department::count();
     $employeeCount = \App\Models\Employee::count();
     $employee_serviceCount = \App\Models\OfficeService::count();
+    $representativeCount = \App\Models\Representative::count();
 
-    return view('dashboard', compact('userCount', 'officeCount', 'departmentCount', 'employeeCount', 'employee_serviceCount'));
+    return view('dashboard', compact('userCount', 'officeCount', 'departmentCount', 'employeeCount', 'employee_serviceCount', 'representativeCount'));
 }
 }

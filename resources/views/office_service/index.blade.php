@@ -29,8 +29,8 @@
                                 <tr>
                                     <th class="px-4 py-3">क्र.सं.</th>
                                     <th class="px-4 py-3">कार्यालय</th>
-                                    <th class="px-4 py-3">Service type</th>
-                                    <th class="px-4 py-3">Email</th>
+                                    <th class="px-4 py-3">सेवाको प्रकार</th>
+                                    <th class="px-4 py-3">इमेल</th>
                                     <th class="px-4 py-3">सम्पर्क</th>
                                     <th class="px-4 py-3">स्थिति</th>
                                     <th class="px-4 py-3">कैफियत</th>

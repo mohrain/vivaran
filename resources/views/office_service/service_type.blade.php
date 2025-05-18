@@ -40,7 +40,7 @@
                             if (errorMessage) {
                                 errorMessage.style.display = 'none';
                             }
-                        }, 4000);  
+                        }, 4000);
                     </script>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 mb-6">
@@ -98,13 +98,13 @@
                             <div class="overflow-x-auto rounded-lg">
                                 <table class="table-auto min-w-full text-sm text-left text-gray-700 bg-white">
 
-                                    
+
                                     <!-- Table headers remain the same -->
                                     <thead class="bg-gray-100 text-gray-700 font-semibold">
                                         <tr>
                                             <th class="px-4 py-3 whitespace-nowrap">क्र.स</th>
-                                            <th class="px-4 py-3 whitespace-nowrap">Service Name</th>
-                                            <th class="px-4 py-3 whitespace-nowrap">Description</th>
+                                            <th class="px-4 py-3 whitespace-nowrap">सेवाको नाम</th>
+                                            <th class="px-4 py-3 whitespace-nowrap">विवरण</th>
                                             <th class="px-4 py-3 whitespace-nowrap">कार्यहरू</th>
                                         </tr>
                                     </thead>
