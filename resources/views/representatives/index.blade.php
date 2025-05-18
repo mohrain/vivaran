@@ -22,7 +22,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    
+
                     {{-- Flash Message --}}
                     @if (session('success'))
                         <div id="flash-message"
@@ -52,7 +52,7 @@
                                 if (errorMessage) {
                                     errorMessage.style.display = 'none';
                                 }
-                            }, 4000);  
+                            }, 4000);
                         </script>
                     @endif
                     <div class="overflow-x-auto rounded-lg ">
@@ -78,7 +78,7 @@
                                 @foreach($representatives as $representative)
                                     </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-2">{{ $loop->iteration }}   
+                                        <td class="px-4 py-2">{{ $loop->iteration }}
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
                                                     {{ $representative->department->name ?? 'N/A' }}
@@ -89,7 +89,7 @@
                                                 </div>
                                             </td>
 
-                                           
+
 
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
@@ -178,7 +178,7 @@
                                                     {{ $representative->updatedBy->name ?? 'System' }}
                                                 </div>
                                             </td>
-                                            
+
 
                                             <td class="px-4 py-1 min-w-[150px] relative group">
                                                 <span class="truncate block overflow-hidden whitespace-nowrap">
@@ -208,7 +208,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    
+
                     </div>
                     <div class="mt-4">
                         {{ $representatives->links() }}

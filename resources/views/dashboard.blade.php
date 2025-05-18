@@ -5,14 +5,42 @@
         </h2>
     </x-slot>
 
+
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    <h3 class="text-lg font-semibold mb-4">Welcome, {{ Auth::user()->name }}!</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <a href="{{ route('users.index') }}"
+                            class="block bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold py-4 px-6 rounded-lg text-center shadow">
+                            Users
+                            <div class="text-3xl mb-2">{{ $userCount }}</div>
+                        </a>
+                        <a href="{{ route('office.ui.office_list') }}"
+                            class="block bg-green-100 hover:bg-green-200 text-green-800 font-bold py-4 px-6 rounded-lg text-center shadow">
+                            Offices
+                            <div class="text-3xl mb-2">{{ $officeCount }}</div>
+                        </a>
+                        <a href="{{ route('department.index') }}"
+                            class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
+                            Departments
+                            <div class="text-3xl mb-2">{{ $departmentCount }}</div>
+                        </a>
+                        <a href="{{ route('employee.index') }}"
+                            class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
+                            Employees
+                            <div class="text-3xl mb-2">{{ $employeeCount }}</div>
+                        </a>
+                        <a href="{{ route('office_service.index') }}"
+                            class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
+                            कार्यालय प्रकार
+                            <div class="text-3xl mb-2">{{ $employee_serviceCount }}</div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
-

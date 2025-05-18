@@ -56,7 +56,7 @@
                                 @foreach ($departments as $department)
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                        
+
                                         <td class="px-4 py-1 min-w-[150px] relative group">
                                             <span class="truncate block overflow-hidden whitespace-nowrap">
                                                 {{ $department->office->office_name ?? 'N/A' }}
@@ -85,7 +85,7 @@
                                             </div>
                                         </td>
 
-                                       
+
 
                                         <td class="px-4 py-1 min-w-[150px] relative group">
                                             <span class="truncate block overflow-hidden whitespace-nowrap">
@@ -106,13 +106,12 @@
                                                 <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
                                             </form>
                                         </td>
-                                        
+
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-
                     <div class="mt-4">
                         {{ $departments->links() }}
                     </div>

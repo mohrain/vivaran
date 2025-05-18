@@ -40,7 +40,7 @@
                             if (errorMessage) {
                                 errorMessage.style.display = 'none';
                             }
-                        }, 4000);  
+                        }, 4000);
                     </script>
 
                     <div class="grid grid-cols-1 md:grid-cols-2  mb-6">
@@ -93,10 +93,10 @@
                                         <select id="status" name="representative_status"
                                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
                                             <option value="active" {{ (old('representative_status', isset($category) ? $category->representative_status : '') == 'active' ? 'selected' : '') }}>
-                                                सक्रिय (Active)
+                                                सक्रिय
                                             </option>
                                             <option value="disactive" {{ (old('representative_status', isset($category) ? $category->representative_status : '') == 'disactive' ? 'selected' : '') }}>
-                                                निस्क्रिय (Disactive)
+                                                निस्क्रिय
                                             </option>
                                         </select>
 
