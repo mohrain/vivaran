@@ -58,11 +58,11 @@
                                     <!-- Change the office select to department select -->
                                     <div class="mb-4">
                                         <label for="department_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                            Department name:
+                                            विभागको नाम:
                                         </label>
                                         <select id="department_id" name="department_id"
                                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                            <option value="">Select Department</option>
+                                            <option value="">विभाग छान्नुहोस्.</option>
                                             @foreach($departments as $department)
                                                 <option value="{{ $department->id }}" {{ (old('department_id', isset($category) ? $category->department_id : '') == $department->id ? 'selected' : '') }}>
                                                     {{ $department->name }}
@@ -123,7 +123,7 @@
                         <div class="show -ml-[130px]">
                             <div class="overflow-x-auto rounded-lg">
                                 <table class="table-auto min-w-full text-sm text-left text-gray-700 bg-white">
-                                    <thead class="bg-gray-100 text-gray-700 font-semibold">
+                                    <thead class="bg-gray-100 text-gray-700 font-semibold bg-blue-200">
                                         <tr>
                                             <th class="px-4 py-3 whitespace-nowrap">क्र.स</th>
                                             <th class="px-4 py-3 whitespace-nowrap">विभाग</th>

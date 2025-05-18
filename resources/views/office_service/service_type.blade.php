@@ -56,7 +56,7 @@
                                 <div class="create w-[300px]">
                                     <div class="mb-4">
                                         <label for="service_name" class="block text-gray-700 text-sm font-bold mb-2">
-                                            Service Name:
+                                            सेवाको नाम:
                                         </label>
                                         <input type="text" id="service_name" name="service_name"
                                             value="{{ old('service_name', $editServiceType->name ?? '') }}"
@@ -69,7 +69,7 @@
                                     <div class="mb-4">
                                         <label for="service_description"
                                             class="block text-gray-700 text-sm font-bold mb-2">
-                                            Service Description:
+                                            सेवाको विवरण:
                                         </label>
                                         <input type="text" id="service_description" name="service_description"
                                             value="{{ old('service_description', $editServiceType->description ?? '') }}"
@@ -132,7 +132,7 @@
                                         @empty
                                             <tr>
                                                 <td colspan="4" class="px-4 py-4 text-center text-gray-500">
-                                                    No service types found
+                                                    कुनै सेवाको प्रकार फेला परेन
                                                 </td>
                                             </tr>
                                         @endforelse

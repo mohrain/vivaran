@@ -123,7 +123,7 @@
                         <div class="show -ml-[130px]">
                             <div class="overflow-x-auto rounded-lg">
                                 <table class="table-auto min-w-full text-sm text-left text-gray-700 bg-white">
-                                    <thead class="bg-gray-100 text-gray-700 font-semibold">
+                                    <thead class="bg-gray-100 text-gray-700 font-semibold bg-blue-200">
                                         <tr>
                                             <th class="px-4 py-3 whitespace-nowrap">क्र.स</th>
                                             <th class="px-4 py-3 whitespace-nowrap">विभाग</th>

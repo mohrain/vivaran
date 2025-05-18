@@ -1,7 +1,7 @@
 
 <nav x-data="{ open: false }" class="w-full border-b border-gray-100 bg-white">
     <!-- Primary Navigation Menu -->
-        <div class="mt-0 w-full px-0 shadow rounded-none h-16 w-full px-4">
+    <div class="mt-0 w-full px-0 shadow rounded-none h-16 w-full px-4 ">
         <div class="flex justify-between h-16 w-full px-4">
             <div class="flex">
                 <!-- Logo -->
