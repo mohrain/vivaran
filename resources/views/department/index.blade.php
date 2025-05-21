@@ -13,36 +13,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{-- Flash Message --}}
-                    @if (session('success'))
-                        <div id="flash-message"
-                            class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Success!</strong>
-                            <span class="block sm:inline">{{ session('success') }}</span>
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div id="flash-error"
-                            class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Error!</strong>
-                            <span class="block sm:inline">{{ session('error') }}</span>
-                        </div>
-                    @endif
-
-                    <script>
-                        setTimeout(function () {
-                            var successMessage = document.getElementById('flash-message');
-                            var errorMessage = document.getElementById('flash-error');
-                            if (successMessage) successMessage.style.display = 'none';
-                            if (errorMessage) errorMessage.style.display = 'none';
-                        }, 4000);
-                    </script>
 
                     <div class="overflow-x-auto rounded-lg">
                         <table class="table-auto min-w-full text-sm text-left text-gray-700 bg-white">
-                            <thead class="bg-gray-100 text-gray-700 font-semibold bg-blue-200">
+                            <thead class=" text-gray-700 font-semibold bg-blue-200">
                                 <tr>
                                     <th class="px-4 py-3 whitespace-nowrap">क्र.सं.</th>
                                     <th class="px-4 py-3 whitespace-nowrap">कार्यालय</th>

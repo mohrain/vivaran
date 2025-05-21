@@ -30,7 +30,7 @@ class EmployeeController extends Controller
     {
         $request->validate([
             'employee_name' => 'required|string|max:255',
-            'employee_phone' => 'required|string|max:10',
+            'employee_phone' => 'required|string',
             'department_id' => 'required|exists:departments,id',
             'post_employee_id' => 'required|integer|exists:post_employees,id',
             'employee_email' => 'nullable|email|max:255',
@@ -92,7 +92,7 @@ class EmployeeController extends Controller
         $validated = $request->validate([
 
             'employee_name' => 'required|string|max:255',
-            'employee_phone' => 'required|string|max:10',
+            'employee_phone' => 'required|string',
             'department_id' => 'required|exists:departments,id',
             'post_employee_id' => 'required|integer|exists:post_employees,id',
             'employee_email' => 'nullable|email|max:255',

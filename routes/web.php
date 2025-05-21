@@ -100,11 +100,17 @@ Route::delete('department/{department}', [DepartmentController::class, 'destroy'
 
 Route::get('office_service/create', [OfficeServiceController::class, 'create'])->name('office_service.create');
 Route::get('office_service/index', [OfficeServiceController::class, 'show'])->name('office_service.index');
+Route::get('office_service/{id}/edit', [OfficeServiceController::class, 'edit'])->name('office_service.edit');
+Route::post('office_service', [OfficeServiceController::class, 'store'])->name('office_service.store');
+Route::get('office_service/{id}', [OfficeServiceController::class, 'showSingle'])->name('office_service.show');
+Route::put('office_service/{id}', [OfficeServiceController::class, 'update'])->name('office_service.update');
+Route::delete('office_service/{id}', [OfficeServiceController::class, 'destroy'])->name ('office_service.destroy');
+
+
+
 Route::get('office_service/office_type', [ServiceTypeController::class, 'officetype'])->name('office_service.office_type');
 // Route::post('/office_service', [ServiceTypeController::class, 'store'])->name('office_service.office_type.store');
 Route::post('office_service/office_type', [ServiceTypeController::class, 'store'])->name('office_service.office_type.store');
-Route::post('office_service', [OfficeServiceController::class, 'store'])->name('office_service.store');
-Route::get('office_service/{id}/edit', [OfficeServiceController::class, 'edit'])->name('office_service.edit');
 Route::put('service_type/{id}', [ServiceTypeController::class, 'update'])->name('service_type.update');
 Route::delete('service_type/{id}', [ServiceTypeController::class, 'destroy'])->name('service_type.destroy');
 

@@ -34,7 +34,7 @@ class RepresentativeController extends Controller
         $request->validate([
             'representative_name' => 'required|string|max:255',
             'representative_ward' => 'required|string|max:255',
-            'representative_phone' => 'required|string|max:10',
+            'representative_phone' => 'required|string',
             'department_id' => 'required|exists:departments,id',
             'post_category_id' => 'required|integer|exists:post_categories,id',
             'representative_email' => 'nullable|email|max:255',
@@ -96,7 +96,7 @@ class RepresentativeController extends Controller
         $validated = $request->validate([
             'representative_name' => 'required|string|max:255',
             'representative_ward' => 'required|string|max:255',
-            'representative_phone' => 'required|string|max:10',
+            'representative_phone' => 'required|string',
             'department_id' => 'required|exists:departments,id',
             'post_category_id' => 'required|integer|exists:post_categories,id',
             'representative_email' => 'nullable|email|max:255',
@@ -139,5 +139,5 @@ class RepresentativeController extends Controller
     return view('representatives.create_representatives', compact('departments', 'post_categories'));
 }
 
-    
+
 }

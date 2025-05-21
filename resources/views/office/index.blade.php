@@ -11,30 +11,7 @@
                 <div class="p-6 text-gray-900">
 
                     {{-- Flash Messages --}}
-                    @if (session('success'))
-                        <div id="flash-message"
-                            class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Success!</strong>
-                            <span class="block sm:inline">{{ session('success') }}</span>
-                        </div>
-                    @endif
 
-                    @if (session('error'))
-                        <div id="flash-error"
-                            class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Error!</strong>
-                            <span class="block sm:inline">{{ session('error') }}</span>
-                        </div>
-                    @endif
-
-                    <script>
-                        setTimeout(function() {
-                            document.getElementById('flash-message')?.remove();
-                            document.getElementById('flash-error')?.remove();
-                        }, 4000);
-                    </script>
 
                     <form action="{{ isset($office) ? route('office.update', $office->id) : route('office.store') }}"
                         method="POST" enctype="multipart/form-data">

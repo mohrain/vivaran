@@ -15,17 +15,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    @if (session('success'))
-                        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Success!</strong>
-                            <span class="block sm:inline">{{ session('success') }}</span>
-                        </div>
-                    @endif
-
                     <div class="overflow-x-auto rounded-lg">
                         <table class="table-auto min-w-full text-sm text-left text-gray-700 bg-white">
-                            <thead class="bg-gray-100 text-gray-700 font-semibold bg-blue-200">
+                            <thead class=" text-gray-700 font-semibold bg-blue-200">
                                 <tr>
                                     <th class="px-4 py-3">क्र.सं.</th>
                                     <th class="px-4 py-3">कार्यालय</th>
@@ -37,36 +29,6 @@
                                     <th class="px-4 py-3">कार्यहरू</th>
                                 </tr>
                             </thead>
-                            {{-- <tbody class="divide-y divide-gray-200">
-                                @foreach ($ambulances as $ambulance)
-                                <tr class="hover:bg-gray-50">
-                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                    <td class="px-4 py-2">{{ $ambulance->office->office_name ?? 'N/A' }}</td>
-                                    <td class="px-4 py-2">{{ $ambulance->ambulance_number }}</td>
-                                    <td class="px-4 py-2">{{ $ambulance->driver_name }}</td>
-                                    <td class="px-4 py-2">{{ $ambulance->driver_contact }}</td>
-                                    <td class="px-4 py-2">{{ $ambulance->type }}</td>
-                                    <td class="px-4 py-2">
-                                        @if ($ambulance->image)
-                                            <img src="{{ asset('storage/' . $ambulance->image) }}" class="w-10 h-10 rounded object-cover" alt="image">
-                                        @else
-                                            <span class="text-gray-400 italic">No Image</span>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-2">{{ $ambulance->status }}</td>
-                                    <td class="px-4 py-2">{{ $ambulance->remark ?? 'N/A' }}</td>
-                                    <td class="px-4 py-2">
-                                        <a href="{{ route('ambulances.show', $ambulance->id) }}" class="text-blue-500 hover:text-blue-700">View</a> |
-                                        <a href="{{ route('ambulances.edit', $ambulance->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit</a> |
-                                        <form action="{{ route('ambulances.destroy', $ambulance->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody> --}}
 
                             <tbody class="divide-y divide-gray-200">
                                 @foreach ($officeServices as $officeService)
@@ -79,7 +41,7 @@
                                         <td class="px-4 py-2">{{ $officeService->status ?? 'N/A' }}</td>
                                         <td class="px-4 py-2">{{ $officeService->remark ?? 'N/A' }}</td>
                                         <td class="px-4 py-2">
-                                            <a href="{{ route('office_service.show', $officeService->id) }}"
+                                            <a href="{  { route('office_service.show', $officeService->id) }}"
                                                 class="text-blue-500 hover:text-blue-700">View</a> |
                                             <a href="{{ route('office_service.edit', $officeService->id) }}"
                                                 class="text-yellow-500 hover:text-yellow-700">Edit</a> |
@@ -96,9 +58,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- You can paginate here if needed
-                        {{ $ambulances->links() }} --}}
-                         </div>
+
                     </div>
                 </div>
             </div>
