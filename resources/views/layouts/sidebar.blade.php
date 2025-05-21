@@ -217,7 +217,7 @@
                 </li>
 
                 <li>
-                    <x-nav-link :href="route('office_service.index')"
+                    <x-nav-link :href="route('office_service.office_type.index')"
                         class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
                         <!-- Service Type Icon -->
                         <span>
@@ -232,6 +232,7 @@
                     </x-nav-link>
                 </li>
 
+                @hasanyrole('super-admin')
                 <li>
                     <x-nav-link href="{{ route('office.ui.office_list') }}"
                         class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
@@ -248,6 +249,7 @@
                         {{ __('कार्यालयहरूको सूची') }}
                     </x-nav-link>
                 </li>
+                @endhasanyrole
 
             </ul>
         </li>

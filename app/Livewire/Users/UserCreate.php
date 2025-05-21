@@ -16,6 +16,7 @@ class UserCreate extends Component
     public $role='';
     public $roles = [];
     public $office_id='';
+    public $office_name='';
 
     public $offices = [];
 
@@ -29,32 +30,38 @@ class UserCreate extends Component
     return view('livewire.users.user-create')->layout('layouts.app');
     }
 
-    public function submit()
-    {
-        $this->validate([
-            'name' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|min:8|same:confirm_password',
-            // 'office_id' => 'nullable|exists:offices,id',
-            // 'role' => 'nullable|string|exists:roles,name',
-            // 'role' => 'nullable|string|exists:roles,id',
-        ]);
-        if(Auth::user()->office_id){
-        $this->office_id = Auth::user()->office_id;
-        }
 
-        // dd($this->roles);
-        $user=User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
-            'office_id' => $this->office_id,
-        ]);
-        if($this->role){
-            $user->assignRole($this->role);
-        }
+public function submit()
+{
+    $rules = [
+        'name' => 'required',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|min:8|same:confirm_password',
+    ];
 
-        return redirect(route(' users.index'))->with('success', 'User created successfully.');
+    // Only super-admin can select office, so require it for them
+    if (auth()->user()->hasRole('super-admin')) {
+        $rules['office_id'] = 'required|exists:offices,id';
     }
+
+    $this->validate($rules);
+
+    // For admin, force office_id to their own
+    if (!auth()->user()->hasRole('super-admin')) {
+        $this->office_id = auth()->user()->office_id;
+    }
+
+    $user = User::create([
+        'name' => $this->name,
+        'email' => $this->email,
+        'password' => \Hash::make($this->password),
+        'office_id' => $this->office_id,
+    ]);
+    if ($this->role) {
+        $user->assignRole($this->role);
+    }
+
+    return redirect(route('users.index'))->with('success', 'User created successfully.');
+}
 
 }

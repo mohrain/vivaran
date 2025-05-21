@@ -13,15 +13,14 @@
             <input type="password" class="block w-full border rounded px-3 py-2" placeholder="Confirm Password"
                 wire:model="confirm_password" />
 
-               @if ( Auth::user()->hasRole('super-admin'))
-
-               <select wire:model="office_id" class="block w-full border rounded px-3 py-2">
-                   <option value="">Select Office</option>
-                   @foreach ($offices as $office)
-                       <option value="{{ $office->id }}" >{{ $office->office_name }}</option>
-                   @endforeach
-               </select>
-               @endif
+                @if (Auth::user()->hasRole('super-admin'))
+                    <select wire:model="office_id" class="block w-full border rounded px-3 py-2">
+                        <option value="">Select Office</option>
+                        @foreach ($offices as $office)
+                            <option value="{{ $office->id }}">{{ $office->office_name }}</option>
+                        @endforeach
+                    </select>
+                @endif
 
             <select wire:model="role" class="block w-full border rounded px-3 py-2">
                 <option value="">Select Role</option>

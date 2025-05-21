@@ -4,6 +4,7 @@ namespace App\Livewire\Users;
 
 use Livewire\Component;
 use App\Models\User;
+
 use App\Models\Office;
 
 class UserIndex extends Component
@@ -12,10 +13,11 @@ class UserIndex extends Component
     {
 
         if (!auth()->user()->hasRole('super-admin')) {
-         $users=  User::where('office_id', auth()->user()->office_id)->get();
+         $users=  User::with('office')->where('office_id', auth()->user()->office_id)->get();
         }
         else{
-         $users = User::get();
+        //  $users = User::get();
+        $users = User::with('office')->get();
         }
 
 

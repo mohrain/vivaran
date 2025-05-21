@@ -6,12 +6,12 @@
         </h2>
     </x-slot>
 
-    @if(session('success'))
+    {{-- @if(session('success'))
         <div id="flash-message" class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">✔</strong>
             <span class="block sm:inline">{{ session('success') }}</span>
         </div>
-    @endif
+    @endif --}}
 
     @hasanyrole('super-admin|admin')
     <a href="{{ route('users.create') }}" class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">
@@ -30,7 +30,9 @@
                                     <th class="px-4 py-3 whitespace-nowrap">क्र.स.</th>
                                     <th class="px-4 py-3 whitespace-nowrap">नाम</th>
                                     <th class="px-4 py-3 whitespace-nowrap">इमेल</th>
+                                    @hasanyrole('super-admin')
                                     <th class="px-4 py-3 whitespace-nowrap">कार्यालय</th>
+                                    @endhasanyrole
                                     <th class="px-4 py-3 whitespace-nowrap">भूमिका</th>
                                     <th class="px-4 py-3 whitespace-nowrap">कार्यहरू</th>
                                 </tr>
@@ -51,14 +53,17 @@
                                                 {{ $user->email }}
                                             </div>
                                         </td>
+                                        @hasanyrole('super-admin')
                                         <td class="px-4 py-1 min-w-[150px] relative group">
                                             <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                {{ $user->office_id ?? 'N/A' }}
+                                                {{ $user->office->office_name ?? 'N/A' }}
                                             </span>
                                             <div class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                {{ $user->office_id ?? 'N/A' }}
+                                                {{ $user->office->office_name ?? 'N/A' }}
                                             </div>
                                         </td>
+                                        @endhasanyrole
+                                        {{-- Role --}}
                                         <td class="px-4 py-1 min-w-[120px]">
                                             @foreach ($user->getRoleNames() as $role)
                                                 <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-green-800 bg-green-100 rounded-full">

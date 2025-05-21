@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'office_id',
     ];
 
     /**
@@ -46,4 +47,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function office()
+{
+    return $this->belongsTo(\App\Models\Office::class, 'office_id');
+}
 }

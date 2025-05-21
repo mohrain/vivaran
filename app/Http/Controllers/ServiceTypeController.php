@@ -7,16 +7,23 @@ use Illuminate\Http\Request;
 
 class ServiceTypeController extends Controller
 {
+
+    public function index(){
+        $serviceTypes = ServiceType::all();
+
+        return view('office_service.service_type', compact('serviceTypes'));
+    }
+
     public function officetype()
     {
         $serviceTypes = ServiceType::all();
         $editServiceType = null; // Initialize edit variable
-        
+
         // Check if we're editing (from edit link)
         if(request()->has('edit')) {
             $editServiceType = ServiceType::find(request('edit'));
         }
-        
+
         return view('office_service.service_type', compact('serviceTypes', 'editServiceType'));
     }
 
@@ -32,8 +39,8 @@ class ServiceTypeController extends Controller
                 'name' => $request->service_name,
                 'description' => $request->service_description,
             ]);
-            
-            return redirect()->route('office_service.office_type')
+
+            return redirect()->route('office_service.office_type.index')
                 ->with('success', 'Service type created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()
@@ -55,8 +62,8 @@ class ServiceTypeController extends Controller
                 'name' => $request->service_name,
                 'description' => $request->service_description,
             ]);
-            
-            return redirect()->route('office_service.office_type')
+
+            return redirect()->route('office_service.office_type.index')
                 ->with('success', 'Service type updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()
@@ -70,8 +77,8 @@ class ServiceTypeController extends Controller
         try {
             $serviceType = ServiceType::findOrFail($id);
             $serviceType->delete();
-            
-            return redirect()->route('office_service.office_type')
+
+            return redirect()->route('office_service.office_type.index')
                 ->with('success', 'Service type deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()

@@ -13,19 +13,23 @@
                     placeholder="Name" wire:model="name" />
                 <input type="email" label="email" type="email" class="block w-full border rounded px-3 py-2"
                     placeholder="Email" wire:model="email" />
+
+                @if ( Auth::user()->hasRole('super-admin'))
                 <select wire:model="office_id" class="block w-full border rounded px-3 py-2">
                     <option value="">Select Office</option>
                     @foreach ($offices as $office)
                         <option value="{{ $office->id }}">{{ $office->office_name }}</option>
                     @endforeach
-                </select>                 
+                </select>
+                @endif
+
                 <select wire:model="role" class="block w-full border rounded px-3 py-2">
                     <option value="">Select Role</option>
                     @foreach ($roles as $role)
                         <option value="{{ $role }}">{{ $role }}</option>
                     @endforeach
                 </select>
-                
+
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
             </form>
         </div>

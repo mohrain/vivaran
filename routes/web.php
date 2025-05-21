@@ -108,6 +108,7 @@ Route::delete('office_service/{id}', [OfficeServiceController::class, 'destroy']
 
 
 
+Route::get('office_service/office_type/index', [ServiceTypeController::class, 'index'])->name('office_service.office_type.index');
 Route::get('office_service/office_type', [ServiceTypeController::class, 'officetype'])->name('office_service.office_type');
 // Route::post('/office_service', [ServiceTypeController::class, 'store'])->name('office_service.office_type.store');
 Route::post('office_service/office_type', [ServiceTypeController::class, 'store'])->name('office_service.office_type.store');
