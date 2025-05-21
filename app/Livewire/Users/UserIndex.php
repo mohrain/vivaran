@@ -10,7 +10,16 @@ class UserIndex extends Component
 {
     public function render()
     {
-        $users = User::get();
+
+        if (!auth()->user()->hasRole('super-admin')) {
+         $users=  User::where('office_id', auth()->user()->office_id)->get();
+        }
+        else{
+         $users = User::get();
+        }
+
+
+
     return view('livewire.users.user-index', compact('users'))->layout('layouts.app');
     }
     public function delete($id)

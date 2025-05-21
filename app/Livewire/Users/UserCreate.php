@@ -6,6 +6,7 @@ use App\Models\Office;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserCreate extends Component
@@ -38,6 +39,9 @@ class UserCreate extends Component
             // 'role' => 'nullable|string|exists:roles,name',
             // 'role' => 'nullable|string|exists:roles,id',
         ]);
+        if(Auth::user()->office_id){
+        $this->office_id = Auth::user()->office_id;
+        }
 
         // dd($this->roles);
         $user=User::create([

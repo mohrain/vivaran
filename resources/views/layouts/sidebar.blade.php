@@ -217,7 +217,7 @@
                 </li>
 
                 <li>
-                    <x-nav-link :href="route('office_service.office_type')"
+                    <x-nav-link :href="route('office_service.index')"
                         class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
                         <!-- Service Type Icon -->
                         <span>
