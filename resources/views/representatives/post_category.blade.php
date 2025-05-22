@@ -58,11 +58,11 @@
                                     <!-- Change the office select to department select -->
                                     <div class="mb-4">
                                         <label for="department_id" class="block text-gray-700 text-sm font-bold mb-2">
-                                            Department name:
+                                            विभागको नाम:
                                         </label>
                                         <select id="department_id" name="department_id"
                                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-3 py-2 transition-all duration-200">
-                                            <option value="">Select Department</option>
+                                            <option value="">विभाग चयन गर्नुहोस्</option>
                                             @foreach($departments as $department)
                                                 <option value="{{ $department->id }}" {{ (old('department_id', isset($category) ? $category->department_id : '') == $department->id ? 'selected' : '') }}>
                                                     {{ $department->name }}
@@ -150,7 +150,7 @@
                                                 <td class="px-4 py-2 min-w-[150px]">
                                                     <span
                                                         class="px-2 py-1 text-xs rounded-full {{ $post_category->representative_status == 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                                        {{ $post_category->representative_status == 'active' ? 'सक्रिय (Active)' : 'निष्क्रिय (Inactive)' }}
+                                                        {{ $post_category->representative_status == 'active' ? 'सक्रिय ' : 'निष्क्रिय ' }}
                                                     </span>
                                                 </td>
                                                 <td class="px-4 py-2 min-w-[200px]">
@@ -173,7 +173,7 @@
                                         @empty
                                             <tr>
                                                 <td colspan="6" class="px-4 py-4 text-center text-gray-500">कुनै डाटा फेला
-                                                    परेन (No data found)</td>
+                                                    परेन </td>
                                             </tr>
                                         @endforelse
                                     </tbody>

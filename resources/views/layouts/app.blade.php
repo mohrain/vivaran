@@ -33,7 +33,7 @@
     @endisset --}}
 
     <div class="ml-[255px]  bg-gray-100  ">
-        <div class="fixed ml-[1px] bg-gray-100 w-[1025px] ">
+        <div class="fixed ml-[1px] bg-gray-100 w-full">
             @include('layouts.navigation')
         </div>
 
