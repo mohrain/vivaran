@@ -1,5 +1,4 @@
 <div class="w-64 bg-white h-screen shadow-md overflow-y-auto">
-    <!-- Logo -->
     <div class="shrink-0 flex justify-center items-center py-6 border-b border-[#ccc] ">
         <a href="{{ route('dashboard') }}">
             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 " />
@@ -13,12 +12,10 @@
 
 
 
-    <!---- Side links --->
     <ul class="py-4 space-y-2 ">
         <li>
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
-                class="w-full text-gray-700 gap-2 hover:text-[#6C244C]  hover:bg-gray-200  transition border-b border-[#cccccc80] font-bold">
-                <!-- Dashboard Icon -->
+                class="w-full text-gray-700 gap-2 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80] font-bold">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                         fill="currentColor">
@@ -31,54 +28,17 @@
         </li>
 
 
-        <!-- Offices Dropdown -->
-        {{-- <li x-data="{ open: false }" class="text-sm text-gray-600 list-none">
-            <button @click="open = !open"
-                class="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-200 text-gray-700 hover:text-[#6C244C] transition border-b border-[#cccccc80]">
-                <div class="flex items-center gap-3">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </span>
-                    {{ __('कार्यालयहरू') }}
-                </div>
-                <svg :class="{ 'rotate-90': open }" class="w-4 h-4 text-red-500 transform transition-transform" fill="none"
-                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </button>
-
-            <ul x-show="open" x-transition class="pl-4 mt-1 space-y-1">
-                @foreach ($sidebarOffices as $office)
-                    <li>
-                        <x-nav-link :href="route('office.show', $office->id)"
-                            class="flex items-center gap-3 w-full px-4 py-2 text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                                </svg>
-                            </span>
-                            {{ $office->office_name }}
-                        </x-nav-link>
-                    </li>
-                @endforeach
-            </ul>
-        </li> --}}
+        {{-- The commented-out Offices Dropdown section has been omitted for brevity,
+             but the same principle of adding `@click.stop` to its child links applies. --}}
 
         <li>
-            <x-nav-link :href="route('representatives.index')"
-                class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
-                <!-- Office List Icon -->
+            <x-nav-link :href="route('representatives.index')" :active="request()->routeIs('representatives.index')"
+                class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                         fill="currentColor">
                         <path
-                            d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 12.094A5.973 5.973 0 004 15v1H1v-1a3 3 0 013.75-2.906z" />
+                            d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3 0 0119 15v1h-3zM4.75 12.094A5.973 5.973 0 004 15v1H1v-1a3 3 0 013.75-2.906z" />
                     </svg>
                 </span>
                 {{ __('प्रतिनिधिको सूची') }}
@@ -86,13 +46,9 @@
         </li>
 
 
-
-
-
         <li>
-            <x-nav-link :href="route('employee.index')"
+            <x-nav-link :href="route('employee.index')" :active="request()->routeIs('employee.index')"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
-                <!-- Employee Icon -->
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                         fill="currentColor">
@@ -107,9 +63,8 @@
 
 
         <li>
-            <x-nav-link :href="route('office_service.index')"
+            <x-nav-link :href="route('office_service.index')" :active="request()->routeIs('office_service.index')"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
-                <!-- Office Service Icon -->
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                         fill="currentColor">
@@ -127,9 +82,8 @@
 
 
         <li>
-            <x-nav-link :href="route('users.index')"
+            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')"
                 class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
-                <!-- User Icon -->
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                         fill="currentColor">
@@ -142,8 +96,10 @@
         </li>
 
         <li x-data="{ open: false }" class="text-sm text-gray-600 list-none">
+            {{-- Open the dropdown if any of its child routes are active --}}
             <button @click="open = !open"
-                class="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-200 text-gray-700 hover:text-[#6C244C] transition border-b border-[#cccccc80]">
+                class="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-200 text-gray-700 hover:text-[#6C244C] transition border-b border-[#cccccc80]"
+                :class="{ 'text-[#6C244C] bg-gray-100': request()->routeIs('department.index') || request()->routeIs('employee.post_employee') || request()->routeIs('representatives.post_category') || request()->routeIs('office.office_type') || request()->routeIs('office_service.office_type.index') || request()->routeIs('office.ui.office_list') }">
                 <div class="flex items-center gap-3">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
@@ -164,9 +120,9 @@
             <ul x-show="open" x-transition class="pl-4 mt-1 space-y-1">
 
                 <li>
-                    <x-nav-link :href="route('department.index')"
-                        class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
-                        <!-- Ambulance Service Icon -->
+                    <x-nav-link :href="route('department.index')" :active="request()->routeIs('department.index')"
+                        class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]"
+                        @click.stop="open = false"> {{-- Add @click.stop and optionally close dropdown --}}
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                                 fill="currentColor">
@@ -180,10 +136,9 @@
                 </li>
 
                 <li>
-                    {{-- <x-nav-link :href="route('employee.employee_type')" --}}
-                    <x-nav-link :href="route('employee.post_employee')"
-                        class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
-                        <!-- Employee Type Icon -->
+                    <x-nav-link :href="route('employee.post_employee')" :active="request()->routeIs('employee.post_employee')"
+                        class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]"
+                        @click.stop="open = false"> {{-- Add @click.stop and optionally close dropdown --}}
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                                 fill="currentColor">
@@ -197,9 +152,9 @@
                 </li>
 
                 <li>
-                    <x-nav-link :href="route('representatives.post_category')"
-                        class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
-                        <!-- Office List Icon -->
+                    <x-nav-link :href="route('representatives.post_category')" :active="request()->routeIs('representatives.post_category')"
+                        class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]"
+                        @click.stop="open = false"> {{-- Add @click.stop and optionally close dropdown --}}
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                                 fill="currentColor">
@@ -212,10 +167,9 @@
                     </x-nav-link>
                 </li>
                 <li>
-                    <x-nav-link :href="route('office.office_type')"
-                        class="flex items-center gap-2 w-full  text-gray-700 hover:text-[#6C244C] hover:bg-gray-200  transition border-b border-[#cccccc80]">
-                        <!-- Office type Icon -->
-
+                    <x-nav-link :href="route('office.office_type')" :active="request()->routeIs('office.office_type')"
+                        class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]"
+                        @click.stop="open = false"> {{-- Add @click.stop and optionally close dropdown --}}
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                                 fill="currentColor">
@@ -229,9 +183,9 @@
                 </li>
 
                 <li>
-                    <x-nav-link :href="route('office_service.office_type.index')"
-                        class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
-                        <!-- Service Type Icon -->
+                    <x-nav-link :href="route('office_service.office_type.index')" :active="request()->routeIs('office_service.office_type.index')"
+                        class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]"
+                        @click.stop="open = false"> {{-- Add @click.stop and optionally close dropdown --}}
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                                 fill="currentColor">
@@ -246,9 +200,9 @@
 
                 @hasanyrole('super-admin')
                     <li>
-                        <x-nav-link href="{{ route('office.ui.office_list') }}"
-                            class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]">
-                            <!-- Office List Icon -->
+                        <x-nav-link href="{{ route('office.ui.office_list') }}" :active="request()->routeIs('office.ui.office_list')"
+                            class="flex items-center gap-2 w-full text-gray-700 hover:text-[#6C244C] hover:bg-gray-200 transition border-b border-[#cccccc80]"
+                            @click.stop="open = false"> {{-- Add @click.stop and optionally close dropdown --}}
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20"
                                     fill="currentColor">

@@ -18,7 +18,7 @@
                         <a href="{{ route('users.index') }}"
                             class="block bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold py-4 px-6 rounded-lg text-center shadow">
                             प्रयोगकर्ताहरू
-                            <div class="text-3xl mb-2">{{ $userCount }}</div>
+                            <div class="text-3xl mb-2">{{ $officeUserCount }}</div>
                         </a>
                         @endhasanyrole
 
@@ -32,7 +32,7 @@
                         <a href="{{ route('department.index') }}"
                             class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
                             विभागहरू
-                            <div class="text-3xl mb-2">{{ $departmentCount }}</div>
+                            <div class="text-3xl mb-2">{{ $officeDepartmentCount }}</div>
                         </a>
                         <a href="{{ route('employee.index') }}"
                             class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
@@ -42,12 +42,12 @@
                         <a href="{{ route('representatives.index') }}"
                             class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
                             प्रतिनिधिको सूची
-                            <div class="text-3xl mb-2">{{ $representativeCount }}</div>
+                            <div class="text-3xl mb-2">{{ $officeRepresentativeCount }}</div>
                         </a>
                         <a href="{{ route('office_service.index') }}"
                             class="block bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-4 px-6 rounded-lg text-center shadow">
                             कार्यालय सेवा
-                            <div class="text-3xl mb-2">{{ $employee_serviceCount }}</div>
+                            <div class="text-3xl mb-2">{{ $officeServiceCount }}</div>
                         </a>
                     </div>
                 </div>

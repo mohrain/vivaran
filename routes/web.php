@@ -44,7 +44,6 @@ Route::get('/users', function () {
 });
 
 
-
 Route::get('/office.index', [OfficeController::class, 'index'])->name('office.index');
 Route::post('/office/store', [OfficeController::class, 'store'])->name('office.store');
 Route::get('/office.ui.office_list', [OfficeController::class, 'list'])->name('office.ui.office_list');
@@ -55,18 +54,11 @@ Route::get('/offices/{id}', [OfficeController::class, 'show'])->name('office.sho
 Route::get('/office/create', [OfficeController::class, 'create'])->name('office.create');
 
 
-
-
 Route::POST('/office.office_type.store', [OfficeCategoryController::class, 'store'])->name('office.office_type.store');
 Route::get('/office.office_type', [OfficeCategoryController::class, 'show'])->name('office.office_type');
 Route::get('/office-category/{id}/edit', [OfficeCategoryController::class, 'edit'])->name('office.category.edit');
 Route::put('/office-category/{id}', [OfficeCategoryController::class, 'update'])->name('office.category.update');
 Route::delete('/office/category/{id}', [OfficeCategoryController::class, 'destroy'])->name('office.category.destroy');
-
-
-
-
-
 
 
 // Representative routes
@@ -85,9 +77,6 @@ Route::get('/representative/post_category/{id}/edit', [PostCategoryController::c
 Route::put('/representative.post_category/{id}', [PostCategoryController::class, 'update'])->name('representative.post_category.update');
 Route::delete('/post/category/{id}', [PostCategoryController::class, 'destroy'])->name('representative.post_category.destroy');
 Route::get('/departments/{departmentId}/post-categories', [PostCategoryController::class, 'getPostCategoriesByDepartmentId'])->name('departments.post-categories');
-
-
-
 
 
 Route::get('department/create', [DepartmentController::class, 'create'])->name('department.create');

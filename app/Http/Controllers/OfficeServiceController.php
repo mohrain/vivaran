@@ -67,5 +67,28 @@ class OfficeServiceController extends Controller
         $officeServices = OfficeService::with(['office','serviceType'])-> get();
         return view('office_service.index', compact('officeServices'));
     }
+    public function edit($id)
+    {
+        $officeService = OfficeService::findOrFail($id);
+        $offices = \App\Models\Office::all();
+        $serviceTypes = \App\Models\ServiceType::all();
+        return view('office_service.edit', compact('officeService', 'offices', 'serviceTypes'));
+    }
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'office_id' => 'required|exists:offices,id',
+            'service_type_id' => 'required|exists:service_types,id',
+            'office_email' => 'nullable|email',
+            'contact' => 'nullable|string',
+            'status' => 'required|in:Active,Inactive',
+            'remark' => 'nullable|string|max:255',
+        ]);
+
+        $officeService = OfficeService::findOrFail($id);
+        $officeService->update($validated);
+
+        return redirect()->route('office_service.index')->with('success', 'Office service updated successfully.');
+    }
 
 }
