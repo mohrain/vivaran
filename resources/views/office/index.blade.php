@@ -124,6 +124,20 @@
                             @enderror
                         </div>
 
+                        {{-- Office Logo --}}
+                        <div class="mb-4">
+                            <label class="block font-semibold mb-1">कार्यालयको लोगो:</label>
+                            <input type="file" name="office_logo"
+                                class="w-full border-gray-300 rounded px-3 py-2">
+                            @error('office_logo')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                            @if (isset($office) && $office->office_logo)
+                                <img src="{{ asset('storage/' . $office->office_logo) }}" alt="Logo"
+                                    class="mt-2 w-32 h-32 object-cover">
+                            @endif
+                        </div>
+
                         {{-- Office Code --}}
                         <div class="mb-4">
                             <label class="block font-semibold mb-1">कार्यालयको कोड:</label>
@@ -134,6 +148,7 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
+
 
                         {{-- Submit --}}
                         <div class="mt-4">

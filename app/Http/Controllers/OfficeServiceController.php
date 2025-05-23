@@ -16,7 +16,18 @@ class OfficeServiceController extends Controller
 
     public function show()
     {
-        $officeServices = OfficeService::with(['office', 'serviceType'])->get();
+        $user = auth()->user();
+
+        // If super-admin, show all. If admin, show only their office's services.
+        if ($user->hasRole('super-admin')) {
+            $officeServices = \App\Models\OfficeService::with(['office', 'serviceType'])->get();
+        } else {
+            $officeServices = \App\Models\OfficeService::with(['office', 'serviceType'])
+                ->where('office_id', $user->office_id)
+                ->get();
+        }
+
+        // $officeServices = OfficeService::with(['office', 'serviceType'])->get();
         return view('office_service.index', compact('officeServices'));
 
         // return view('office_service.index');
@@ -34,7 +45,7 @@ class OfficeServiceController extends Controller
             'remark' => 'nullable|string|max:255',
         ]);
         OfficeService::create($validated);
-        return redirect()-> route('office_service.index') -> with('success', 'Office service created successfully.');
+        return redirect()->route('office_service.index')->with('success', 'Office service created successfully.');
 
 
         OfficeService::create($request->all());
@@ -58,13 +69,14 @@ class OfficeServiceController extends Controller
 
     public function destroy($id)
     {
-            $officeServices = OfficeService::findOrFail($id);
-            $officeServices->delete();
-            return redirect()->route('office_service.index')->with('success', 'Deleted successfully.');
-
+        $officeServices = OfficeService::findOrFail($id);
+        $officeServices->delete();
+        return redirect()->route('office_service.index')->with('success', 'Deleted successfully.');
     }
-    public function index(){
-        $officeServices = OfficeService::with(['office','serviceType'])-> get();
+    public function index()
+    {
+
+        $officeServices = OfficeService::with(['office', 'serviceType'])->get();
         return view('office_service.index', compact('officeServices'));
     }
     public function edit($id)
@@ -90,5 +102,4 @@ class OfficeServiceController extends Controller
 
         return redirect()->route('office_service.index')->with('success', 'Office service updated successfully.');
     }
-
 }
