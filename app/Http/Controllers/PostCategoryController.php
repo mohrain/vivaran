@@ -37,6 +37,8 @@ class PostCategoryController extends Controller
 
     public function show()
     {
+
+
         $post_categories = PostCategory::with('department')->get();
         $departments = Department::all();
         return view('representatives.post_category', compact('post_categories', 'departments'));

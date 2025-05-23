@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <div class="grid grid-cols-1 md:grid-cols-2  mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2   mb-6">
                         <div class="form">
                             <form
                                 action="{{ isset($category) ? route('employee.post_employee.update', $category->id) : route('employee.post_employee.store') }}"
@@ -22,7 +22,6 @@
 
                                 <div class="create w-[300px] ">
 
-                                    <!-- Change the office select to department select -->
                                     <div class="mb-4">
                                         <label for="department_id" class="block text-gray-700 text-sm font-bold mb-2">
                                             विभागको नाम:
@@ -67,7 +66,7 @@
                                             </option>
                                         </select>
 
-                                        @error('status')
+                                        @error('employee_status') {{-- Corrected error directive to match input name --}}
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -77,7 +76,7 @@
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-lg focus:outline-none focus:shadow-outline">
                                     {{ isset($category) ? 'Update' : 'Submit'}}</button>
                                 @if(isset($category))
-                                    <a href="{{ route('employees.post_employee') }}"
+                                    <a href="{{ route('employee.post_employee') }}" {{-- THIS IS THE KEY CHANGE --}}
                                         class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-10 rounded-lg ml-2">
                                         Cancel
                                     </a>
@@ -151,4 +150,5 @@
                     </div>
                 </div>
             </div>
+        </div>
 </x-app-layout>
