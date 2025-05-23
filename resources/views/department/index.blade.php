@@ -21,6 +21,7 @@
                                     <th class="px-4 py-3 whitespace-nowrap">क्र.सं.</th>
                                     <th class="px-4 py-3 whitespace-nowrap">कार्यालय</th>
                                     <th class="px-4 py-3 whitespace-nowrap">विभागको नाम</th>
+                                    <th class="px-4 py-3 whitespace-nowrap">विभागको प्रकार</th>
                                     <th class="px-4 py-3 whitespace-nowrap">विवरण</th>
                                     <th class="px-4 py-3 whitespace-nowrap">अपडेट मिति</th>
                                     <th class="px-4 py-3 whitespace-nowrap">क्रियाकलापहरू</th>
@@ -46,6 +47,15 @@
                                             </span>
                                             <div class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
                                                 {{ $department->name }}
+                                            </div>
+                                        </td>
+
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $department->type }}
+                                            </span>
+                                            <div class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $department->type }}
                                             </div>
                                         </td>
 
