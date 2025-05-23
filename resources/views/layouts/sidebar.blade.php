@@ -8,14 +8,14 @@
         use App\Models\Office;
         use App\Models\Department;
 
-        $sidebarOffices = Office::all(); // Assuming this is used somewhere else, or can be removed if not.
+        $sidebarOffices = Office::all();
 
         $representativeDepartments = Department::where('type', 'representative')
             ->orWhere('type', 'both')
             ->oldest('name') // Order alphabetically
             ->get();
 
-        // Departments for Employees (type: 'employee' or 'both')
+
         $employeeDepartments = Department::where('type', 'employee')
             ->orWhere('type', 'both')
             ->oldest('name') // Order alphabetically
@@ -44,13 +44,13 @@
 
 
         {{-- Representative Dropdown --}}
-        <li x-data="{ open: {{ request()->routeIs('representatives.*') || request()->routeIs('postcategory.*') ? 'true' : 'false' }} }">
+        <li x-data="{ open: {{ request()->routeIs('representatives.*') && !request()->routeIs('representatives.post_category') ? 'true' : 'false' }} }">
             <button @click.prevent="open = !open"
                 class="flex items-center justify-between w-full px-4 py-3 rounded-lg group text-sm font-medium transition duration-150 ease-in-out border-b border-[#cccccc80]
-                {{ request()->routeIs('representatives.*') || request()->routeIs('postcategory.*') ? 'bg-[#6C244C] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700' }}">
+                {{ request()->routeIs('representatives.*') && !request()->routeIs('representatives.post_category') ? 'bg-[#6C244C] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700' }}">
                 <div class="flex items-center gap-3">
                     <span
-                        class="{{ request()->routeIs('representatives.*') || request()->routeIs('postcategory.*') ? 'text-white' : 'text-red-500' }}">
+                        class="{{ request()->routeIs('representatives.*') && !request()->routeIs('representatives.post_category') ? 'text-white' : 'text-red-500' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                             fill="currentColor">
                             <path
@@ -61,7 +61,7 @@
                 </div>
                 <svg :class="{ 'rotate-90': open }"
                     class="w-4 h-4 transform transition-transform
-                    {{ request()->routeIs('representatives.*') || request()->routeIs('postcategory.*') ? 'text-white' : 'text-red-500' }}"
+                    {{ request()->routeIs('representatives.*') && !request()->routeIs('representatives.post_category') ? 'text-white' : 'text-red-500' }}"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
@@ -86,13 +86,13 @@
 
 
         {{-- Employee Dropdown --}}
-        <li x-data="{ open: {{ request()->routeIs('employee.*') || request()->routeIs('postemployee.*') ? 'true' : 'false' }} }">
+        <li x-data="{ open: {{ request()->routeIs('employee.*') && !request()->routeIs('employee.post_employee') ? 'true' : 'false' }} }">
             <button @click.prevent="open = !open"
                 class="flex items-center justify-between w-full px-4 py-3 rounded-lg group text-sm font-medium transition duration-150 ease-in-out border-b border-[#cccccc80]
-                {{ request()->routeIs('employee.*') || request()->routeIs('postemployee.*') ? 'bg-[#6C244C] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700' }}">
+                {{ request()->routeIs('employee.*') && !request()->routeIs('employee.post_employee') ? 'bg-[#6C244C] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700' }}">
                 <div class="flex items-center gap-3">
                     <span
-                        class="{{ request()->routeIs('employee.*') || request()->routeIs('postemployee.*') ? 'text-white' : 'text-red-500' }}">
+                        class="{{ request()->routeIs('employee.*') && !request()->routeIs('employee.post_employee') ? 'text-white' : 'text-red-500' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                             fill="currentColor">
                             <path fill-rule="evenodd"
@@ -104,7 +104,7 @@
                 </div>
                 <svg :class="{ 'rotate-90': open }"
                     class="w-4 h-4 transform transition-transform
-                    {{ request()->routeIs('employee.*') || request()->routeIs('postemployee.*') ? 'text-white' : 'text-red-500' }}"
+                    {{ request()->routeIs('employee.*') && !request()->routeIs('employee.post_employee') ? 'text-white' : 'text-red-500' }}"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
@@ -112,16 +112,15 @@
 
             <ul x-show="open" x-transition class="py-2 space-y-2 pl-4 mt-1">
                 <li>
-                    {{-- This link is active if it's the index page AND NO department_id is present in the URL query --}}
                     <x-nav-link :href="route('employee.index')" :active="request()->routeIs('employee.index') && !request()->has('department_id')">
                         {{ __('सबै कर्मचारीहरू') }}
                     </x-nav-link>
                 </li>
 
-                {{-- Loop for Departments (assuming $employeeDepartments is passed from a controller) --}}
+
                 @foreach ($employeeDepartments as $department)
                     <li>
-                        {{-- This link is active if it's the index page AND the current department_id in the URL matches THIS department's ID --}}
+
                         <x-nav-link :href="route('employee.index', ['department_id' => $department->id])" :active="request()->routeIs('employee.index') && request('department_id') == $department->id">
                             {{ $department->name }}
                         </x-nav-link>
@@ -176,7 +175,6 @@
 
         {{-- Settings Dropdown --}}
         <li x-data="{ open: {{ request()->routeIs(['department.*', 'employee.post_employee', 'representatives.post_category', 'office.office_type', 'office_service.office_type.index', 'office.ui.office_list']) ? 'true' : 'false' }} }">
-            {{-- Open the dropdown if any of its child routes are active --}}
             <button @click.prevent="open = !open"
                 class="flex items-center justify-between w-full px-4 py-3 rounded-lg group text-sm font-medium transition duration-150 ease-in-out border-b border-[#cccccc80]
                 {{ request()->routeIs(['department.*', 'employee.post_employee', 'representatives.post_category', 'office.office_type', 'office_service.office_type.index', 'office.ui.office_list']) ? 'bg-[#6C244C] text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700' }}">
