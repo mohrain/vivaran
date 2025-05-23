@@ -8,26 +8,37 @@ use App\Models\Representative;
 use App\Models\PostCategory;
 use App\Models\Office;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Auth; // Don't forget to import Auth
 
 class RepresentativeController extends Controller
 {
-
     public function index(Request $request)
     {
         $departmentId = $request->query('department_id');
+        $representativeWard = $request->query('representative_ward'); // Get the ward from the request
 
         $query = Representative::with(['department', 'postcategory', 'updatedBy']);
+        $currentDepartmentName = null; // Initialize to null
+        $currentWard = null; // Initialize to null
+
         if ($departmentId) {
             $query->where('department_id', $departmentId);
+            $department = Department::find($departmentId); // Fetch the department
+            if ($department) {
+                $currentDepartmentName = $department->name; // Get its name
+            }
         }
 
-        $representatives = $query->oldest()->paginate(6); // Show 10 items per page
+        if ($representativeWard) {
+            $query->where('representative_ward', $representativeWard); // Filter by ward
+            $currentWard = $representativeWard; // Set the current ward
+        }
 
+        $representatives = $query->oldest()->paginate(6); // Show 6 items per page
 
-        return view('representatives.index', compact('representatives'));
+        // Pass both currentDepartmentName and currentWard to the view
+        return view('representatives.index', compact('representatives', 'currentDepartmentName', 'currentWard'));
     }
-
 
     public function store(Request $request)
     {
@@ -60,14 +71,14 @@ class RepresentativeController extends Controller
                 'representative_address' => $request->representative_address,
                 'representative_image' => $path,
                 'remark' => $request->remark,
-                'updated_by' => \Illuminate\Support\Facades\Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]);
 
-            return redirect()->route('representatives.index')->with('success', 'Employee created successfully!');
+            return redirect()->route('representatives.index')->with('success', 'प्रतिनिधि सफलतापूर्वक सिर्जना गरियो!'); // Updated message
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Error creating employee: ' . $e->getMessage());
+                ->with('error', 'प्रतिनिधि सिर्जना गर्दा त्रुटि: ' . $e->getMessage()); // Updated message
         }
     }
 
@@ -75,20 +86,25 @@ class RepresentativeController extends Controller
     {
         $representative = Representative::findOrFail($id);
 
+        // Optional: Delete the associated image from storage
+        if ($representative->representative_image) {
+            Storage::disk('public')->delete($representative->representative_image);
+        }
+
         $representative->delete();
 
-        return redirect()->route('representatives.index')->with('success', 'Office deleted successfully!');
+        return redirect()->route('representatives.index')->with('success', 'प्रतिनिधि सफलतापूर्वक मेटाइयो!'); // Updated message
     }
 
 
     public function edit($id)
-{
-    $post_categories = PostCategory::all();
-    $representative = Representative::findOrFail($id);
-    $departments = Department::all(); // Add this line
-    $offices = Office::all();
-    return view('representatives.create_representatives', compact('post_categories', 'representative', 'offices', 'departments'));
-}
+    {
+        $post_categories = PostCategory::all();
+        $representative = Representative::findOrFail($id);
+        $departments = Department::all();
+        $offices = Office::all();
+        return view('representatives.create_representatives', compact('post_categories', 'representative', 'offices', 'departments'));
+    }
 
 
     public function update(Request $request, $id)
@@ -108,10 +124,14 @@ class RepresentativeController extends Controller
         $representative = Representative::findOrFail($id);
 
         try {
-            if ($request->file('representative_image')) {
-                $path = Storage::putFile('representative_image', $request->file('representative_image'));
-            } else {
-                $path = $representative->representative_image; // Retain the existing image if no new image is uploaded
+            $path = $representative->representative_image; // Start with the existing image path
+
+            if ($request->hasFile('representative_image')) {
+                // Delete old image if it exists
+                if ($representative->representative_image) {
+                    Storage::disk('public')->delete($representative->representative_image);
+                }
+                $path = $request->file('representative_image')->store('representatives', 'public');
             }
 
             $representative->update([
@@ -124,7 +144,7 @@ class RepresentativeController extends Controller
                 'representative_address' => $request->representative_address,
                 'representative_image' => $path,
                 'remark' => $request->remark,
-                'updated_by' => \Illuminate\Support\Facades\Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]);
 
             return redirect()->route('representatives.index')->with('success', 'प्रतिनिधि सफलतापूर्वक अपडेट गरियो।');
@@ -132,12 +152,11 @@ class RepresentativeController extends Controller
             return back()->with('error', 'केही समस्या आयो: ' . $e->getMessage());
         }
     }
+
     public function show()
-{
-    $departments = Department::all();
-    $post_categories = PostCategory::all();
-    return view('representatives.create_representatives', compact('departments', 'post_categories'));
-}
-
-
+    {
+        $departments = Department::all();
+        $post_categories = PostCategory::all();
+        return view('representatives.create_representatives', compact('departments', 'post_categories'));
+    }
 }

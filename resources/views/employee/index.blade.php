@@ -1,20 +1,23 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Office_show') }}
+            {{ __('कर्मचारी सूची') }}
+            {{-- Display current department if filtered --}}
+            @if (request()->has('department_id') && $currentDepartmentName)
+                : {{ $currentDepartmentName }}
+            @endif
         </h2>
     </x-slot>
 
-
-        @isset($office)
-    <a href="{{ route('employee.create', ['office_id' => $office->id]) }}"
-       class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
-       नयाँ थप्नुहोस्</a>
-@else
-    <a href="{{ route('employee.create') }}"
-       class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
-       नयाँ थप्नुहोस्</a>
-@endisset
+    @isset($office)
+        <a href="{{ route('employee.create', ['office_id' => $office->id]) }}"
+           class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
+           नयाँ थप्नुहोस्</a>
+    @else
+        <a href="{{ route('employee.create') }}"
+           class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
+           नयाँ थप्नुहोस्</a>
+    @endisset
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -40,109 +43,107 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @foreach($employees as $employee)
-                                    </tr>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-2">{{ $loop->iteration }}
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->department?->name ?? 'N/A' }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->department?->name ?? 'N/A' }}
-                                                </div>
-                                            </td>
+                                        <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->department?->name ?? 'N/A' }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->department?->name ?? 'N/A' }}
+                                            </div>
+                                        </td>
 
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->employee_name }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->employee_name }}
-                                                </div>
-                                            </td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->employee_name }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->employee_name }}
+                                            </div>
+                                        </td>
 
-                                            <td class="px-4 py-2">
-                                                @if ($employee->employee_image)
-                                                    <img src="{{ asset('storage/' . $employee->employee_image) }}" alt="image"
-                                                        class="w-10 h-10 rounded object-cover">
-                                                @else
-                                                    <span class="text-gray-400 italic">No Image</span>
-                                                @endif
-                                            </td>
+                                        <td class="px-4 py-2">
+                                            @if ($employee->employee_image)
+                                                <img src="{{ asset('storage/' . $employee->employee_image) }}" alt="image"
+                                                     class="w-10 h-10 rounded object-cover">
+                                            @else
+                                                <span class="text-gray-400 italic">No Image</span>
+                                            @endif
+                                        </td>
 
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->postemployee->post_employee ?? 'N/A' }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->postemployee->post_employee ?? 'N/A' }}
-                                                </div>
-                                            </td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->postemployee->post_employee ?? 'N/A' }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->postemployee->post_employee ?? 'N/A' }}
+                                            </div>
+                                        </td>
 
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->employee_phone }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->employee_phone }}
-                                                </div>
-                                            </td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->employee_phone }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->employee_phone }}
+                                            </div>
+                                        </td>
 
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->employee_email ?? 'N/A' }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->employee_email ?? 'N/A' }}
-                                                </div>
-                                            </td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->employee_email ?? 'N/A' }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->employee_email ?? 'N/A' }}
+                                            </div>
+                                        </td>
 
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->employee_address ?? 'N/A' }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->employee_address ?? 'N/A' }}
-                                                </div>
-                                            </td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->employee_address ?? 'N/A' }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->employee_address ?? 'N/A' }}
+                                            </div>
+                                        </td>
 
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->remark ?? 'N/A' }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->remark ?? 'N/A' }}
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->updatedBy?->name ?? 'System' }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->updatedBy?->name ?? 'System' }}
-                                                </div>
-                                            </td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->remark ?? 'N/A' }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->remark ?? 'N/A' }}
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->updatedBy?->name ?? 'System' }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->updatedBy?->name ?? 'System' }}
+                                            </div>
+                                        </td>
 
 
-                                            <td class="px-4 py-1 min-w-[150px] relative group">
-                                                <span class="truncate block overflow-hidden whitespace-nowrap">
-                                                    {{ $employee->updated_at->format('Y-m-d H:i') }}
-                                                </span>
-                                                <div
-                                                    class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
-                                                    {{ $employee->updated_at->format('Y-m-d H:i') }}
-                                                </div>
-                                            </td>
+                                        <td class="px-4 py-1 min-w-[150px] relative group">
+                                            <span class="truncate block overflow-hidden whitespace-nowrap">
+                                                {{ $employee->updated_at->format('Y-m-d H:i') }}
+                                            </span>
+                                            <div
+                                                class="absolute z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 mb-1 w-max max-w-xs">
+                                                {{ $employee->updated_at->format('Y-m-d H:i') }}
+                                            </div>
+                                        </td>
 
-                                        <!-- Actions column -->
                                         <td class="px-4 py-2  min-w-[200px]">
 
                                             <a href="" class="text-blue-500 hover:text-blue-700">Show</a> |
@@ -160,7 +161,7 @@
                                                     class="text-red-500 hover:text-red-700">Delete</button>
 
                                                     @endhasanyrole
-                                            </form>
+                                                </form>
                                         </td>
                                     </tr>
                                 @endforeach
