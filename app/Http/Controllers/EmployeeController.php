@@ -27,9 +27,9 @@ class EmployeeController extends Controller
             }
         }
 
-        $employees = $query->oldest()->paginate(6); // Show 6 items per page (as per your code)
+        $employees = $query->oldest()->paginate(6);
 
-        // Pass currentDepartmentName to the view
+
         return view('employee.index', compact('employees', 'currentDepartmentName'));
     }
 
@@ -67,8 +67,7 @@ class EmployeeController extends Controller
 
             return redirect()->route('employee.index')->with('success', 'Employee created successfully!');
         } catch (\Exception $e) {
-            // It's generally better to log the error and return a user-friendly message
-            // dd($e->getMessage()); // Avoid dd() in production
+
             return redirect()->back()
                 ->withInput()
                 ->with('error', 'Error creating employee: ' . $e->getMessage());
@@ -92,9 +91,13 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
+        $departments = Department::where('type', 'employee')
+            ->orWhere('type', 'both')
+            ->orderBy('name')
+            ->get();
         $post_employees = PostEmployee::all();
         $employee = Employee::findOrFail($id);
-        $departments = Department::all();
+        // $departments = Department::all();
         $offices = Office::all();
         return view('employee.create_employee', compact('post_employees', 'employee', 'offices', 'departments'));
     }
@@ -146,7 +149,11 @@ class EmployeeController extends Controller
 
     public function show()
     {
-        $departments = Department::all();
+        $departments = Department::where('type', 'employee')
+            ->orWhere('type', 'both')
+            ->orderBy('name')
+            ->get();
+        // $departments = Department::all();
         $post_employees = PostEmployee::all();
         $offices = Office::all();
         return view('employee.create_employee', compact('departments', 'post_employees', 'offices'));

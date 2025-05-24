@@ -38,17 +38,25 @@ class PostCategoryController extends Controller
     public function show()
     {
 
+                $departments = Department::where('type', 'representative')
+                                ->orWhere('type', 'both') // Include 'both' if departments can apply to both
+                                ->orderBy('name')
+                                ->get();
 
         $post_categories = PostCategory::with('department')->get();
-        $departments = Department::all();
+
         return view('representatives.post_category', compact('post_categories', 'departments'));
     }
 
     public function edit($id)
     {
+                $departments = Department::where('type', 'representative')
+                                ->orWhere('type', 'both')
+                                ->orderBy('name')
+                                ->get();
         $category = PostCategory::findOrFail($id);
         $post_categories = PostCategory::latest()->get();
-        $departments = Department::all();
+        // $departments = Department::all();
         return view('representatives.post_category', compact('category', 'post_categories', 'departments'));
     }
 

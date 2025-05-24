@@ -15,28 +15,27 @@ class RepresentativeController extends Controller
     public function index(Request $request)
     {
         $departmentId = $request->query('department_id');
-        $representativeWard = $request->query('representative_ward'); // Get the ward from the request
+        $representativeWard = $request->query('representative_ward');
 
         $query = Representative::with(['department', 'postcategory', 'updatedBy']);
-        $currentDepartmentName = null; // Initialize to null
-        $currentWard = null; // Initialize to null
-
+        $currentDepartmentName = null;
+        $currentWard = null;
         if ($departmentId) {
             $query->where('department_id', $departmentId);
-            $department = Department::find($departmentId); // Fetch the department
+            $department = Department::find($departmentId);
             if ($department) {
-                $currentDepartmentName = $department->name; // Get its name
+                $currentDepartmentName = $department->name;
             }
         }
 
         if ($representativeWard) {
-            $query->where('representative_ward', $representativeWard); // Filter by ward
-            $currentWard = $representativeWard; // Set the current ward
+            $query->where('representative_ward', $representativeWard);
+            $currentWard = $representativeWard;
         }
 
-        $representatives = $query->oldest()->paginate(6); // Show 6 items per page
+        $representatives = $query->oldest()->paginate(6);
 
-        // Pass both currentDepartmentName and currentWard to the view
+
         return view('representatives.index', compact('representatives', 'currentDepartmentName', 'currentWard'));
     }
 
@@ -86,7 +85,7 @@ class RepresentativeController extends Controller
     {
         $representative = Representative::findOrFail($id);
 
-        // Optional: Delete the associated image from storage
+
         if ($representative->representative_image) {
             Storage::disk('public')->delete($representative->representative_image);
         }
@@ -99,9 +98,13 @@ class RepresentativeController extends Controller
 
     public function edit($id)
     {
+        $departments = Department::where('type', 'representative')
+            ->orWhere('type', 'both')
+            ->orderBy('name')
+            ->get();
         $post_categories = PostCategory::all();
         $representative = Representative::findOrFail($id);
-        $departments = Department::all();
+        // $departments = Department::all();
         $offices = Office::all();
         return view('representatives.create_representatives', compact('post_categories', 'representative', 'offices', 'departments'));
     }
@@ -124,7 +127,7 @@ class RepresentativeController extends Controller
         $representative = Representative::findOrFail($id);
 
         try {
-            $path = $representative->representative_image; // Start with the existing image path
+            $path = $representative->representative_image;
 
             if ($request->hasFile('representative_image')) {
                 // Delete old image if it exists
@@ -154,8 +157,13 @@ class RepresentativeController extends Controller
     }
 
     public function show()
+
     {
-        $departments = Department::all();
+        $departments = Department::where('type', 'representative')
+            ->orWhere('type', 'both')
+            ->orderBy('name')
+            ->get();
+        // $departments = Department::all();
         $post_categories = PostCategory::all();
         return view('representatives.create_representatives', compact('departments', 'post_categories'));
     }
