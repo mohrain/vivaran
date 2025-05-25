@@ -4,23 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\ServiceType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceTypeController extends Controller
 {
 
-    public function index(){
-        $serviceTypes = ServiceType::all();
+    public function index()
+    {
+        // $serviceTypes = ServiceType::all();
+        if (Auth::user()->hasrole('super-admin')) {
+            $serviceTypes = ServiceType::all();
+        } else {
+            $serviceTypes = ServiceType::where('id', Auth::user()->service_type_id)->get();
+        }
+
 
         return view('office_service.service_type', compact('serviceTypes'));
     }
 
     public function officetype()
     {
-        $serviceTypes = ServiceType::all();
+        // $serviceTypes = ServiceType::all();
+        if (Auth::user()->hasrole('super-admin')) {
+            $serviceTypes = ServiceType::all();
+        } else {
+            $serviceTypes = ServiceType::where('id', Auth::user()->service_type_id)->get();
+        }
         $editServiceType = null; // Initialize edit variable
 
         // Check if we're editing (from edit link)
-        if(request()->has('edit')) {
+        if (request()->has('edit')) {
             $editServiceType = ServiceType::find(request('edit'));
         }
 

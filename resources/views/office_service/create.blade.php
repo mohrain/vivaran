@@ -23,10 +23,10 @@
                                 </label>
                                 <select id="office_id" name="office_id" required
                                     class="block w-full text-sm border rounded-lg bg-gray-50 px-3 py-2">
-                                    <option value="">-- चयन गर्नुहोस् --</option>
+                                    {{-- <option value="">-- चयन गर्नुहोस् --</option> --}}
                                     @foreach ($offices as $office)
                                         <option value="{{ $office->id }}"
-                                            {{ old('office_id', $officeService->office_id ?? '') == $office->id ? 'selected' : '' }}>
+                                            {{ old('office_id', $department->office_id ?? '') == $office->id ? 'selected' : '' }}>
                                             {{ $office->office_name }}
                                         </option>
                                     @endforeach

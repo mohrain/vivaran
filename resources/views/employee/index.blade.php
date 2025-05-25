@@ -14,15 +14,15 @@
 
             @isset($office)
                 <a href="{{ route('employee.create', ['office_id' => $office->id]) }}"
-                    class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
+                    class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[40px] px-8 rounded-lg focus:outline-none focus:shadow-outline">+
                     नयाँ थप्नुहोस्</a>
             @else
                 <a href="{{ route('employee.create') }}"
-                    class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline">+
+                    class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 ml-[50px] px-10 rounded-lg focus:outline-none focus:shadow-outline ">+
                     नयाँ थप्नुहोस्</a>
             @endisset
 
-            <form action="{{ route('representatives.index') }}" method="GET" class="w-full sm:w-1/2 flex items-center">
+            <form action="{{ route('employee.index') }}" method="GET" class="w-full sm:w-1/2 flex items-center">
                 {{-- Keep existing department_id filter if it's there --}}
                 @if (request()->has('department_id'))
                     <input type="hidden" name="department_id" value="{{ request('department_id') }}">

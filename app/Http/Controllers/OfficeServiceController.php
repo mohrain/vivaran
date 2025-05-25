@@ -4,13 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\OfficeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Office;
+use App\Models\ServiceType;
 
 class OfficeServiceController extends Controller
 {
     public function create()
     {
-        $offices = \App\Models\Office::all();
-        $ServiceTypes = \App\Models\ServiceType::all();
+        // $offices = \App\Models\Office::all();
+        if (Auth::user()->hasRole('super-admin')) {
+            $offices = Office::all();
+        } else {
+
+            $offices = Office::where('id', Auth::user()->office_id)->get();
+        }
+        // $ServiceTypes = \App\Models\ServiceType::all();
+            if (Auth::user()->hasRole('super-admin')) {
+                $ServiceTypes = ServiceType::all();
+            // $offices = Office::all();
+        } else {
+            $ServiceTypes = ServiceType::where('id', Auth::user()->service_type_id)->get();
+        }
         return view('office_service.create', compact('offices', 'ServiceTypes'));
     }
 
@@ -82,8 +98,20 @@ class OfficeServiceController extends Controller
     public function edit($id)
     {
         $officeService = OfficeService::findOrFail($id);
-        $offices = \App\Models\Office::all();
-        $serviceTypes = \App\Models\ServiceType::all();
+        // $offices = \App\Models\Office::all();
+
+        if (Auth::user() ->hasrole('super-admin')){
+            $offices = Office::all();
+        }else{
+            $offices = Office::where('id', Auth::user()->office_id)->get();
+        }
+
+        if (Auth::user() ->hasrole('super-admin')){
+            $serviceTypes = ServiceType::all();
+        }else{
+            $serviceTypes = ServiceType::where('id',Auth::user()->service_type_id)->get();
+        }
+        // $serviceTypes = \App\Models\ServiceType::all();
         return view('office_service.edit', compact('officeService', 'offices', 'serviceTypes'));
     }
     public function update(Request $request, $id)

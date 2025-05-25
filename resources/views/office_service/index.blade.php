@@ -20,7 +20,9 @@
                             <thead class=" text-gray-700 font-semibold bg-blue-200">
                                 <tr>
                                     <th class="px-4 py-3">क्र.सं.</th>
+                                    @hasanyrole('super-admin')
                                     <th class="px-4 py-3">कार्यालय</th>
+                                    @endhasanyrole
                                     <th class="px-4 py-3">सेवाको प्रकार</th>
                                     <th class="px-4 py-3">इमेल</th>
                                     <th class="px-4 py-3">सम्पर्क</th>
@@ -34,7 +36,9 @@
                                 @foreach ($officeServices as $officeService)
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                        @hasanyrole('super-admin')
                                         <td class="px-4 py-2">{{ $officeService->office->office_name ?? 'N/A' }}</td>
+                                        @endhasanyrole
                                         <td class="px-4 py-2">{{ $officeService->serviceType->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-2">{{ $officeService->email ?? 'N/A' }}</td>
                                         <td class="px-4 py-2">{{ $officeService->contact ?? 'N/A' }}</td>
