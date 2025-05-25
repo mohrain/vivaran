@@ -23,7 +23,9 @@
                                 </label>
                                 <select id="office_id" name="office_id" required
                                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                                    @hasanyrole('super-admin')
                                     <option value="">-- चयन गर्नुहोस् --</option>
+                                    @endhasanyrole
                                     @foreach ($offices as $office)
                                         <option value="{{ $office->id }}"
                                             {{ old('office_id', $department->office_id ?? '') == $office->id ? 'selected' : '' }}>

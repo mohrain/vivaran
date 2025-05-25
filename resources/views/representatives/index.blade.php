@@ -1,13 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('प्रतिनिधि सूची') }} {{-- Changed to Nepali for consistency --}}
-            {{-- Display current department or ward if filtered --}}
-            @if (request()->has('department_id') && $currentDepartmentName)
-                : {{ $currentDepartmentName }}
-            @elseif (request()->has('representative_ward') && $currentWard)
-                : वार्ड नं. {{ $currentWard }}
-            @endif
+            {{ __('प्रतिनिधि सूची') }}
+
         </h2>
     </x-slot>
 

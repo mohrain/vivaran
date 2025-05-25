@@ -19,7 +19,9 @@
                             <thead class=" text-gray-700 font-semibold bg-blue-200">
                                 <tr>
                                     <th class="px-4 py-3 whitespace-nowrap">क्र.सं.</th>
+                                    @hasanyrole('super-admin')
                                     <th class="px-4 py-3 whitespace-nowrap">कार्यालय</th>
+                                    @endhasanyrole
                                     <th class="px-4 py-3 whitespace-nowrap">विभागको नाम</th>
                                     <th class="px-4 py-3 whitespace-nowrap">विभागको प्रकार</th>
                                     <th class="px-4 py-3 whitespace-nowrap">विवरण</th>
@@ -32,6 +34,7 @@
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-4 py-2">{{ $loop->iteration }}</td>
 
+                                        @hasanyrole('super-admin')
                                         <td class="px-4 py-1 min-w-[150px] relative group">
                                             <span class="truncate block overflow-hidden whitespace-nowrap">
                                                 {{ $department->office->office_name ?? 'N/A' }}
@@ -40,6 +43,7 @@
                                                 {{ $department->office->office_name ?? 'N/A' }}
                                             </div>
                                         </td>
+                                        @endhasanyrole
 
                                         <td class="px-4 py-1 min-w-[150px] relative group">
                                             <span class="truncate block overflow-hidden whitespace-nowrap">

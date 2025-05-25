@@ -16,18 +16,22 @@ class EmployeeController extends Controller
     {
         $departmentId = $request->query('department_id');
 
+
         $query = Employee::with(['department', 'postemployee', 'updatedBy']);
-        $currentDepartmentName = null; // Initialize to null
+        $currentDepartmentName = null;
 
         if ($departmentId) {
             $query->where('department_id', $departmentId);
-            $department = Department::find($departmentId); // Fetch the department
+            $department = Department::find($departmentId);
             if ($department) {
-                $currentDepartmentName = $department->name; // Get its name
+                $currentDepartmentName = $department->name;
             }
         }
 
         $employees = $query->oldest()->paginate(6);
+
+        $departments = Department::orderBy('name')->get();
+        $postEmployees = PostEmployee::orderBy('post_employee')->get();
 
 
         return view('employee.index', compact('employees', 'currentDepartmentName'));
@@ -47,7 +51,7 @@ class EmployeeController extends Controller
         ]);
 
         try {
-            $path = null; // Initialize path as null
+            $path = null;
 
             if ($request->hasFile('employee_image')) {
                 $path = $request->file('employee_image')->store('employees', 'public');
@@ -62,7 +66,7 @@ class EmployeeController extends Controller
                 'employee_address' => $request->employee_address,
                 'employee_image' => $path,
                 'remark' => $request->remark,
-                'updated_by' => Auth::user()->id, // Use the imported Auth facade
+                'updated_by' => Auth::user()->id,
             ]);
 
             return redirect()->route('employee.index')->with('success', 'Employee created successfully!');
