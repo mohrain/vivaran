@@ -15,6 +15,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $departmentId = $request->query('department_id');
+        $search = $request->query('search');
 
 
         $query = Employee::with(['department', 'postemployee', 'updatedBy']);
@@ -27,6 +28,25 @@ class EmployeeController extends Controller
                 $currentDepartmentName = $department->name;
             }
         }
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('employee_name', 'like', '%' . $search . '%')
+                    ->orWhere('employee_phone', 'like', '%' . $search . '%')
+                    ->orWhere('employee_email', 'like', '%' . $search . '%')
+                    ->orWhere('employee_address', 'like', '%' . $search . '%')
+                    ->orWhere('remark', 'like', '%' . $search . '%');
+
+                $q->orWhereHas('department', function ($dq) use ($search) {
+                    $dq->where('name', 'like', '%' . $search . '%');
+                });
+
+                $q->orWhereHas('postemployee', function ($pq) use ($search) {
+                    $pq->where('post_employee', 'like', '%' . $search . '%');
+                });
+            });
+        }
+
 
         $employees = $query->oldest()->paginate(6);
 

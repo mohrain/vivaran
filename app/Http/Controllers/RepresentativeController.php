@@ -8,13 +8,15 @@ use App\Models\Representative;
 use App\Models\PostCategory;
 use App\Models\Office;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth; // Don't forget to import Auth
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB; // Import DB for raw queries if needed
 
 class RepresentativeController extends Controller
 {
     public function index(Request $request)
     {
         $departmentId = $request->query('department_id');
+        $search = $request->query('search');
         $representativeWard = $request->query('representative_ward');
 
         $query = Representative::with(['department', 'postcategory', 'updatedBy']);
@@ -26,6 +28,26 @@ class RepresentativeController extends Controller
             if ($department) {
                 $currentDepartmentName = $department->name;
             }
+        }
+        // Apply search filter if present
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('representative_name', 'like', '%' . $search . '%')
+                  ->orWhere('representative_phone', 'like', '%' . $search . '%')
+                  ->orWhere('representative_email', 'like', '%' . $search . '%')
+                  ->orWhere('representative_address', 'like', '%' . $search . '%')
+                  ->orWhere('remark', 'like', '%' . $search . '%');
+
+
+                $q->orWhereHas('department', function ($dq) use ($search) {
+                    $dq->where('name', 'like', '%' . $search . '%');
+                });
+
+
+                $q->orWhereHas('postcategory', function ($pq) use ($search) {
+                    $pq->where('post_category', 'like', '%' . $search . '%');
+                });
+            });
         }
 
         if ($representativeWard) {
