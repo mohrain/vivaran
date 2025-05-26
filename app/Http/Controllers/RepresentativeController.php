@@ -13,52 +13,140 @@ use Illuminate\Support\Facades\DB; // Import DB for raw queries if needed
 
 class RepresentativeController extends Controller
 {
+
+    // public function index(Request $request)
+    // {
+    //     $departmentId = $request->query('department_id');
+    //     $search = $request->query('search');
+    //     $representativeWard = $request->query('representative_ward');
+
+    //     $query = Representative::with(['department', 'postcategory', 'updatedBy']);
+    //     $currentDepartmentName = null;
+    //     $currentWard = null;
+    //     if ($departmentId) {
+    //         $query->where('department_id', $departmentId);
+    //         $department = Department::find($departmentId);
+    //         if ($department) {
+    //             $currentDepartmentName = $department->name;
+    //         }
+    //     }
+
+    //     if ($search) {
+    //         $query->where(function($q) use ($search) {
+    //             $q->where('representative_name', 'like', '%' . $search . '%')
+    //               ->orWhere('representative_phone', 'like', '%' . $search . '%')
+    //               ->orWhere('representative_email', 'like', '%' . $search . '%')
+    //               ->orWhere('representative_address', 'like', '%' . $search . '%')
+    //               ->orWhere('representative_ward', 'like', '%' . $search . '%')
+    //               ->orWhere('remark', 'like', '%' . $search . '%');
+
+
+    //             $q->orWhereHas('department', function ($dq) use ($search) {
+    //                 $dq->where('name', 'like', '%' . $search . '%');
+    //             });
+
+
+    //             $q->orWhereHas('postcategory', function ($pq) use ($search) {
+    //                 $pq->where('post_category', 'like', '%' . $search . '%');
+    //             });
+    //         });
+
+
+    //     }
+
+
+    //     $representatives = $query->oldest()->paginate(6);
+
+
+    //     return view('representatives.index', compact('representatives', 'currentDepartmentName', 'currentWard'));
+    // }
+
+
     public function index(Request $request)
     {
-        $departmentId = $request->query('department_id');
-        $search = $request->query('search');
-        $representativeWard = $request->query('representative_ward');
-
         $query = Representative::with(['department', 'postcategory', 'updatedBy']);
-        $currentDepartmentName = null;
-        $currentWard = null;
-        if ($departmentId) {
-            $query->where('department_id', $departmentId);
-            $department = Department::find($departmentId);
-            if ($department) {
-                $currentDepartmentName = $department->name;
-            }
-        }
-        // Apply search filter if present
+
+        // Basic search filter (if present)
+        $search = $request->input('search');
         if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('representative_name', 'like', '%' . $search . '%')
-                  ->orWhere('representative_phone', 'like', '%' . $search . '%')
-                  ->orWhere('representative_email', 'like', '%' . $search . '%')
-                  ->orWhere('representative_address', 'like', '%' . $search . '%')
-                  ->orWhere('remark', 'like', '%' . $search . '%');
-
-
-                $q->orWhereHas('department', function ($dq) use ($search) {
-                    $dq->where('name', 'like', '%' . $search . '%');
-                });
-
-
-                $q->orWhereHas('postcategory', function ($pq) use ($search) {
-                    $pq->where('post_category', 'like', '%' . $search . '%');
-                });
+            $searchTerm = '%' . $search . '%';
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('representative_name', 'like', $searchTerm)
+                    ->orWhere('representative_phone', 'like', $searchTerm)
+                    ->orWhere('representative_email', 'like', $searchTerm)
+                    ->orWhere('representative_address', 'like', $searchTerm)
+                    ->orWhere('representative_ward', 'like', $searchTerm)
+                    ->orWhere('remark', 'like', $searchTerm)
+                    ->orWhereHas('department', function ($dq) use ($searchTerm) {
+                        $dq->where('name', 'like', $searchTerm);
+                    })
+                    ->orWhereHas('postcategory', function ($pq) use ($searchTerm) {
+                        $pq->where('post_category', 'like', $searchTerm);
+                    });
             });
         }
 
-        if ($representativeWard) {
-            $query->where('representative_ward', $representativeWard);
-            $currentWard = $representativeWard;
+
+        if ($request->filled('representative_name')) {
+            $query->where('representative_name', 'like', '%' . $request->input('representative_name') . '%');
         }
+        if ($request->filled('representative_ward')) {
+            $query->where('representative_ward', 'like', '%' . $request->input('representative_ward') . '%');
+        }
+        if ($request->filled('representative_phone')) {
+            $query->where('representative_phone', 'like', '%' . $request->input('representative_phone') . '%');
+        }
+        if ($request->filled('representative_email')) {
+            $query->where('representative_email', 'like', '%' . $request->input('representative_email') . '%');
+        }
+        if ($request->filled('representative_address')) {
+            $query->where('representative_address', 'like', '%' . $request->input('representative_address') . '%');
+        }
+        if ($request->filled('remark')) {
+            $query->where('remark', 'like', '%' . $request->input('remark') . '%');
+        }
+        if ($request->filled('post_category_id')) {
+            $query->where('post_category_id', $request->input('post_category_id'));
+        }
+        if ($request->filled('department_id')) {
+            $query->where('department_id', $request->input('department_id'));
+        }
+
+
+        if ($request->filled('department_id')) {
+            $query->where('department_id', $request->input('department_id'));
+        }
+
+        $showAdvancedFilters = $request->filled('representative_name') ||
+            $request->filled('representative_ward') ||
+            $request->filled('representative_phone') ||
+            $request->filled('representative_email') ||
+            $request->filled('representative_address') ||
+            $request->filled('remark') ||
+            $request->filled('post_category_id') ||
+            $request->filled('department_id');
+
 
         $representatives = $query->oldest()->paginate(6);
 
+        // Fetch options for dropdowns
 
-        return view('representatives.index', compact('representatives', 'currentDepartmentName', 'currentWard'));
+        $departments = Department::where('type', 'representative')
+            ->orWhere('type', 'both')
+            ->orderBy('name')
+            ->get();
+        // $departments = Department::orderBy('name')->get();
+        $postCategories = PostCategory::orderBy('post_category')->get();
+
+
+
+        return view('representatives.index', compact(
+            'representatives',
+            'departments',
+            'postCategories',
+
+            'showAdvancedFilters'
+        ));
     }
 
     public function store(Request $request)
